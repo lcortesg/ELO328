@@ -1,5 +1,7 @@
+// Opciones de compilación y ejecución
 // g++ $(pkg-config --cflags --libs opencv4) -std=c++11 main.cpp -o GAMMA
-// ./GAMMA -m2 -i lena.png gamma
+// ./GAMMA [-m1 | -m2] -i image gamma [-f x y w h] [-c r g b]
+// ./GAMMA [-m1 | -m2] -v gamma [-f x y w h] [-c r g b]
 
 #include <stdio.h>
 #include <iostream>
