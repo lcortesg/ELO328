@@ -5,6 +5,8 @@
 
 #include <stdio.h>
 #include <math.h> 
+#include <time.h>
+#include <chrono> 
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
@@ -14,12 +16,13 @@
 
 using namespace std;
 using namespace cv;
+using namespace chrono; 
 
 bool mostrar_original = false;
 
 const int borde = 50;
 
-// Función de correción Gamma.
+// Función de correción Gamma por tabla.
 void GammaCorrection(Mat& src, Mat& dst, float fGamma){
 	unsigned char lut[256];
 
@@ -51,13 +54,23 @@ void GammaCorrection(Mat& src, Mat& dst, float fGamma){
 }
 
 
-// Función de correción pixel a pixel.
-void corregir_pixel(Mat& img, float gamma_value, int X, int Y, int W, int H, int R, int G, int B){
+// Función de corrección por tabla.
+void corregir_tabla(Mat& img, float gamma_value, int X, int Y, int W, int H, int R, int G, int B){
     cv::Mat M_YUV, M_YUV_Gamma, img_out, img_border;
     vector<cv::Mat> planes;
     cv::cvtColor(img, M_YUV, cv::COLOR_BGR2YCrCb);
     cv::split(M_YUV, planes);
+
+    // Se inicia el timer	
+    auto start = high_resolution_clock::now();
     GammaCorrection(planes[0], planes[0], gamma_value);
+    // Se detiene el timer
+    auto stop = high_resolution_clock::now(); 
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "Tiempo de conversión de imagen: "
+    << duration.count() << " microsegundos" << endl; 
+
+
     cv::merge(planes, M_YUV_Gamma);
     //cv::imshow("Imagen en YUV con correccion Gamma", M_YUV_Gamma);
 
@@ -78,17 +91,13 @@ void corregir_pixel(Mat& img, float gamma_value, int X, int Y, int W, int H, int
     copyMakeBorder(img, img_border, borde, borde, borde, borde, BORDER_CONSTANT, value);
 
     // Se muestra la imágen corregida
-    cv::imshow("Imagen con correcion Gamma por funcion en capa de luminancia", img_border);
+    cv::imshow("Imagen con correcion Gamma por tabla en capa de luminancia", img_border);
 } 
 
-// Función de corrección por tabla.
-void corregir_tabla(Mat& img, float gamma_value, int X, int Y, int W, int H, int R, int G, int B){
-	
-	unsigned char gamma_table[256];
-	for (int i = 0; i < 256; i++){
-		gamma_table[i] = saturate_cast<uchar>(pow((float)(i/255.0), gamma_value) * 255.0f);
-	}
 
+// Función de correción pixel a pixel.
+void corregir_pixel(Mat& img, float gamma_value, int X, int Y, int W, int H, int R, int G, int B){
+	
     cv::Mat M_YUV, img_out, img_border, img_aux;
     vector<cv::Mat> planes, canales;
     img_aux = img;
@@ -103,11 +112,19 @@ void corregir_tabla(Mat& img, float gamma_value, int X, int Y, int W, int H, int
     
     // Se reemplazan los valores de la imágen por los de las tablas Gamma.
     int i, j, cols = img_aux.cols, rows = img_aux.rows;
-    for (i = 0; i < rows*3; i++){
-        for (j = 0; j < cols*3; j++){
-        	data_new[i*cols+j]= int(gamma_table[data_old[i*cols+j]]);
+
+    // Se inicia el timer	
+    auto start = high_resolution_clock::now();
+    for (i = 0; i < rows*3; i+=3){
+        for (j = 0; j < cols*3; j+=3){
+        	data_new[i*cols+j]= saturate_cast<uchar>(pow((float)(data_old[i*cols+j]/255.0), gamma_value) * 255.0f);
         }
     }
+    // Se detiene el timer
+    auto stop = high_resolution_clock::now(); 
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "Tiempo de conversión de imagen: "
+    << duration.count() << " microsegundos" << endl; 
 
     // Se compone la nueva imágen a partir del canal de luminancia corregido en gamma junto a los canales de croma originales.
     cv::split(img_aux, canales);
@@ -130,7 +147,7 @@ void corregir_tabla(Mat& img, float gamma_value, int X, int Y, int W, int H, int
     // Se genera el borde
     Scalar value(R,G,B);
     copyMakeBorder(img, img_border, borde, borde, borde, borde, BORDER_CONSTANT, value);
-    cv::imshow("Imagen con correcion Gamma por tabla en capa de luminancia", img_border);
+    cv::imshow("Imagen con correcion Gamma por funcion en capa de luminancia", img_border);
 }
 
 int main(int argc, char *argv[]){
@@ -196,16 +213,20 @@ int main(int argc, char *argv[]){
 
         // Generador de bordes
         cv::Mat img_border, img_out_border;
-        Scalar value(0,0,0);
-        copyMakeBorder(img, img_border, borde, borde, borde, borde, BORDER_CONSTANT, value);
+        if(mostrar_original){
+        	Scalar value(0,0,0);
+        	copyMakeBorder(img, img_border, borde, borde, borde, borde, BORDER_CONSTANT, value);
+    	}
 
         if(argc == 9){ // Solo definición de borde
             if ((argv[5][1])==99 || (argv[5][1])==67){ // c ó C
                 R = atof(argv[8]);
                 G = atof(argv[7]);
                 B = atof(argv[6]);
-                Scalar value(R,G,B);
-                copyMakeBorder(img, img_border, borde, borde, borde, borde, BORDER_CONSTANT, value);
+                if (mostrar_original){
+                	Scalar value(R,G,B);
+                	copyMakeBorder(img, img_border, borde, borde, borde, borde, BORDER_CONSTANT, value);
+                }
             }
         }
 
@@ -224,27 +245,29 @@ int main(int argc, char *argv[]){
                 Y = atof(argv[7]);
                 W = atof(argv[8]);
                 H = atof(argv[9]);
-                cout<<"X: "<<X<<" Y: "<<Y<<" W: "<<W<<" H: "<<H<<endl;
             }
             if ((argv[10][1])==99 || (argv[10][1])==67){ // c ó C
                 R = atof(argv[13]);
                 G = atof(argv[12]);
                 B = atof(argv[11]);
-                Scalar value(R,G,B);
-                copyMakeBorder(img, img_border, borde, borde, borde, borde, BORDER_CONSTANT, value);
+                if (mostrar_original){
+                	Scalar value(R,G,B);
+                	copyMakeBorder(img, img_border, borde, borde, borde, borde, BORDER_CONSTANT, value);
+            	}
             }   
         }
         
+        // Se muestra la imágen original
         if (mostrar_original) cv::imshow("Imagen original", img_border);
 
         cout << "Press any key to terminate" << endl;
 
-
-        // Corrección Gamma con función.
-        if (pixel) corregir_pixel(img, gamma_value, X, Y, W, H, R, G, B);
-            
         // Corrección Gamma con tabla.
         if (tabla) corregir_tabla(img, gamma_value, X, Y, W, H, R, G, B);
+        
+        // Corrección Gamma con función.
+        if (pixel) corregir_pixel(img, gamma_value, X, Y, W, H, R, G, B); 
+            
     }
         
 
@@ -325,10 +348,12 @@ int main(int argc, char *argv[]){
             }
 
             if (mostrar_original) imshow("Video original", frame_border);
-            // Corrección Gamma con función.
-            if (pixel) corregir_pixel(frame, gamma_value, X, Y, W, H, R, G, B);
+
             // Corrección Gamma con tabla.
             if (tabla) corregir_tabla(frame, gamma_value, X, Y, W, H, R, G, B);
+
+            // Corrección Gamma con función.
+            if (pixel) corregir_pixel(frame, gamma_value, X, Y, W, H, R, G, B);
 
             if (waitKey(5) >= 0)
                 break;  
