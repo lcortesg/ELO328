@@ -324,66 +324,11 @@ int main(int argc, char *argv[]){
                 }
             }
 
-
             if (mostrar_original) imshow("Video original", frame_border);
             // Corrección Gamma con función.
             if (pixel) corregir_pixel(frame, gamma_value, X, Y, W, H, R, G, B);
             // Corrección Gamma con tabla.
             if (tabla) corregir_tabla(frame, gamma_value, X, Y, W, H, R, G, B);
-
-            
-            // *** JUST FOR FUN ***
-            /*
-            cv::Mat F_HSV, F_HLS, M2, MB, MG;
-            vector<cv::Mat> planes, planesb, planesg, planesr, cHSV, cHLS;
-
-            cv::cvtColor(frame, F_HLS, cv::COLOR_BGR2HLS);
-            cv::imshow("Video en HLS", F_HLS);
-            cv::split(F_HLS, cHLS);
-            // HUE
-            cv::imshow("HLS - HUE", cHLS[0]);
-            // LIGHT
-            cv::imshow("HLS - LIGHT", cHLS[1]);
-            // SAT
-            cv::imshow("HLS - SAT", cHLS[2]);
-
-            cv::cvtColor(frame, F_HSV, cv::COLOR_BGR2HSV);
-            cv::imshow("Video en HSV", F_HSV);
-            cv::split(F_HSV, cHSV);
-            // HUE
-            cv::imshow("HSV - HUE", cHSV[0]);
-            // SAT
-            cv::imshow("HSV - SAT", cHSV[1]);
-            // VAL
-            cv::imshow("HSV - VAL", cHSV[2]);
-            
-            M2 = MB = MG = MR = frame;
-
-            cv::split(M2, planes);
-            cv::split(MB, planesb);
-            cv::split(MG, planesg);
-            cv::split(MR, planesr);
-
-            // No Blue
-            planesb[0] = 0;
-            planesb = {planesb[0],planes[1],planes[2]};
-            cv::merge(planesb, MB);
-            cv::imshow("No Blue", MB);
-
-            // No Green
-            planesg[1] = 0;
-            planesg = {planes[0],planesg[1],planes[2]};
-            cv::merge(planesg, MG);
-            cv::imshow("No Green", MG);
-
-            // No Red
-            planesr[2] = 0;
-            planesr = {planes[0],planes[1],planesr[2]};
-            cv::merge(planesr, MR);
-            cv::imshow("No Red", MR);
-            */
-            // **** JUST FOR FUN ***
-
 
             if (waitKey(5) >= 0)
                 break;  
