@@ -108,7 +108,7 @@ int main(int argc, char *argv[]){
 	    imagen = true;
 	    // Guarda el valor de Gamma
 	    gamma_value = atof(argv[4]);
-    	cout<<"Procesamiento de imagen nivel gamma : "<<gamma_value<<endl;
+    	cout<<"Procesamiento de imagen nivel gamma : "<<gamma_value;
     }
 
     // Encuentra el valor "v" en el segundo argumento.
@@ -121,19 +121,19 @@ int main(int argc, char *argv[]){
     	video = true;
     	// Guarda el valor de Gamma
     	gamma_value = atof(argv[3]);
-    	cout<<"Procesamiento de video nivel gamma : "<<gamma_value<<endl;
+    	cout<<"Procesamiento de video nivel gamma : "<<gamma_value;
     }
 
     // Encuentra el valor "-m1" en el primer argumento.
     if ((argv[1][2])==49){
     	tabla = true;
-		cout<<"por tabla, ";
+		cout<<" calculado por tabla."<<endl;
 	}
 
     // Encuentra el valor "-m2" en el primer argumento.
     if ((argv[1][2])==50){
     	pixel = true;
-    	cout<<"pixel a pixel, ";
+    	cout<<"calculado pixel a pixel."<<endl;
     }
 
     // Lógica de procesamiento de imagen.
@@ -159,14 +159,14 @@ int main(int argc, char *argv[]){
                 R = atof(argv[8]);  
             }
 
-            else if (argc==10 && ((argv[5][1])==102 || (argv[5][1])==70)){ // f ó F
+            if (argc==10 && ((argv[5][1])==102 || (argv[5][1])==70)){ // f ó F
                 X = atof(argv[6]);
                 Y = atof(argv[7]);
                 W = (atof(argv[8]) != 0) ? atof(argv[8]) : 1;
                 H = (atof(argv[9]) != 0) ? atof(argv[9]) : 1;
             }
 
-            else if (argc>10 && ((argv[10][1])==99 || (argv[10][1])==67)){ // c ó C
+            if (argc>10 && ((argv[10][1])==99 || (argv[10][1])==67)){ // c ó C
             	X = atof(argv[6]);
                 Y = atof(argv[7]);
                 W = (atof(argv[8]) != 0) ? atof(argv[8]) : 1;
@@ -174,6 +174,11 @@ int main(int argc, char *argv[]){
                 B = atof(argv[11]);
                 G = atof(argv[12]);
                 R = atof(argv[13]);
+            }
+
+            if (X+W > img.cols || Y+H > img.rows){
+            	cerr << "Las dimensiones (X+W)*(Y+H)= "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<img.cols<<"x"<<img.rows<<"."<<endl;
+        		return 1;
             }   
         }
 
@@ -246,6 +251,11 @@ int main(int argc, char *argv[]){
                     G = atof(argv[11]);
                     B = atof(argv[10]);
                 }
+
+                if (X+W > frame.cols || Y+H > frame.rows){
+            		cerr << "Las dimensiones (X+W)*(Y+H)= "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<frame.cols<<"x"<<frame.rows<<"."<<endl;
+        			return 1;
+            	}
             }
 
             // Se clona el frame de video en "img"
