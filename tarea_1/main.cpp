@@ -1,5 +1,10 @@
-// Opciones de compilación y ejecución
-// g++ $(pkg-config --cflags --libs opencv4) -std=c++11 main.cpp -o GAMMA
+/*
+ * @brief: Tarea 1.
+ * @author: Lucas Cortés G., Aline Covarrubias G., Mathias Sanhueza L., Christian Pflaumer A.
+ * @date: 2020/09/11
+ * @compiler: g++ $(pkg-config --cflags --libs opencv4) -std=c++11 main.cpp -o GAMMA
+ */
+
 
 #include <stdio.h>
 #include <math.h> 
