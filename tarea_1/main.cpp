@@ -79,6 +79,7 @@ void corregir(){
 
 	// Se convierte la imagen de espacio de color YUB a BGR.
 	cv::cvtColor(img_part, img_part, cv::COLOR_YCrCb2BGR);
+	//cv::cvtColor(img_part, img_part, cv::COLOR_BGR2HLS);
 	img_part.copyTo(img(cv::Rect(X, Y, img_part.cols, img_part.rows)));
 
 	// Se genera el borde.
@@ -156,15 +157,15 @@ int main(int argc, char *argv[]){
             else if (argc==10 && ((argv[5][1])==102 || (argv[5][1])==70)){ // f ó F
                 X = atof(argv[6]);
                 Y = atof(argv[7]);
-                W = atof(argv[8]);
-                H = atof(argv[9]);
+                W = (atof(argv[8]) != 0) ? atof(argv[8]) : 1;
+                H = (atof(argv[9]) != 0) ? atof(argv[9]) : 1;
             }
 
             else if (argc>10 && ((argv[10][1])==99 || (argv[10][1])==67)){ // c ó C
             	X = atof(argv[6]);
                 Y = atof(argv[7]);
-                W = atof(argv[8]);
-                H = atof(argv[9]);
+                W = (atof(argv[8]) != 0) ? atof(argv[8]) : 1;
+                H = (atof(argv[9]) != 0) ? atof(argv[9]) : 1;
                 B = atof(argv[11]);
                 G = atof(argv[12]);
                 R = atof(argv[13]);
@@ -227,15 +228,15 @@ int main(int argc, char *argv[]){
                 if (argc==9 && ((argv[4][1])==102 || (argv[4][1])==70)){ // f ó F
                     X = atof(argv[5]);
                     Y = atof(argv[6]);
-                    W = atof(argv[7]);
-                    H = atof(argv[8]);
+                    W = (atof(argv[7]) != 0) ? atof(argv[7]) : 1;
+                	H = (atof(argv[8]) != 0) ? atof(argv[8]) : 1;
                 }  
 
                 if (argc>9 && ((argv[9][1])==99 || (argv[9][1])==67)){ // c ó C
                 	X = atof(argv[5]);
                     Y = atof(argv[6]);
-                    W = atof(argv[7]);
-                    H = atof(argv[8]);
+                    W = (atof(argv[7]) != 0) ? atof(argv[7]) : 1;
+                	H = (atof(argv[8]) != 0) ? atof(argv[8]) : 1;
                     R = atof(argv[12]);
                     G = atof(argv[11]);
                     B = atof(argv[10]);
