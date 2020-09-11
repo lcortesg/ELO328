@@ -83,8 +83,8 @@ void corregir_pixel(Mat& img, float gamma_value, int X, int Y, int W, int H, int
 
 // Función de corrección por tabla.
 void corregir_tabla(Mat& img, float gamma_value, int X, int Y, int W, int H, int R, int G, int B){
+	
 	unsigned char gamma_table[256];
-
 	for (int i = 0; i < 256; i++){
 		gamma_table[i] = saturate_cast<uchar>(pow((float)(i/255.0), gamma_value) * 255.0f);
 	}
@@ -215,7 +215,6 @@ int main(int argc, char *argv[]){
                 Y = atof(argv[7]);
                 W = atof(argv[8]);
                 H = atof(argv[9]);
-                //cout<<"X: "<<X<<" Y: "<<Y<<" W: "<<W<<" H: "<<H<<endl;
             }
         }
 
@@ -242,7 +241,6 @@ int main(int argc, char *argv[]){
 
 
         // Corrección Gamma con función.
-        //if (pixel) corregir_pixel(img, gamma_value, R, G, B);
         if (pixel) corregir_pixel(img, gamma_value, X, Y, W, H, R, G, B);
             
         // Corrección Gamma con tabla.
