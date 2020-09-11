@@ -129,12 +129,12 @@ void corregir_pixel(Mat& img, float gamma_value, int X, int Y, int W, int H, int
     auto duration = duration_cast<microseconds>(stop - start);
     if(timer) cout << "Tiempo de conversión de imagen pixel a pixel: "<< duration.count() << " microsegundos" << endl; 
 
-    // Se compone la nueva imágen a partir del canal de luminancia corregido en gamma junto a los canales de croma originales.
+    // Se compone la nueva imagen a partir del canal de luminancia corregido en gamma junto a los canales de croma originales.
     cv::split(img_aux, canales);
     canales = {canales[0],planes[1],planes[2]};
     cv::merge(canales, img_out);
 
-    // Se convierte la imágen de espacio de color YUV a BGR.
+    // Se convierte la imagen de espacio de color YUV a BGR.
     cv::cvtColor(img_out, img_out, cv::COLOR_YCrCb2BGR);
     cv::cvtColor(M_YUV, img, cv::COLOR_YCrCb2BGR);
 
@@ -196,15 +196,15 @@ int main(int argc, char *argv[]){
     cv::Mat img, img_out;
     float gamma_value;
 
-    // Lógica de procesamiento de imágen.
+    // Lógica de procesamiento de imagen.
     if (imagen){
-        // Lee la imágen
+        // Lee la imagen
     	img = cv::imread(argv[3], 1);
         R = G = B = X = Y = 0;
         W = img.cols;
         H = img.rows;
 
-        // Si no se encuentra la imágen. 
+        // Si no se encuentra la imagen. 
 	    if(img.empty()) {
 	        cerr << "Error leyendo imagen " << argv[3] << endl;
 	        return 1;
