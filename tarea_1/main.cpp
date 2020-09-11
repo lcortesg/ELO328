@@ -1,7 +1,5 @@
 // Opciones de compilación y ejecución
 // g++ $(pkg-config --cflags --libs opencv4) -std=c++11 main.cpp -o GAMMA
-// ./GAMMA [-m1 | -m2] -i image gamma [-f x y w h] [-c r g b]
-// ./GAMMA [-m1 | -m2] -v gamma [-f x y w h] [-c r g b]
 
 #include <stdio.h>
 #include <math.h> 
@@ -109,7 +107,7 @@ int main(int argc, char *argv[]){
 
     // Encuentra el valor "v" en el segundo argumento.
     if ((argv[2][1])==118 || (argv[2][1])==86){
-    	// Muestra mensaje error en caso de utilizar menos de 4 argumentos o más de 13.
+    	// Muestra mensaje error en caso de utilizar menos de 3 argumentos o más de 12.
 	    if(argc < 4 || argc > 13) {
 	        cerr << "Usage: ./GAMMA [-m1 | -m2] -v gamma [-f x y w h] [-c r g b]" << endl;
 	        return 1;
