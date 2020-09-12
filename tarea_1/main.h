@@ -34,6 +34,8 @@ using namespace chrono;
 bool tabla = false, pixel = false, imagen = false, video = false; // Tipo de procesamiento a realizar.
 int R = 0, G = 0, B = 0, X = 0, Y = 0, W, H; // Color borde, posición, ancho y alto de ventana.
 float gamma_value; // Valor de corrección Gamma.
+uint promedio;
+uint frames;
 cv::Mat img, img_border; // Matrices de imágenes.
 
 void corregir_tabla(cv::Mat& img, float gamma_value){ // Función de corrección por tabla.
@@ -61,11 +63,12 @@ void corregir(cv::Mat& img){
     if (pixel) corregir_pixel(img_part, gamma_value); // Corrección Gamma con función.
 	auto stop = high_resolution_clock::now(); // Se detiene el timer.
 	auto duration = duration_cast<microseconds>(stop - start); // Se calcula la duración del timer.
-	if(timer) cout<<"Tiempo de conversión de imagen: "<<duration.count()<<" microsegundos"<< endl;
+	promedio+=duration.count();
+	if(timer) cout<<"Tiempo de conversión de imagen: "<<duration.count()<<" microsegundos."<< endl;
 
 	cv::cvtColor(img_part, img_part, cv::COLOR_YCrCb2BGR); // Se convierte la imagen desde color YUB a BGR.
 	img_part.copyTo(img(cv::Rect(X, Y, img_part.cols, img_part.rows))); // Se fusiona la ventana corregida.
 	cv::Scalar value(B,G,R); // Se genera vector de valores BGR;
 	copyMakeBorder(img, img_border, borde, borde, borde, borde, cv::BORDER_CONSTANT, value); // Se genera el borde.
-	cv::imshow("Imagen con correción Gamma en capa de luminancia", img_border); // Se muestra la imagen corregida.
+	cv::imshow("Imagen con correción Gamma en capa de luminancia.", img_border); // Se muestra la imagen corregida.
 }

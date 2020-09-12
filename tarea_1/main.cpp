@@ -39,7 +39,7 @@ int main(int argc, char *argv[]){
 
     if ((argv[1][2])==50){ // Encuentra el valor "-m2" en el primer argumento.
     	pixel = true;
-    	cout<<"calculado pixel a pixel."<<endl;
+    	cout<<" calculado pixel a pixel."<<endl;
     }
     
     if (imagen){ // Lógica de procesamiento de imagen.
@@ -101,9 +101,9 @@ int main(int argc, char *argv[]){
         }
         
         cout << "Se inicia la grabación" << endl << "Presionar cualquier tecla para salir" << endl;
-
+        frames = 0;
         for (;;){ // Loop de captura.
-
+            frames++;
             cap.read(img); // Esperar por un nuevo frame.
             if(invertir) cv::flip(img, img, 1); // Invierte la imagen horizontalmente si "invertir" es verdadero.
             W = img.cols;
@@ -147,6 +147,8 @@ int main(int argc, char *argv[]){
             corregir(img); // Se corrige la imagen.
             if (cv::waitKey(5) >= 0) break;
         }
+        promedio=promedio/frames;
+        cout<<"Tiempo promedio de conversión de imagen: "<<promedio<<" microsegundos."<< endl;
         return 0;
     }
     cv::waitKey(0);
