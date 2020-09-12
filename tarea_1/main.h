@@ -1,5 +1,18 @@
-#pragma once
+/*
+ * @function corregir : Esta función recorta la ventana a procesar, hace las conversiones entre espacios de color, mide el tiempo de ejecución entre los distintos tipos de correcciones Gamma, fusiona la imagen procesada con la original, y finalmente la muestra en pantalla.
+ * @param : imagen a procesar.
+ * @return : none.
+ *
+ * @function corregir_tabla : Esta función realiza una corrección Gamma a la capa de luminancia en una imágen YUV a través de una tabla precalculada.
+ * @param : imagen a procesar, valor de Gamma.
+ * @return : none.
+ *
+ * @function corregir_pixel : Esta función realiza una corrección Gamma a la capa de luminancia en una imágen YUV a través de operaciones pixel a pixel.
+ * @param : imagen a procesar, valor de Gamma.
+ * @return : none.
+ */
 
+#pragma once
 #include <stdio.h>
 #include <iostream>
 #include <math.h> 
@@ -21,7 +34,7 @@ using namespace chrono;
 bool tabla = false, pixel = false, imagen = false, video = false; // Tipo de procesamiento a realizar.
 int R = 0, G = 0, B = 0, X = 0, Y = 0, W, H; // Color borde, posición, ancho y alto de ventana.
 float gamma_value; // Valor de corrección Gamma.
-cv::Mat img, img_out, img_border; // Matrices de imágenes.
+cv::Mat img, img_border; // Matrices de imágenes.
 
 void corregir_tabla(cv::Mat& img, float gamma_value){ // Función de corrección por tabla.
 	unsigned char gamma_table[256]; // Creación de la tabla Gamma.
@@ -36,12 +49,12 @@ void corregir_pixel(cv::Mat& img, float gamma_value){ // Función de correción 
 }
 
 void corregir(cv::Mat& img){
-    cv::cvtColor(img, img_out, cv::COLOR_BGR2YCrCb); // Se convierte la imagen desde BGR a YUV.
-    cv::Mat whole = img_out; // Imagen en YUV.
+    cv::Mat whole = img; // Imagen en YUV.
 	cv::Mat img_part(
 	whole,
 	cv::Range( Y, Y+H ), // rows.
 	cv::Range( X, X+W )); // cols.
+	cv::cvtColor(img_part, img_part, cv::COLOR_BGR2YCrCb); // Se convierte la imagen desde BGR a YUV.
 	
 	auto start = high_resolution_clock::now(); // Se inicia el timer.
 	if (tabla) corregir_tabla(img_part, gamma_value); // Corrección Gamma con tabla.

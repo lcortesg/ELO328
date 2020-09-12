@@ -5,7 +5,7 @@
  * @compiler: g++ -Wall $(pkg-config --cflags --libs opencv4) -std=c++11 main.cpp -o GAMMA
  */
 
-#include "gamma.h"
+#include "main.h"
 #include <stdio.h>
 #include <iostream>
 
