@@ -53,19 +53,19 @@ void corregir_pixel(cv::Mat& img, float gamma_value){ // Función de correción 
 void corregir(cv::Mat& img){
 	cv::Rect ROI(X, Y, W, H); // Definición de región de interés.
 	img_roi = img(ROI); // Asignación de región de interés.
-	cv::cvtColor(img_roi, img_roi, cv::COLOR_BGR2YCrCb); // Se convierte la imagen desde BGR a YUV.
+	cv::cvtColor(img_roi, img_roi, cv::COLOR_BGR2YCrCb); // Conversión de BGR a YUV.
 	
-	auto start = high_resolution_clock::now(); // Se inicia el timer.
-	if (tabla) corregir_tabla(img_roi, gamma_value); // Corrección Gamma con tabla.
-    if (pixel) corregir_pixel(img_roi, gamma_value); // Corrección Gamma con función.
-	auto stop = high_resolution_clock::now(); // Se detiene el timer.
-	auto duration = duration_cast<microseconds>(stop - start); // Se calcula la duración del timer.
+	auto start = high_resolution_clock::now(); // Inicio de timer.
+	if (tabla && gamma_value != 1) corregir_tabla(img_roi, gamma_value); // Corrección Gamma con tabla.
+    if (pixel && gamma_value != 1) corregir_pixel(img_roi, gamma_value); // Corrección Gamma con función.
+	auto stop = high_resolution_clock::now(); // Detención de timer.
+	auto duration = duration_cast<microseconds>(stop - start); // Cálculo de duración de timer.
 	promedio+=duration.count();
-	if(timer) cout<<"Tiempo de conversión de imagen: "<<duration.count()<<" microsegundos."<< endl;
+	if(timer && imagen == true) cout<<"Tiempo de conversión de imagen: "<<duration.count()<<" microsegundos."<< endl;
 
-	cv::cvtColor(img_roi, img_roi, cv::COLOR_YCrCb2BGR); // Se convierte la imagen desde color YUB a BGR.
-	img_roi.copyTo(img(ROI)); // Se fusiona la ventana corregida.
-	cv::Scalar value(B,G,R); // Se genera vector de valores BGR.
-	copyMakeBorder(img, img_border, borde, borde, borde, borde, cv::BORDER_CONSTANT, value); // Se genera el borde.
+	cv::cvtColor(img_roi, img_roi, cv::COLOR_YCrCb2BGR); // Conversión de YUB a BGR.
+	img_roi.copyTo(img(ROI)); // Fusión de ROI con imagen original.
+	cv::Scalar value(B,G,R); // Generación de vector de valores BGR.
+	copyMakeBorder(img, img_border, borde, borde, borde, borde, cv::BORDER_CONSTANT, value); // Generación de borde.
 	cv::imshow("Imagen con correción Gamma en capa de luminancia.", img_border); // Se muestra la imagen corregida.
 }

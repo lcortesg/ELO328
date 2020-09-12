@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
     
     if (imagen){ // Lógica de procesamiento de imagen.
         
-    	img = cv::imread(argv[3], 1); // Lee la imagen
+    	img = cv::imread(argv[3], 1); // Lee la imagen.
         W = img.cols;
         H = img.rows;
         
@@ -78,13 +78,13 @@ int main(int argc, char *argv[]){
                 B = atof(argv[13]);
             }
 
-            if (X+W > img.cols || Y+H > img.rows){ // Error si la ventana excede las dimensiones de la imagen.
-            	cerr << "Las dimensiones (X+W)*(Y+H): "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<img.cols<<"x"<<img.rows<<"."<<endl;
+            if (X+W > img.cols || Y+H > img.rows){ // Error si ROI excede las dimensiones de la imagen.
+            	cerr << "Las dimensiones de ROI: "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<img.cols<<"x"<<img.rows<<"."<<endl;
         		return 1;
             }   
         }
         cout << "Se inicia la conversión" << endl << "Presionar cualquier tecla para salir" << endl;
-        corregir(img); // Se corrige la imagen.
+        corregir(img); // Corrección de la imagen.
     }
         
     if (video){ // Lógica de procesamiento de video.
@@ -140,11 +140,11 @@ int main(int argc, char *argv[]){
                 }
 
                 if (X+W > img.cols || Y+H > img.rows){ // Error si la ventana excede las dimensiones de la imagen.
-            		cerr << "Las dimensiones (X+W)*(Y+H): "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<img.cols<<"x"<<img.rows<<"."<<endl;
+            		cerr << "Las dimensiones de ROI: "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<img.cols<<"x"<<img.rows<<"."<<endl;
         			return 1;
             	}
             }
-            corregir(img); // Se corrige la imagen.
+            corregir(img); // Corrección de la imagen.
             if (cv::waitKey(5) >= 0) break;
         }
         promedio=promedio/frames;
