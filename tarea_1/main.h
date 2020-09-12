@@ -1,5 +1,5 @@
 /*
- * @function corregir : Esta función recorta la ventana a procesar, hace las conversiones entre espacios de color, mide el tiempo de ejecución entre los distintos tipos de correcciones Gamma, fusiona la imagen procesada con la original, y finalmente la muestra en pantalla.
+ * @function corregir : Esta función recorta la ventana a procesar, hace las conversiones entre espacios de color, hace el llamado entre los distintos tipos de corrección Gamma según corresponda y mide el tiempo de ejecución, fusiona la imagen procesada con la original, y finalmente la muestra en pantalla.
  * @param : imagen a procesar.
  * @return : none.
  *
