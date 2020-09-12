@@ -146,7 +146,7 @@ int main(int argc, char *argv[]){
                 cerr << "Las dimensiones de ROI: "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<img.cols<<"x"<<img.rows<<"."<<endl;
                 return 1;
             }
-            for(static bool first = true;first;first=false) cout << "Se inicia la grabación" << endl << "Presionar cualquier tecla para salir" << endl;
+            if(frames==1) cout << "Se inicia la grabación" << endl << "Presionar cualquier tecla para salir" << endl;
 
             corregir(img); // Corrección de la imagen.
             if (cv::waitKey(5) >= 0) break;
