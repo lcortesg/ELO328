@@ -18,6 +18,7 @@ int main(int argc, char *argv[]){
 	    }
 	    imagen = true;
 	    gamma_value = atof(argv[4]); // Guarda el valor de Gamma.
+        if (gamma_value <= 0) {cerr << "El valor de Gamma debe ser > 0." << endl; return 1;}
     	cout<<"Procesamiento de imagen nivel gamma: "<<gamma_value;
     }
     
@@ -29,6 +30,7 @@ int main(int argc, char *argv[]){
 	    }
     	video = true;
     	gamma_value = atof(argv[3]); // Guarda el valor de Gamma.
+        if (gamma_value <= 0) {cerr << "El valor de Gamma debe ser > 0." << endl; return 1;}
     	cout<<"Procesamiento de video nivel gamma: "<<gamma_value;
     }
     
@@ -76,13 +78,13 @@ int main(int argc, char *argv[]){
                 R = atof(argv[11]);
                 G = atof(argv[12]);
                 B = atof(argv[13]);
-            }
-
-            if (X+W > img.cols || Y+H > img.rows){ // Error si ROI excede las dimensiones de la imagen.
-            	cerr << "Las dimensiones de ROI: "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<img.cols<<"x"<<img.rows<<"."<<endl;
-        		return 1;
-            }   
+            } 
         }
+        
+        if (X+W > img.cols || Y+H > img.rows){ // Error si ROI excede las dimensiones de la imagen.
+            cerr << "Las dimensiones de ROI: "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<img.cols<<"x"<<img.rows<<"."<<endl;
+            return 1;
+        } 
         cout << "Se inicia la conversión" << endl << "Presionar cualquier tecla para salir" << endl;
         corregir(img); // Corrección de la imagen.
     }
@@ -99,8 +101,7 @@ int main(int argc, char *argv[]){
             cerr << "Error abriendo camara\n";
             return -1;
         }
-        
-        cout << "Se inicia la grabación" << endl << "Presionar cualquier tecla para salir" << endl;
+
         frames = 0;
         for (;;){ // Loop de captura.
             frames++;
@@ -108,6 +109,7 @@ int main(int argc, char *argv[]){
             if(invertir) cv::flip(img, img, 1); // Invierte la imagen horizontalmente si "invertir" es verdadero.
             W = img.cols;
         	H = img.rows;
+
 
             if (img.empty()){ // Revisar si no hay errores.
                 cerr << "Frame en blanco\n";
@@ -138,12 +140,14 @@ int main(int argc, char *argv[]){
                     G = atof(argv[11]);
                     B = atof(argv[12]);
                 }
-
-                if (X+W > img.cols || Y+H > img.rows){ // Error si la ventana excede las dimensiones de la imagen.
-            		cerr << "Las dimensiones de ROI: "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<img.cols<<"x"<<img.rows<<"."<<endl;
-        			return 1;
-            	}
             }
+
+            if (X+W > img.cols || Y+H > img.rows){ // Error si la ventana excede las dimensiones de la imagen.
+                cerr << "Las dimensiones de ROI: "<<X+W<<"x"<<Y+H<<" superan a las de la imagen: "<<img.cols<<"x"<<img.rows<<"."<<endl;
+                return 1;
+            }
+            for(static bool first = true;first;first=false) cout << "Se inicia la grabación" << endl << "Presionar cualquier tecla para salir" << endl;
+
             corregir(img); // Corrección de la imagen.
             if (cv::waitKey(5) >= 0) break;
         }
