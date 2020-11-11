@@ -6,16 +6,14 @@ import openpyxl
 import imutils
 import time
 import cv2
-import csv
 import sys
 import os
 
 #wb = openpyxl.load_workbook("info.xlsx")
 #ws = wb.active
 
-
 while True:
-    modo = input("(A) Agregar Usuario. (E) Eliminar Usuario. (Q) Salir : ")
+    modo = input("(A) Agregar Usuario. (E) Eliminar Usuario. (M) Mostrar Usuarios. (Q) Salir. : ")
     eliminar = False
     agregar = False
 
@@ -25,6 +23,18 @@ while True:
         eliminar = True
     if (modo == "A" or modo == "a"):
         agregar = True
+    if (modo == "M" or modo == "m"):
+        mostrar = True
+
+    if mostrar:
+        wb = openpyxl.load_workbook("info.xlsx")
+        ws = wb.active
+        for i in range(1,ws.max_row):
+            nombre = ws.cell(row = i, column = 1).value
+            depto = ws.cell(row = i, column = 2).value
+            correo = ws.cell(row = i, column = 3).value
+            deudas = ws.cell(row = i, column = 4).value
+            print(nombre, depto, correo, deudas)
 
     if eliminar:
         encontrado = False
@@ -65,7 +75,7 @@ while True:
 
         if (agregar):
             depto = input("Ingrese numero de departamento : ")
-            print("(C) Capturar Imagen. (Q) Salir : ")
+            print("(C) Capturar Imagen. (Q) Salir. : ")
             video = True
             #vs = VideoStream(src=0).start()
             vs = VideoStream(0).start()
