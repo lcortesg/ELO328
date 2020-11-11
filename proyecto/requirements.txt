@@ -1,4 +1,9 @@
 cmake
 dlib
+glib
+pillow
+numpy
+imutils
+openpyxl
 face_recognition
 opencv-python
