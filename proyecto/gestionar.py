@@ -1,7 +1,6 @@
 from imutils.video import VideoStream
 import face_recognition
 import numpy as np
-import argparse
 import openpyxl
 import imutils
 import time
@@ -109,7 +108,7 @@ while True:
 
             key = cv2.waitKey(1) & 0xFF
 
-             # Utilizar tecla "c" para capturar imagen
+            # Presionar "c" para capturar imagen
             if key == ord('c') and cara == True: 
                 cv2.imwrite('dataset/'+usuario+'.jpg',picture)
                 print("IMAGEN CAPTURADA")
@@ -118,7 +117,8 @@ while True:
                 vs.stop()
                 video = False
                 break
-         
+
+            # Presionar "q" para salir
             if key == ord("q"):
                 print("ENROLAMIENTO CANCELADO")
                 cv2.destroyAllWindows()
