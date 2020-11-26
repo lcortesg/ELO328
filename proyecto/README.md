@@ -5,14 +5,12 @@
 - python3 gestionar.py
 - python3 reconocer.py
 
-## Implementado
-- ~~Search query.~~
-- Gestion de usuarios.
-- Creación de dataset.
-- Reconocimiento de usuarios.
-- Usuarios con el mismo nombre en diferentes departamentos.
-- Modificación de fotografía de usuario encontrado.
-
-## Por implementar
-- Entrenamiento en módulo de gestión.
+## Tareas
+- [x] ~~Search query.~~
+- [x] Gestion de usuarios.
+- [x] Creación de dataset.
+- [x] Reconocimiento de usuarios.
+- [x] Usuarios con el mismo nombre en diferentes departamentos.
+- [x] Modificación de fotografía de usuario encontrado.
+- [] Entrenamiento en módulo de gestión.
 
