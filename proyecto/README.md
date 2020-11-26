@@ -6,10 +6,13 @@
 - python3 reconocer.py
 
 ## Implementado
-- ~~Search query~~
-- Gestion de usuarios
-- Creación de dataset
+- ~~Search query.~~
+- Gestion de usuarios.
+- Creación de dataset.
+- Reconocimiento de usuarios.
 
 ## Por implementar
-- Reconocimiento de usuarios
+- Modificación de fotografía de usuario encontrado.
+- Usuarios con el mismo nombre en diferentes departamentos.
+- Entrenamiento en módulo de gestión.
 
