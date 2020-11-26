@@ -11,8 +11,8 @@
 - Creación de dataset.
 - Reconocimiento de usuarios.
 - Usuarios con el mismo nombre en diferentes departamentos.
+- Modificación de fotografía de usuario encontrado.
 
 ## Por implementar
-- Modificación de fotografía de usuario encontrado.
 - Entrenamiento en módulo de gestión.
 
