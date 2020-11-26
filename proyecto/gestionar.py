@@ -73,7 +73,7 @@ while True:
                 agregar = False
                 break
 
-        if (agregar):
+        if agregar:
             depto = input("Ingrese numero de departamento : ")
             print("(C) Capturar Imagen. (Q) Salir. : ")
             video = True
