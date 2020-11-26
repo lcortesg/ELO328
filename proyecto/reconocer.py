@@ -80,10 +80,12 @@ while True:
         depto = "Desconocido"
         correo = "0"
         deudas = "0"
-
+        user = name.split("-")
+        
         for j in range(1,ws.max_row):
-            if (ws.cell(row = j, column = 1).value == name):
-                depto = str(ws.cell(row = j, column = 2).value)
+            if (ws.cell(row = j, column = 1).value == user[0] and ws.cell(row = j, column = 2).value == user[1]):
+                name = user[0]
+                depto = user[1]
                 correo = str(ws.cell(row = j, column = 3).value)
                 deudas = str(ws.cell(row = j, column = 4).value)
 

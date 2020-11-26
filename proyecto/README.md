@@ -10,9 +10,9 @@
 - Gestion de usuarios.
 - Creación de dataset.
 - Reconocimiento de usuarios.
+- Usuarios con el mismo nombre en diferentes departamentos.
 
 ## Por implementar
 - Modificación de fotografía de usuario encontrado.
-- Usuarios con el mismo nombre en diferentes departamentos.
 - Entrenamiento en módulo de gestión.
 

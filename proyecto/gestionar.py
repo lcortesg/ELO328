@@ -12,7 +12,7 @@ import os
 #ws = wb.active
 
 while True:
-    modo = input("(A) Agregar Usuario. (E) Eliminar Usuario. (M) Mostrar Usuarios. (Q) Salir. : ")
+    modo = input("(A) Agregar/Actualizar Usuario. (E) Eliminar Usuario. (M) Mostrar Usuarios. (Q) Salir. : ")
     eliminar = False
     agregar = False
     mostrar = False
@@ -32,15 +32,15 @@ while True:
         for i in range(1,ws.max_row):
             nombre = ws.cell(row = i, column = 1).value
             depto = ws.cell(row = i, column = 2).value
-            correo = ws.cell(row = i, column = 3).value
-            deudas = ws.cell(row = i, column = 4).value
-            print(nombre, depto, correo, deudas)
+            print(nombre, " - ", depto)
 
     if eliminar:
         encontrado = False
-        usuario = input("Ingrese el nombre del usuario a eliminar : ")
+        usuario = input("Ingrese el nombre del usuario a eliminar : ").upper()
+        depto = input("Ingrese el número de departamento : ")
+        #user = usuario.upper()+"-"+depto
         try:
-            os.remove("dataset/"+usuario+".jpg")
+            os.remove("dataset/"+usuario+"-"+depto+".jpg")
             print("IMAGEN DE USUARIO ELIMINADA")   
         except:
             print("IMAGEN DE USUARIO NO ENCONTRADA")
@@ -48,8 +48,9 @@ while True:
         wb = openpyxl.load_workbook("info.xlsx")
         ws = wb.active
         for i in range(1,ws.max_row):
-            cell = ws.cell(row = i, column = 1).value
-            if (cell == usuario):
+            usr_cell = ws.cell(row = i, column = 1).value
+            dep_cell = ws.cell(row = i, column = 2).value
+            if (usr_cell == usuario and dep_cell == depto):
                 encontrado = True
                 ws.delete_rows(i,1)
                 wb.save('info.xlsx')   
@@ -58,23 +59,31 @@ while True:
             print("USUARIO NO ENCONTRADO EN LA BASE DE DATOS")
 
     if agregar:
-        usuario = input("Ingrese el nombre del usuario a enrolar : ")
+        usuario = input("Ingrese el nombre del usuario a enrolar : ").upper()
+        depto = input("Ingrese numero de departamento : ")
         encontrado = False
 
         wb = openpyxl.load_workbook("info.xlsx")
         ws = wb.active
 
+
+        act_data = True
         for i in range(1,ws.max_row):
-            cell = ws.cell(row = i, column = 1).value
-            if (cell == usuario):
+            usr_cell = ws.cell(row = i, column = 1).value
+            dep_cell = ws.cell(row = i, column = 2).value
+            if (usr_cell == usuario and dep_cell == depto):
                 print("USUARIO YA SE ENCUENTRA REGISTRADO")
-                encontrado = True
-                video = False
-                agregar = False
-                break
+                actualizar = input("¿Desea actualizar la imagen del usuario? (Y) Si. (N) No. : ")
+                if (actualizar == "Y" or actualizar == "y"):
+                    act_data = False 
+                if (actualizar == "N" or actualizar == "n"):
+                    encontrado = True
+                    video = False
+                    agregar = False
+                    break
+                
 
         if agregar:
-            depto = input("Ingrese numero de departamento : ")
             print("(C) Capturar Imagen. (Q) Salir. : ")
             video = True
             #vs = VideoStream(src=0).start()
@@ -111,7 +120,7 @@ while True:
 
             # Presionar "c" para capturar imagen
             if key == ord('c') and cara == True: 
-                cv2.imwrite('dataset/'+usuario+'.jpg',picture)
+                cv2.imwrite('dataset/'+usuario+"-"+depto+'.jpg',picture)
                 print("IMAGEN CAPTURADA")
                 cv2.destroyAllWindows()
                 #VideoStream(0).stop()
@@ -129,7 +138,7 @@ while True:
                 agregar = False
                 break
 
-        if (not encontrado and agregar):
+        if (not encontrado and agregar and act_data):
             ws.insert_rows(2)
             ws.cell(row=2, column=1).value = usuario
             ws.cell(row=2, column=2).value = depto
