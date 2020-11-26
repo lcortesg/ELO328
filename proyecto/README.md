@@ -6,7 +6,7 @@
 - python3 reconocer.py
 
 ## Implementado
-- Search query
+- ~~Search query~~
 - Gestion de usuarios
 - Creación de dataset
 
