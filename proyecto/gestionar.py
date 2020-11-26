@@ -15,6 +15,7 @@ while True:
     modo = input("(A) Agregar Usuario. (E) Eliminar Usuario. (M) Mostrar Usuarios. (Q) Salir. : ")
     eliminar = False
     agregar = False
+    mostrar = False
 
     if (modo == "Q" or modo == "q"):
         exit()
@@ -25,7 +26,7 @@ while True:
     if (modo == "M" or modo == "m"):
         mostrar = True
 
-    if mostrar:
+    if mostrar or eliminar:
         wb = openpyxl.load_workbook("info.xlsx")
         ws = wb.active
         for i in range(1,ws.max_row):
