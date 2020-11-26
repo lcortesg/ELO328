@@ -24,11 +24,12 @@ for i in imagePaths:
     known_face_encodings.append(vars()[encoding])
     known_face_names.append(name)
 '''
+
 for i in imagePaths:
     name = i[8:-4]
-    known_face_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(i))[0])
+    #known_face_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(i))[0])
+    known_face_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(i),known_face_locations=None, num_jitters=1, model='large')[0])
     known_face_names.append(name)
-    print(name)
 
 face_locations = []
 face_encodings = []
@@ -55,9 +56,9 @@ while True:
         face_names = []
         for face_encoding in face_encodings:
             # Revisar coincidencias
-            matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
+            matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance = 0.4)
+            #matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
             name = "Desconocido"
-            
 
             # # Se utiliza la primera coincidencia encontrada en known_face_encodings.
             # if True in matches:
