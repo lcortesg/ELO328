@@ -19,6 +19,6 @@
 - [x] Captura fotográfica con solo 1 usuario en pantalla.
 - [x] Captura fotográfica de ROE exclusivamente.
 - [x] Entrenamiento en módulo externo.
-- [x] Guardar modelos entrenados.
+- [x] Guardar modelos entrenados en archivo pickle.
 - [ ] Interfaz Gráfica.
 
