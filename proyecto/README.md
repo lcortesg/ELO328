@@ -1,8 +1,8 @@
 # ELO328 - Proyecto
 
 ## Ejecución
-- pip3 install -r requirements.txt
-- python3 main.py
+- pip install -r requirements.txt
+- python main.py
 
 ## Tareas
 - [x] ~~Search query~~.
@@ -16,7 +16,7 @@
 - [x] Hashear contraseñas almacenadas.
 - [x] Captura fotográfica con solo 1 usuario.
 - [x] Captura fotográfica de ROE.
-- [ ] Entrenamiento en módulo de gestión.
-- [ ] Guardar modelos entrenados.
+- [x] Entrenamiento en módulo de gestión.
+- [x] Guardar modelos entrenados.
 - [ ] Interfaz Gráfica.
 

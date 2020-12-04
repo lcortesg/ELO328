@@ -1,3 +1,4 @@
+import train as train
 from passlib.hash import sha256_crypt
 from imutils.video import VideoStream
 import face_recognition
@@ -11,6 +12,8 @@ import time
 import cv2
 import sys
 import os
+
+auto_train = True
 
 with open("data/passwords.json", "r") as json_file: 
     data = json.load(json_file) 
@@ -48,7 +51,8 @@ def eliminar_user():
             encontrado = True
             ws.delete_rows(i,1)
             wb.save('data/info.xlsx')   
-            print("USUARIO ELIMINADO DE LA BASE DE DATOS") 
+            print("USUARIO ELIMINADO DE LA BASE DE DATOS")
+            train.train() 
     if (not encontrado):
         print("USUARIO NO ENCONTRADO EN LA BASE DE DATOS")
 
@@ -112,6 +116,7 @@ def agregar_user():
         if key == ord('c') and cara == True: 
             cv2.imwrite('data/img/'+usuario+"-"+depto+'.jpg',picture)
             print("IMAGEN CAPTURADA")
+            train.train()
             cv2.destroyAllWindows()
             #VideoStream(0).stop()
             vs.stop()

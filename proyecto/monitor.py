@@ -2,42 +2,27 @@ from imutils import paths
 import face_recognition
 import numpy as np
 import openpyxl
+import pickle
 import cv2
 import os
 
 def reconocer():
+    with open('data/encodings.dat', 'rb') as f:
+        all_face_encodings = pickle.load(f)
+    
     tolerance = 0.6
     video_capture = cv2.VideoCapture(0)
-    imagePaths = list(paths.list_images('data/img'))
-    known_face_encodings = []
-    known_face_names = []
-
+    
     wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
 
-    '''
-    for i in imagePaths:
-        #name = i.strip("/dataset").strip(".jpg")
-        name = i[8:-4]
-        image = str(i)+"_image"
-        vars()[image] = face_recognition.load_image_file(i)
-        encoding = str(i)+"_face_encoding"
-        vars()[encoding] = face_recognition.face_encodings(vars()[image])[0]
-        known_face_encodings.append(vars()[encoding])
-        known_face_names.append(name)
-    '''
-
-    for i in imagePaths:
-        name = i[9:-4]
-        #known_face_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(i))[0])
-        known_face_encodings.append(face_recognition.face_encodings(face_recognition.load_image_file(i),known_face_locations=None, num_jitters=1, model='large')[0])
-        known_face_names.append(name)
+    known_face_names = list(all_face_encodings.keys())
+    known_face_encodings = np.array(list(all_face_encodings.values()))
 
     face_locations = []
     face_encodings = []
     face_names = []
     process_this_frame = True
-
 
     while True:
         ret, frame = video_capture.read()
@@ -129,6 +114,7 @@ def reconocer():
             cv2.putText(frame, name, (left+6, bottom-6), font, 1.0, (255, 255, 255), 1)
 
         # Muestra imagen resultante
+        #frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
         cv2.imshow('Video', frame)
 
         # Presionar "q" para salir
@@ -138,5 +124,5 @@ def reconocer():
     # Libera la cámara y destruye las ventanas
     video_capture.release()
     cv2.destroyAllWindows()
-
+    
 #reconocer()
