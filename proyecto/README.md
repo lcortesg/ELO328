@@ -2,8 +2,8 @@
 
 ## Ejecución
 - pip3 install -r requirements.txt
-- python3 gestionar.py
-- python3 reconocer.py
+- python3 gestion.py
+- python3 monitor.py
 
 ## Tareas
 - [x] ~~Search query~~.

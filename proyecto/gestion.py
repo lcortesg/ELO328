@@ -12,33 +12,34 @@ import cv2
 import sys
 import os
 
-with open("passwords.json", "r") as handler:
-    info = json.load(handler)
-    users = info["users"]
-    passwords = info["passwords"]
+with open("data/passwords.json", "r") as json_file: 
+    data = json.load(json_file) 
+    users = data["users"]
+    passwords = data["passwords"]
+
 #print("User 0 '{}', has password '{}'".format(users[0], passwords[0]))
 
-def mostrar():
-    wb = openpyxl.load_workbook("info.xlsx")
+def mostrar_user():
+    wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
     for i in range(1,ws.max_row):
         nombre = ws.cell(row = i, column = 1).value
         depto = ws.cell(row = i, column = 2).value
         print(nombre, " - ", depto)
-    #main()
+    #gestion()
 
-def eliminar():
-    mostrar()
+def eliminar_user():
+    mostrar_user()
     encontrado = False
     usuario = input("Ingrese el nombre del usuario a eliminar : ").upper()
     depto = input("Ingrese el número de departamento : ")
     try:
-        os.remove("dataset/"+usuario+"-"+depto+".jpg")
+        os.remove("data/img/"+usuario+"-"+depto+".jpg")
         print("IMAGEN DE USUARIO ELIMINADA")   
     except:
         print("IMAGEN DE USUARIO NO ENCONTRADA")
 
-    wb = openpyxl.load_workbook("info.xlsx")
+    wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
     for i in range(1,ws.max_row):
         usr_cell = ws.cell(row = i, column = 1).value
@@ -46,18 +47,18 @@ def eliminar():
         if (usr_cell == usuario and dep_cell == depto):
             encontrado = True
             ws.delete_rows(i,1)
-            wb.save('info.xlsx')   
+            wb.save('data/info.xlsx')   
             print("USUARIO ELIMINADO DE LA BASE DE DATOS") 
     if (not encontrado):
         print("USUARIO NO ENCONTRADO EN LA BASE DE DATOS")
 
-def agregar():
-    mostrar()
+def agregar_user():
+    mostrar_user()
     usuario = input("Ingrese el nombre del usuario a enrolar : ").upper()
     depto = input("Ingrese numero de departamento : ")
     encontrado = False
 
-    wb = openpyxl.load_workbook("info.xlsx")
+    wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
 
     act_data = True
@@ -71,7 +72,7 @@ def agregar():
             if (actualizar == "Y" or actualizar == "y"):
                 act_data = False 
             if (actualizar == "N" or actualizar == "n"):
-                main()
+                gestion()
 
     print("(C) Capturar Imagen. (Q) Salir. : ")
     video = True
@@ -107,7 +108,7 @@ def agregar():
 
         # Presionar "c" para capturar imagen
         if key == ord('c') and cara == True: 
-            cv2.imwrite('dataset/'+usuario+"-"+depto+'.jpg',picture)
+            cv2.imwrite('data/img/'+usuario+"-"+depto+'.jpg',picture)
             print("IMAGEN CAPTURADA")
             cv2.destroyAllWindows()
             #VideoStream(0).stop()
@@ -122,7 +123,7 @@ def agregar():
             #VideoStream(0).stop()
             vs.stop()
             video = False
-            main()
+            gestion()
 
     if (not encontrado and act_data):
         ws.insert_rows(2)
@@ -130,35 +131,41 @@ def agregar():
         ws.cell(row=2, column=2).value = depto
         ws.cell(row=2, column=3).value = 0
         ws.cell(row=2, column=4).value = 0
-        wb.save('info.xlsx')
+        wb.save('data/info.xlsx')
         print("USUARIO AGREGADO A LA BASE DE DATOS")
-        main()
+        gestion()
 
 
-def main():
+def gestion():
     while True:
         modo = input("(A) Agregar/Actualizar Usuario. (E) Eliminar Usuario. (M) Mostrar Usuarios. (Q) Salir. : ")
-
         if (modo == "Q" or modo == "q"):
+            print ("HASTA PRONTO")
             exit()
         if (modo == "E" or modo == "e"):
-            eliminar()
+            eliminar_user()
         if (modo == "A" or modo == "a"):
-            agregar()
+            agregar_user()
         if (modo == "M" or modo == "m"):
-            mostrar()
+            mostrar_user()
+        if (modo == "P" or modo == "p"):
+            main()
 
-while True:
-    user = input("INGRESE USUARIO: ")
-    while user in users:
-        password = stdiomask.getpass("INGRESE CONTRASEÑA: ")
-        for u in range(len(users)):
-            if users[u] == user:
-                if sha256_crypt.verify(password, passwords[u]):
-                    print ("BIENVENIDO")
-                    main()
-                    #break
-                else:
-                    print ("CONTRASEÑA INCORRECTA")
-    else:
-        print("USUARIO NO REGISTRADO")     
+def gestion_check():
+    while True:
+        user = input("INGRESE USUARIO: ")
+        while user in users:
+            password = stdiomask.getpass("INGRESE CONTRASEÑA: ")
+            for u in range(len(users)):
+                if users[u] == user:
+                    if sha256_crypt.verify(password, passwords[u]):
+                        print ("BIENVENIDO", user)
+                        gestion()
+                        #break
+                    else:
+                        print ("CONTRASEÑA INCORRECTA")
+                        gestion_check()
+        else:
+            print("USUARIO NO REGISTRADO") 
+
+#gestion_check()    
