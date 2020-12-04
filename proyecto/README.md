@@ -9,9 +9,13 @@
 - [x] ~~Search query~~.
 - [x] ~~Creación de dataset~~.
 - [x] Gestion de usuarios.
-
 - [x] Reconocimiento de usuarios.
 - [x] Usuarios con el mismo nombre en diferentes departamentos.
 - [x] Modificación de fotografía de usuario encontrado.
+- [ ] Acceso mediante contraseña.
+- [ ] Captura fotográfica de ROE.
+- [ ] Captura fotográfica con solo 1 usuario.
 - [ ] Entrenamiento en módulo de gestión.
+- [ ] Guardar modelos entrenados.
+- [ ] Interfaz Gráfica.
 

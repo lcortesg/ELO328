@@ -7,3 +7,6 @@ imutils
 openpyxl
 face_recognition
 opencv-python
+passlib
+getpass
+stdiomask
