@@ -97,11 +97,13 @@ def agregar_user():
             right *= 4
             bottom *= 4
             left *= 4
+            picture = picture[top:bottom, left:right]
             cv2.rectangle(frame, (left, top), (right, bottom), (255, 0, 0), 2)
             if len(face_locations) == 1:
-                cara = True
-
-        cv2.imshow('REGISTRAR USUARIO', frame)
+                cara = True      
+        frame_show = frame.copy()
+        frame_show = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
+        cv2.imshow('REGISTRAR USUARIO', frame_show)
         #cv2.startWindowThread()
 
         key = cv2.waitKey(1) & 0xFF

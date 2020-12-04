@@ -2,8 +2,7 @@
 
 ## Ejecución
 - pip3 install -r requirements.txt
-- python3 gestion.py
-- python3 monitor.py
+- python3 main.py
 
 ## Tareas
 - [x] ~~Search query~~.
@@ -16,7 +15,7 @@
 - [x] Ocultar contraseña escrita.
 - [x] Hashear contraseñas almacenadas.
 - [x] Captura fotográfica con solo 1 usuario.
-- [ ] Captura fotográfica de ROE.
+- [x] Captura fotográfica de ROE.
 - [ ] Entrenamiento en módulo de gestión.
 - [ ] Guardar modelos entrenados.
 - [ ] Interfaz Gráfica.
