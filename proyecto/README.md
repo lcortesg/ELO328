@@ -12,11 +12,13 @@
 - [x] Usuarios con el mismo nombre en diferentes departamentos.
 - [x] Modificación de fotografía de usuario encontrado.
 - [x] Acceso mediante contraseña.
+- [x] Modificación de contraseña.
+- [x] Gestión de administradores.
 - [x] Ocultar contraseña escrita.
 - [x] Hashear contraseñas almacenadas.
-- [x] Captura fotográfica con solo 1 usuario.
-- [x] Captura fotográfica de ROE.
-- [x] Entrenamiento en módulo de gestión.
+- [x] Captura fotográfica con solo 1 usuario en pantalla.
+- [x] Captura fotográfica de ROE exclusivamente.
+- [x] Entrenamiento en módulo externo.
 - [x] Guardar modelos entrenados.
 - [ ] Interfaz Gráfica.
 
