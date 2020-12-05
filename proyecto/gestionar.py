@@ -175,4 +175,11 @@ def gestion_check():
         else:
             print("USUARIO NO REGISTRADO") 
 
+def gestion_gui(usr_gui, psw_gui):
+    gestion()
+    for u in range(len(users)):
+        if users[u] == usr_gui:
+            if sha256_crypt.verify(psw_gui, passwords[u]):
+                gestion()
+
 #gestion_check()    
