@@ -1,6 +1,6 @@
 import administrar as admin
 import gestionar as gest
-import monitor as mon
+import monitorear as mon
 import train as train
 import tkinter as tk
 
