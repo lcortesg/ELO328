@@ -3,10 +3,14 @@ import face_recognition
 import numpy as np
 import openpyxl
 import pickle
+import time
 import cv2
 import os
 
 def reconocer():
+    ultimos = []
+    before = time.time()
+
     with open('data/encodings.dat', 'rb') as f:
         all_face_encodings = pickle.load(f)
     
@@ -23,6 +27,8 @@ def reconocer():
     face_encodings = []
     face_names = []
     process_this_frame = True
+
+    
 
     while True:
         ret, frame = video_capture.read()
@@ -57,6 +63,21 @@ def reconocer():
                 best_match_index = np.argmin(face_distances)
                 if matches[best_match_index]:
                     name = known_face_names[best_match_index]
+                    
+                now = time.time()
+                tiempo = time.localtime(now)
+                time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
+                time_pic = time.strftime("%Y-%m-%d, %H-%M-%S", tiempo)
+                if name not in ultimos:
+                    f = open("data/log.txt","a+")
+                    f.write(time_log+" - "+name+"\r\n")
+                    f.close
+                    cv2.imwrite('data/img_log/'+time_pic+" - "+name+'.jpg',frame)
+                    ultimos.append(name)
+
+                if int(now - before) > 60:
+                    before = time.time()
+                    ultimos.clear()
 
                 face_names.append(name)
 
