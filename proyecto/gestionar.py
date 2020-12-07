@@ -4,6 +4,7 @@ from imutils.video import VideoStream
 from tkinter import *
 from tkinter import messagebox
 from tkinter import scrolledtext
+from ttkthemes import ThemedTk
 import face_recognition
 import numpy as np
 import openpyxl
@@ -22,10 +23,10 @@ verbose = False
 def mostrar_user():
     wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
-    window = Tk()
+    window = ThemedTk(theme="yaru")
     window.title("Lista de usuarios")
-    window.geometry('350x200')
-    txt = scrolledtext.ScrolledText(window,width=40,height=10)
+    #window.geometry('350x350')
+    txt = scrolledtext.ScrolledText(window,width=50,height=20, font=("Arial Bold", 20))
     
     for i in range(1,ws.max_row):
         nombre = ws.cell(row = i, column = 1).value

@@ -8,3 +8,4 @@ face_recognition
 opencv-python
 passlib
 stdiomask
+git+https://github.com/RedFantom/ttkthemes
