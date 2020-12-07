@@ -95,9 +95,13 @@ def mostrar():
 
 def agregar():
     if (txt_user.get() == "" or txt_dpto.get() == ""): messagebox.showwarning('Agregar usuario','Campos incompletos')
-    elif int(txt_mail.get()) < 0: messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser un número entero mayor o igual a 0')
-    elif int(txt_debt.get()) < 0: messagebox.showwarning('Agregar usuario','El monto adeudado debe ser un número entero mayor o igual a 0')
-
+    elif (int(txt_mail.get()) < 0 or int(txt_debt.get()) < 0):
+        if int(txt_mail.get()) < 0: 
+            messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser un número entero mayor o igual a 0')
+            txt_mail.delete(0,"end")
+        if int(txt_debt.get()) < 0: 
+            messagebox.showwarning('Agregar usuario','El monto adeudado debe ser un número entero mayor o igual a 0')
+            txt_debt.delete(0,"end")
     else: 
         man.agregar_user(txt_user.get().upper(), txt_dpto.get().upper(), txt_mail.get(), txt_debt.get())
         txt_user.delete(0,"end")
