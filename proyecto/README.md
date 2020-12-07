@@ -20,6 +20,6 @@
 - [x] Captura fotográfica de ROE exclusivamente.
 - [x] Entrenamiento en módulo externo.
 - [x] Guardar modelos entrenados en archivo pickle.
-- [ ] Cambiar contraseña sin contraseña actual.
-- [ ] Interfaz Gráfica.
+- [x] Cambiar contraseña con contraseña maestra.
+- [x] Interfaz Gráfica.
 
