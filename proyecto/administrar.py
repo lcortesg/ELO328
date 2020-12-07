@@ -60,17 +60,12 @@ def eliminar_admin():
         administrar()
 
     while True:
-        password = stdiomask.getpass("Contraseña: ")
         for u in range(len(users)):
-            if users[u] == user:
-                if sha256_crypt.verify(password, passwords[u]):
-                    hash = sha256_crypt.hash(password)
-                    users.pop(u)
-                    passwords.pop(u)
-                    write_json(data)
-                    print("Usuario eliminado con éxito")
-                else:
-                    print ("CONTRASEÑA INCORRECTA")
+            if users[u] == user: 
+                users.pop(u)
+                passwords.pop(u)
+                write_json(data)
+                print("Usuario eliminado con éxito")
                 administrar()
 
 def cambiar_admin():
@@ -87,27 +82,24 @@ def cambiar_admin():
             administrar()
 
     while True:
-        password_old = stdiomask.getpass("Ingrese contraseña actual: ")
         for u in range(len(users)):
             if users[u] == user:
-                if sha256_crypt.verify(password_old, passwords[u]):
-                    while True:
-                        password = stdiomask.getpass("Ingrese nueva contraseña: ")
-                        password2 = stdiomask.getpass("Reingrese nueva contraseña: ")
-                        if password == password2:
-                            break
-                        else:
-                            print("Las contraseñas no coinciden")
-                    hash = sha256_crypt.hash(password)
-                    users.pop(u)
-                    passwords.pop(u)
-                    users.append(user)
-                    passwords.append(hash)
-                    write_json(data)
-                    print("Contraseña modificada con éxito")
-                else:
-                    print ("CONTRASEÑA INCORRECTA")
+                while True:
+                    password = stdiomask.getpass("Ingrese nueva contraseña: ")
+                    password2 = stdiomask.getpass("Reingrese nueva contraseña: ")
+                    if password == password2:
+                        break
+                    else:
+                        print("Las contraseñas no coinciden")
+                hash = sha256_crypt.hash(password)
+                users.pop(u)
+                passwords.pop(u)
+                users.append(user)
+                passwords.append(hash)
+                write_json(data)
+                print("Contraseña modificada con éxito")
                 administrar()
+
 
 def administrar():
     while True:

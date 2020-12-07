@@ -13,14 +13,7 @@ import cv2
 import sys
 import os
 
-auto_train = True
-
-with open("data/passwords.json", "r") as json_file: 
-    data = json.load(json_file) 
-    users = data["users"]
-    passwords = data["passwords"]
-
-#print("User 0 '{}', has password '{}'".format(users[0], passwords[0]))
+auto_train = False
 
 def mostrar_user():
     wb = openpyxl.load_workbook("data/info.xlsx")
@@ -37,7 +30,7 @@ def eliminar_user():
     usuario = input("Ingrese el nombre del usuario a eliminar : ").upper()
     depto = input("Ingrese el número de departamento : ")
     try:
-        os.remove("data/img/"+usuario+"-"+depto+".jpg")
+        os.remove("data/dataset/"+usuario+"-"+depto+".jpg")
         print("IMAGEN DE USUARIO ELIMINADA")   
     except:
         print("IMAGEN DE USUARIO NO ENCONTRADA")
@@ -52,7 +45,7 @@ def eliminar_user():
             ws.delete_rows(i,1)
             wb.save('data/info.xlsx')   
             print("USUARIO ELIMINADO DE LA BASE DE DATOS")
-            train.train() 
+            if auto_train: train.train() 
     if (not encontrado):
         print("USUARIO NO ENCONTRADO EN LA BASE DE DATOS")
 
@@ -114,9 +107,8 @@ def agregar_user():
 
         # Presionar "c" para capturar imagen
         if key == ord('c') and cara == True: 
-            cv2.imwrite('data/img/'+usuario+"-"+depto+'.jpg',picture)
+            cv2.imwrite('data/dataset/'+usuario+"-"+depto+'.jpg',picture)
             print("IMAGEN CAPTURADA")
-            train.train()
             cv2.destroyAllWindows()
             #VideoStream(0).stop()
             vs.stop()
@@ -140,8 +132,8 @@ def agregar_user():
         ws.cell(row=2, column=4).value = 0
         wb.save('data/info.xlsx')
         print("USUARIO AGREGADO A LA BASE DE DATOS")
+        if auto_train: train.train()
         gestion()
-
 
 def gestion():
     while True:
@@ -156,30 +148,5 @@ def gestion():
         if (modo == "M" or modo == "m"):
             mostrar_user()
         if (modo == "P" or modo == "p"):
-            main()
-
-def gestion_check():
-    while True:
-        user = input("INGRESE USUARIO: ")
-        while user in users:
-            password = stdiomask.getpass("INGRESE CONTRASEÑA: ")
-            for u in range(len(users)):
-                if users[u] == user:
-                    if sha256_crypt.verify(password, passwords[u]):
-                        print ("BIENVENIDO", user)
-                        gestion()
-                        #break
-                    else:
-                        print ("CONTRASEÑA INCORRECTA")
-                        gestion_check()
-        else:
-            print("USUARIO NO REGISTRADO") 
-
-def gestion_gui(usr_gui, psw_gui):
-    gestion()
-    for u in range(len(users)):
-        if users[u] == usr_gui:
-            if sha256_crypt.verify(psw_gui, passwords[u]):
-                gestion()
-
-#gestion_check()    
+            main() 
+  

@@ -11,7 +11,7 @@ def reconocer():
     ultimos = []
     before = time.time()
 
-    with open('data/encodings.dat', 'rb') as f:
+    with open('data/modelo.dat', 'rb') as f:
         all_face_encodings = pickle.load(f)
     
     tolerance = 0.6
@@ -27,8 +27,6 @@ def reconocer():
     face_encodings = []
     face_names = []
     process_this_frame = True
-
-    
 
     while True:
         ret, frame = video_capture.read()
@@ -72,7 +70,7 @@ def reconocer():
                     f = open("data/log.txt","a+")
                     f.write(time_log+" - "+name+"\r\n")
                     f.close
-                    cv2.imwrite('data/img_log/'+time_pic+" - "+name+'.jpg',frame)
+                    cv2.imwrite('data/log_img/'+time_pic+" - "+name+'.jpg',frame)
                     ultimos.append(name)
 
                 if int(now - before) > 60:

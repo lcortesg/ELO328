@@ -1,8 +1,6 @@
-import administrar as admin
 import gestionar as gest
 import monitorear as mon
 import train as train
-from tkinter import *
 from passlib.hash import sha256_crypt
 import stdiomask
 import getpass
@@ -20,11 +18,11 @@ with open("data/passwords.json", "r") as json_file:
     users = data["users"]
     passwords = data["passwords"]
 
-def check_password(password):
-    for i in range(len(users)):
+def check_password(password, passwords):
+    for i in range(len(passwords)):
         if sha256_crypt.verify(password, passwords[i]):
             print ("BIENVENIDO")
-            main()
+            line()
     print ("CONTRASEÑA INCORRECTA")
 
 def change_password(password):
@@ -37,9 +35,9 @@ def change_password(password):
             passwords.append(hash)
             write_json(data)
             print("Contraseña modificada con éxito")
-            main()
+            line()
 
-def main():
+def line():
     while True:
         modo = input("(M) Monitorear. (U) Gestionar Usuarios. (C) Cambiar Contraseña. (T) Entrenar Modelo. (Q) Salir. : ")
 
