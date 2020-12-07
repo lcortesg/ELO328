@@ -109,7 +109,12 @@ def eliminar():
     if txt_user.get() == "": res = messagebox.showwarning('Eliminar usuario','Campos incompletos')
     else:   
         res = messagebox.askyesno('Eliminar usuario','¿Está seguro que desea eliminar al usuario?')
-        if res: man.eliminar_user(txt_user.get().upper(), txt_dpto.get().upper())
+        if res: 
+            man.eliminar_user(txt_user.get().upper(), txt_dpto.get().upper())
+            txt_user.delete(0,"end")
+            txt_dpto.delete(0,"end")
+            txt_mail.delete(0,"end")
+            txt_debt.delete(0,"end")
 
 def activate_check():
     if chk_state.get() == 1: 
@@ -180,6 +185,8 @@ def menu():
     #btn_usr.grid(column=1, row=3)
 
     # TAB 2
+
+
     persona = Label(tab2, text="Gestión de Usuarios", font=("Arial Bold", 20))
     persona.grid(column=2, row=0, padx=5, pady=5)
 
