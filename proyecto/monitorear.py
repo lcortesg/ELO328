@@ -1,3 +1,5 @@
+from tkinter import *
+from tkinter import messagebox
 from imutils import paths
 import face_recognition
 import numpy as np
@@ -6,6 +8,12 @@ import pickle
 import time
 import cv2
 import os
+
+def reconocer_kill():
+    # Libera la cámara y destruye las ventanas
+    cv2.VideoCapture(0).release()
+    #video_capture.release()
+    cv2.destroyAllWindows()
 
 def reconocer():
     ultimos = []
@@ -116,29 +124,28 @@ def reconocer():
                 cv2.rectangle(frame, (left, bottom-35), (right, bottom), (0, 255, 0), cv2.FILLED)
 
                 if (depto == "Desconocido"):
-                    cv2.rectangle(frame, (left, bottom+35), (right, bottom), (0, 0, 255), cv2.FILLED)
+                    cv2.rectangle(frame, (left-1, bottom+35), (right+1, bottom), (0, 0, 255), cv2.FILLED)
                 if (depto != "Desconocido"):
-                    cv2.rectangle(frame, (left, bottom+35), (right, bottom), (0, 255, 0), cv2.FILLED)
+                    cv2.rectangle(frame, (left-1, bottom+35), (right+1, bottom), (0, 255, 0), cv2.FILLED)
 
                 cv2.putText(frame,"Depto. "+depto, (left+6, bottom+30), font, 1.0, (255, 255, 255), 1)
 
                 if (int(correo) > 0):
-                    cv2.rectangle(frame, (left, bottom+35), (right, bottom+65), (0, 0, 255), cv2.FILLED)
+                    cv2.rectangle(frame, (left-1, bottom+35), (right+1, bottom+65), (0, 0, 255), cv2.FILLED)
                     cv2.putText(frame, "Correo "+correo, (left+6, bottom+60), font, 1.0, (255, 255, 255), 1)
 
                 if (int(deudas) > 0):
-                    cv2.rectangle(frame, (left, bottom+65), (right, bottom+95), (0, 0, 255), cv2.FILLED)
+                    cv2.rectangle(frame, (left-1, bottom+65), (right+1, bottom+95), (0, 0, 255), cv2.FILLED)
                     cv2.putText(frame, "Deudas "+deudas, (left+6, bottom+90), font, 1.0, (255, 255, 255), 1)
 
             cv2.putText(frame, name, (left+6, bottom-6), font, 1.0, (255, 255, 255), 1)
 
         # Muestra imagen resultante
-        #frame = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
+        frame = cv2.resize(frame, (0, 0), fx=0.8, fy=0.8)
         cv2.imshow('Video', frame)
 
         # Presionar "q" para salir
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        if cv2.waitKey(1) & 0xFF == ord('q'): break
 
     # Libera la cámara y destruye las ventanas
     video_capture.release()

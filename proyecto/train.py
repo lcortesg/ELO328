@@ -5,15 +5,17 @@ import pickle
 import cv2
 import os
 
+verbose = False
+
 def train():
-    print("ENTRENANDO MODELO")
+    if verbose: print("ENTRENANDO MODELO")
     all_face_encodings = {}
     imagePaths = list(paths.list_images('data/dataset'))
 
     for i in imagePaths:
-        name = i[9:-4]
+        name = i[13:-4]
         all_face_encodings[name] = face_recognition.face_encodings(face_recognition.load_image_file(i),known_face_locations=None, num_jitters=1, model='large')[0]
 
     with open('data/modelo.dat', 'wb') as f:
         pickle.dump(all_face_encodings, f)
-    print("ENTRENAMIENTO FINALIZADO")
+    if verbose: print("ENTRENAMIENTO FINALIZADO")
