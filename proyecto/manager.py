@@ -23,7 +23,8 @@ verbose = False
 def mostrar_user():
     wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
-    window = ThemedTk(theme="yaru")
+    window = Tk()
+    #window = ThemedTk(theme="yaru")
     window.title("Lista de usuarios")
     #window.geometry('350x350')
     txt = scrolledtext.ScrolledText(window,width=50,height=20, font=("Arial Bold", 20))

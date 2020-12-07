@@ -141,8 +141,8 @@ def log_users():
 def menu():
     global window
     window.destroy()
-    window = ThemedTk(theme="yaru")
-    #window = Tk()
+    #window = ThemedTk(theme="yaru")
+    window = Tk()
     #ttk.Style().theme_use('adapta')
     window.title("Let me in")
 
@@ -374,8 +374,8 @@ def menu_old():window = Tk()
 
 #def login():
 #pyglet.font.add_file("data/OpenSans-Regular.ttf")
-#window = Tk()
-window = ThemedTk(theme="yaru")
+window = Tk()
+#window = ThemedTk(theme="yaru")
 #ttk.Style().theme_use('adapta')
 window.title("Let me in - Log In")
 #window.geometry('350x200')
