@@ -94,8 +94,13 @@ def mostrar():
     man.mostrar_user()
 
 def agregar():
-    if txt_user.get() == "": res = messagebox.showwarning('Agregar usuario','Campos incompletos')
-    else: man.agregar_user(txt_user.get().upper(), txt_dpto.get().upper(), txt_mail.get(), txt_debt.get())
+    if (txt_user.get() == "" or txt_dpto.get() == ""): res = messagebox.showwarning('Agregar usuario','Campos incompletos')
+    else: 
+    	man.agregar_user(txt_user.get().upper(), txt_dpto.get().upper(), txt_mail.get(), txt_debt.get())
+    	txt_user.delete(0,"end")
+    	txt_dpto.delete(0,"end")
+    	txt_mail.delete(0,"end")
+    	txt_debt.delete(0,"end")
 
 def eliminar():
     if txt_user.get() == "": res = messagebox.showwarning('Eliminar usuario','Campos incompletos')
@@ -203,9 +208,11 @@ def menu():
 
     txt_mail = Entry(tab2, width=15, font=("Arial Bold", 20))
     txt_mail.grid(column=2, row=3, padx=5, pady=5)
+    #txt_mail.insert(END, '0')
 
     txt_debt = Entry(tab2, width=15, font=("Arial Bold", 20))
     txt_debt.grid(column=2, row=4, padx=5, pady=5)
+    #txt_debt.insert(END, '0')
 
     btn_trn = Button(tab2, text="Entrenar", font=("Arial Bold", 20), command=entrenar)
     btn_trn.grid(column=3, row=0, padx=5, pady=5)

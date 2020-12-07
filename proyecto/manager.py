@@ -159,8 +159,12 @@ def agregar_user(usuario, depto, mail, debt):
             ws.insert_rows(2)
             ws.cell(row=2, column=1).value = usuario
             ws.cell(row=2, column=2).value = depto
-            ws.cell(row=2, column=3).value = int(mail)
-            ws.cell(row=2, column=4).value = int(debt)
+            try:
+                ws.cell(row=2, column=3).value = int(mail)
+                ws.cell(row=2, column=4).value = int(debt)
+            except:
+                ws.cell(row=2, column=3).value = 0
+                ws.cell(row=2, column=4).value = 0
             wb.save('data/info.xlsx')
             messagebox.showwarning('Agregar usuario','Usuario Agregado')
             if verbose: print("USUARIO AGREGADO A LA BASE DE DATOS")
