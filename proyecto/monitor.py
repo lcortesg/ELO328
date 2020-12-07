@@ -19,7 +19,7 @@ def reconocer():
     ultimos = []
     before = time.time()
 
-    with open('data/modelo.dat', 'rb') as f:
+    with open('data/model.dat', 'rb') as f:
         all_face_encodings = pickle.load(f)
     
     tolerance = 0.6
@@ -36,6 +36,8 @@ def reconocer():
     face_names = []
     process_this_frame = True
 
+    time.sleep(2)
+    
     while True:
         ret, frame = video_capture.read()
         frame = cv2.flip(frame, 1)

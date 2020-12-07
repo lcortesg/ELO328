@@ -166,17 +166,3 @@ def agregar_user(usuario, depto, mail, debt):
             if verbose: print("USUARIO AGREGADO A LA BASE DE DATOS")
             if auto_train: train.train()
             #quit()
-
-
-'''
-def gestion(modo, usuario, depto):
-    if (modo == "Q" or modo == "q"):
-        if verbose: print ("HASTA PRONTO")
-        exit()
-    if (modo == "E" or modo == "e"):
-        eliminar_user(usuario, depto)
-    if (modo == "A" or modo == "a"):
-        agregar_user(usuario, depto)
-    if (modo == "M" or modo == "m"):
-        mostrar_user()
-'''

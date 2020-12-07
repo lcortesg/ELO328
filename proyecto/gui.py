@@ -1,5 +1,5 @@
-import gestionar as gest
-import monitorear as mon
+import manager as man
+import monitor as mon
 import train as train
 from tkinter import *
 from tkinter import ttk
@@ -65,25 +65,19 @@ def check_password(password):
 
 def change():
     if (txt_psw.get() == "" or txt_psw2.get() == "") : res = messagebox.showwarning('Cambio de contraseña','Campo incompleto')
-    if (txt_psw.get() != txt_psw2.get()) : 
-        res = messagebox.showwarning('Cambio de contraseña','Las contraseñas no coinciden\n Inténtelo nuevamente.')
-        txt_psw.delete(0,"end")
-        txt_psw2.delete(0,"end")
-    else :
-        res = messagebox.askokcancel('Cambio de contraseña','¿Está seguro que desea cambiar la contraseña?')
-        if res:
-            if change_password(txt_psw.get()):
-                messagebox.showinfo('Cambio de contraseña','Contraseña cambiada satisfactoriamente')
-                txt_psw.delete(0,"end")
-                txt_psw2.delete(0,"end")
-                chk_state.set(0)
-                activate_check()
+    else:
+        if (txt_psw.get() != txt_psw2.get()): messagebox.showwarning('Cambio de contraseña','Las contraseñas no coinciden\n Inténtelo nuevamente.')
+
         else:
-            txt_psw.delete(0,"end")
-            txt_psw2.delete(0,"end")
-            chk_state.set(0)
-            activate_check()
-            messagebox.showwarning('Cambio de contraseña','Cambio de contraseña cancelado')
+            res = messagebox.askokcancel('Cambio de contraseña','¿Está seguro que desea cambiar la contraseña?')
+            if res:
+                if change_password(txt_psw.get()): messagebox.showinfo('Cambio de contraseña','Contraseña cambiada satisfactoriamente')
+            else:
+                messagebox.showwarning('Cambio de contraseña','Cambio de contraseña cancelado')
+    txt_psw.delete(0,"end")
+    txt_psw2.delete(0,"end")
+    chk_state.set(0)
+    activate_check()    
 
 def change_password(password):
     hash = sha256_crypt.hash(password)
@@ -97,18 +91,17 @@ def change_password(password):
             return True
 
 def mostrar():
-    gest.mostrar_user()
+    man.mostrar_user()
 
 def agregar():
     if txt_user.get() == "": res = messagebox.showwarning('Agregar usuario','Campos incompletos')
-    else: gest.agregar_user(txt_user.get().upper(), txt_dpto.get().upper(), txt_mail.get(), txt_debt.get())
+    else: man.agregar_user(txt_user.get().upper(), txt_dpto.get().upper(), txt_mail.get(), txt_debt.get())
 
 def eliminar():
     if txt_user.get() == "": res = messagebox.showwarning('Eliminar usuario','Campos incompletos')
     else:   
         res = messagebox.askyesno('Eliminar usuario','¿Está seguro que desea eliminar al usuario?')
-        if res: gest.eliminar_user(txt_user.get().upper(), txt_dpto.get().upper())
-
+        if res: man.eliminar_user(txt_user.get().upper(), txt_dpto.get().upper())
 
 def activate_check():
     if chk_state.get() == 1: 
@@ -120,13 +113,25 @@ def activate_check():
         txt_psw2.delete(0,"end")
         txt_psw2.config(state='disabled')
 
+def log_users():
+    f = open("data/log.txt", "r")
+    window = ThemedTk(theme="yaru")
+    window.title("Log de usuarios")
+    #window.geometry('350x350')
+    txt = scrolledtext.ScrolledText(window,width=50,height=20, font=("Arial Bold", 20))
+    for line in f:
+        txt.insert(INSERT,line+"\n")
+    f.close()
+    txt.grid(column=0,row=0)
+    window.mainloop()
+
 def menu():
     global window
     window.destroy()
     window = ThemedTk(theme="yaru")
     #window = Tk()
     #ttk.Style().theme_use('adapta')
-    window.title("Let me in - Menú")
+    window.title("Let me in")
 
     for i in range(4):
         window.columnconfigure(i, weight=1, minsize=75)
@@ -143,14 +148,17 @@ def menu():
     tab_control.add(tab3, text='Cambio de Contraseña')
 
     # TAB 1
-    btn_mon = Button(tab1, text="Monitorear Cámara", command=recog)
-    btn_mon.grid(column=2, row=1, padx=5, pady=5)
+    persona = Label(tab1, text="Monitoreo de Usuarios", font=("Arial Bold", 20))
+    persona.grid(column=1, row=1, padx=5, pady=5)
 
-    btn_trn = Button(tab1, text="Entrenar Modelo", command=entrenar)
-    btn_trn.grid(column=2, row=2, padx=5, pady=5)
+    btn_mon = Button(tab1, text="Monitorear Cámara", font=("Arial Bold", 20), fg="green", command=recog)
+    btn_mon.grid(column=1, row=2, padx=5, pady=5)
 
-    btn_exit = Button(tab1, text="Exit", fg="red", command=salir)
-    btn_exit.grid(column=2, row=3, padx=5, pady=5)
+    btn_log = Button(tab1, text="Log de Usuarios", font=("Arial Bold", 20), fg="blue", command=log_users)
+    btn_log.grid(column=1, row=3, padx=5, pady=5)
+
+    btn_exit = Button(tab1, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
+    btn_exit.grid(column=1, row=4, padx=5, pady=5)
 
     #global bar
     #bar = ttk.Progressbar(window, orient = HORIZONTAL, length = 100)
@@ -164,19 +172,19 @@ def menu():
     #btn_usr.grid(column=1, row=3)
 
     # TAB 2
-    persona = Label(tab2, text="Gestión de Usuarios")
+    persona = Label(tab2, text="Gestión de Usuarios", font=("Arial Bold", 20))
     persona.grid(column=2, row=0, padx=5, pady=5)
 
-    persona = Label(tab2, text="Usuario: ")
+    persona = Label(tab2, text="Usuario:", font=("Arial Bold", 20))
     persona.grid(column=1, row=1, padx=5, pady=5)
 
-    departamento = Label(tab2, text="Depto.: ")
+    departamento = Label(tab2, text="Depto.:", font=("Arial Bold", 20))
     departamento.grid(column=1, row=2, padx=5, pady=5)
 
-    correo = Label(tab2, text="Correo: ")
+    correo = Label(tab2, text="Correo:", font=("Arial Bold", 20))
     correo.grid(column=1, row=3, padx=5, pady=5)
 
-    deudas = Label(tab2, text="Deudas: ")
+    deudas = Label(tab2, text="Deudas:", font=("Arial Bold", 20))
     deudas.grid(column=1, row=4, padx=5, pady=5)
 
     #global txt
@@ -187,28 +195,31 @@ def menu():
     txt_user = " "
     txt_dpto = " "
 
-    txt_user = Entry(tab2, width=15)
+    txt_user = Entry(tab2, width=15, font=("Arial Bold", 20))
     txt_user.grid(column=2, row=1, padx=5, pady=5)
 
-    txt_dpto = Entry(tab2, width=15)
+    txt_dpto = Entry(tab2, width=15, font=("Arial Bold", 20))
     txt_dpto.grid(column=2, row=2, padx=5, pady=5)
 
-    txt_mail = Entry(tab2, width=15)
+    txt_mail = Entry(tab2, width=15, font=("Arial Bold", 20))
     txt_mail.grid(column=2, row=3, padx=5, pady=5)
 
-    txt_debt = Entry(tab2, width=15)
+    txt_debt = Entry(tab2, width=15, font=("Arial Bold", 20))
     txt_debt.grid(column=2, row=4, padx=5, pady=5)
 
-    btn_add = Button(tab2, text="Agregar", fg="green", command=agregar)
+    btn_trn = Button(tab2, text="Entrenar", font=("Arial Bold", 20), command=entrenar)
+    btn_trn.grid(column=3, row=0, padx=5, pady=5)
+
+    btn_add = Button(tab2, text="Agregar", font=("Arial Bold", 20), fg="green", command=agregar)
     btn_add.grid(column=3, row=1, padx=5, pady=5)
 
-    btn_del = Button(tab2, text="Eliminar", fg="red", command=eliminar)
+    btn_del = Button(tab2, text="Eliminar", font=("Arial Bold", 20), fg="red", command=eliminar)
     btn_del.grid(column=3, row=2, padx=5, pady=5)
 
-    btn_show = Button(tab2, text="Mostrar", fg="blue", command=mostrar)
+    btn_show = Button(tab2, text="Mostrar", font=("Arial Bold", 20), fg="blue", command=mostrar)
     btn_show.grid(column=3, row=3, padx=5, pady=5)
 
-    btn_exit2 = Button(tab2, text="Exit", fg="red", command=salir)
+    btn_exit2 = Button(tab2, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
     btn_exit2.grid(column=3, row=4, padx=5, pady=5)
 
     txt_user.focus()
@@ -218,30 +229,30 @@ def menu():
     global txt_psw2
     global chk_state
 
-    ps = Label(tab3, text="Cambio de contraseña")
+    ps = Label(tab3, text="Cambio de credenciales", font=("Arial Bold", 20))
     ps.grid(column=1, row=1, padx=5, pady=5)
-    psw = Label(tab3, text="Ingrese Nueva Contraseña: ")
+    psw = Label(tab3, text="Ingrese contraseña:", font=("Arial Bold", 20))
     psw.grid(column=1, row=2, padx=5, pady=5)
-    psw2 = Label(tab3, text="Reingrese Nueva Contraseña: ")
+    psw2 = Label(tab3, text="Reingrese contraseña:", font=("Arial Bold", 20))
     psw2.grid(column=1, row=3, padx=5, pady=5)
 
-    txt_psw = Entry(tab3, width=15, state='disabled')
+    txt_psw = Entry(tab3, width=15, font=("Arial Bold", 20), state='disabled')
     txt_psw.config(show="*")
     txt_psw.grid(column=2, row=2, padx=5, pady=5)
 
-    txt_psw2 = Entry(tab3, width=15, state='disabled')
+    txt_psw2 = Entry(tab3, width=15, font=("Arial Bold", 20), state='disabled')
     txt_psw2.config(show="*")
     txt_psw2.grid(column=2, row=3, padx=5, pady=5)
 
     chk_state = IntVar()
     chk_state.set(0)
-    chk = Checkbutton(tab3, text='¿Nueva Contraseña?', variable=chk_state, command=activate_check)
+    chk = Checkbutton(tab3, text='¿Nueva Contraseña?', font=("Arial Bold", 20), fg="red", variable=chk_state, command=activate_check)
     chk.grid(column=2, row=1, padx=5, pady=5)
 
-    btn_cge = Button(tab3, text ="Cambiar", fg="blue",  command=change)
+    btn_cge = Button(tab3, text ="Cambiar", font=("Arial Bold", 20), fg="green",  command=change)
     btn_cge.grid(column=2, row=4, padx=5, pady=5)
 
-    btn_exit3 = Button(tab3, text="Exit", fg="red", command=salir)
+    btn_exit3 = Button(tab3, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
     btn_exit3.grid(column=1, row=4, padx=5, pady=5)
 
     tab_control.pack(expand=1, fill='both')
@@ -325,7 +336,7 @@ def menu_old():window = Tk()
 
     #txt_psw.focus()
     btn_gest = Button(window, text ="Cambiar", bg="red", fg="blue",  command=change)
-    btn_gest.grid(column=2, row=1)
+    btn_man.grid(column=2, row=1)
 
     btn_mon = Button(window, text="Monitorear Cámara", command=recog)
     btn_mon.grid(column=1, row=2)
@@ -352,15 +363,15 @@ window = ThemedTk(theme="yaru")
 window.title("Let me in - Log In")
 #window.geometry('350x200')
 #global txt_psw
-psw = Label(window, text="Contraseña: ")
+psw = Label(window, text="Contraseña: ", font=("Arial Bold", 20))
 psw.grid(column=0, row=1, padx=5, pady=5)
-txt_psw = Entry(window,width=15)
+txt_psw = Entry(window, width=15, font=("Arial Bold", 20))
 txt_psw.config(show="*")
 txt_psw.grid(column=1, row=1, padx=5, pady=5)
 txt_psw.focus()
-btn_gest = Button(window, text="Log In", fg="green", command=check)
-btn_gest.grid(column=2, row=1, padx=5, pady=5)
-btn_exit = Button(window, text="Exit", fg="red", command=salir)
+btn_login = Button(window, text="Log In", font=("Arial Bold", 20), fg="green", command=check)
+btn_login.grid(column=2, row=1, padx=5, pady=5)
+btn_exit = Button(window, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
 btn_exit.grid(column=1, row=2, padx=5, pady=5)
 window.mainloop()
 #login()

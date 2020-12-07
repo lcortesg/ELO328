@@ -14,8 +14,8 @@ def train():
 
     for i in imagePaths:
         name = i[13:-4]
-        all_face_encodings[name] = face_recognition.face_encodings(face_recognition.load_image_file(i),known_face_locations=None, num_jitters=1, model='large')[0]
+        all_face_encodings[name] = face_recognition.face_encodings(face_recognition.load_image_file(i),known_face_locations=None, num_jitters=10, model='large')[0]
 
-    with open('data/modelo.dat', 'wb') as f:
-        pickle.dump(all_face_encodings, f)
+    with open('data/model.dat', 'wb') as model:
+        pickle.dump(all_face_encodings, model)
     if verbose: print("ENTRENAMIENTO FINALIZADO")
