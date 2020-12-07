@@ -1,4 +1,3 @@
-import administrar as admin
 import gestionar as gest
 import monitorear as mon
 import train as train
