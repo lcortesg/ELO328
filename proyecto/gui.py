@@ -1,3 +1,12 @@
+'''
+@File    :   gui.py
+@Date    :   2020/12/07
+@Author  :   Lucas Cortés Gutierrez.
+@Version :   2.0
+@Contact :   lucas.cortes.14@sansano.usm.cl"
+@Desc    :   Interfaz gráfica del sistema de reconocimineto de personas "Let Me In"
+'''
+
 import manager as man
 import monitor as mon
 import train as train
@@ -24,45 +33,51 @@ window = ""
 #txt = ""
 #bar = ""
 
+# Función que escribe en el archivo JSON la contraseña de administración.
 def write_json(data, filename='data/passwords.json'): 
     with open(filename,'w') as f: 
         json.dump(data, f, indent=4) 
 
+# Fucnión que extrae la contraseña del administración del archivo JSON.
 with open("data/passwords.json", "r") as json_file: 
     data = json.load(json_file) 
     users = data["users"]
     passwords = data["passwords"]
 
-def recog():
-    messagebox.showwarning('Inicia monitoreo','Iniciando monitoreo\n Presionar "Q" para salir.')
-    mon.reconocer()
+# Función encargada de llamar al módulo de monitoreo.
+def monitorear():
+    messagebox.showwarning('Inicia monitoreo','Iniciando monitoreo\n Presionar "ESC" para salir.')
+    mon.monitor()
 
-def recog_kill():
-    mon.reconocer_kill()
+# Función que detiene el módulo de monitoreo.
+def monitorear_kill():
+    mon.monitor_kill()
 
-
+# Función encargada de llamar al módulo de entrenamiento.
 def entrenar():
     train.train()
     messagebox.showinfo('Entrenamiento','Entrenamiento Finalizado')
 
+# Función que detiene la ejecución del programa.
 def salir():
     res = messagebox.askokcancel('Salir','¿Está seguro que desea cerrar el programa?')
     if res: exit()
 
-
-def check(): 
+# Función que llama al menu principal una vez la contraseña fue verificada.
+def check(event=None): 
     if check_password(txt_psw.get()): 
         txt_psw.delete(0,"end")
         menu()
     else: messagebox.showwarning('Error','Contraseña Incorrecta')
-    #messagebox.showerror('Error','Contraseña Incorrecta')
 
+# Función que verifica que la contraseña ingresada sea la corecta.
 def check_password(password):
     for i in range(len(users)):
         if sha256_crypt.verify(password, passwords[i]):
             return True
     return False
 
+# Función que se encarga de comparar los campos de cambio de contraseña.
 def change():
     if (txt_psw.get() == "" or txt_psw2.get() == "") : res = messagebox.showwarning('Cambio de contraseña','Campo incompleto')
     else:
@@ -79,6 +94,7 @@ def change():
     chk_state.set(0)
     activate_check()    
 
+# Función encargada de realizar el cambio de contraseña.
 def change_password(password):
     hash = sha256_crypt.hash(password)
     for i in range(len(users)):
@@ -90,46 +106,63 @@ def change_password(password):
             write_json(data)
             return True
 
+# Función encargada de imprimir una lista de los usuarios registrados.
 def mostrar():
-    man.mostrar_user()
+    man.show_user()
 
+# Función encargada de validar el tipo de dato en la variable "txt_mail".
+def check_mail():
+    try:
+        mail_check = True if type(int(txt_mail.get())) == int else False
+
+        if mail_check: check_debt()
+    except:
+        mail_check = False
+        messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser un número')
+        txt_mail.delete(0,"end")
+
+# Función encargada de validar el tipo de dato en la variable "txt_debt".
+def check_debt():
+    try:
+        debt_check = True if type(int(txt_debt.get())) == int else False
+        if debt_check: agregar()
+
+    except:
+        debt_check = False
+        messagebox.showwarning('Agregar usuario','El monto adeudado debe ser un número')
+        txt_debt.delete(0,"end")
+
+# Función encargada de agregar un nuevo usuario a la base de datos.
 def agregar():
-    if (txt_user.get() == "" or txt_dpto.get() == ""): messagebox.showwarning('Agregar usuario','Campos incompletos')
-    elif (int(txt_mail.get()) < 0 or int(txt_debt.get()) < 0):
+    if (int(txt_mail.get()) < 0 or int(txt_debt.get()) < 0):
         if int(txt_mail.get()) < 0: 
-            messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser un número entero mayor o igual a 0')
+            messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser mayor o igual a 0')
             txt_mail.delete(0,"end")
-        if int(txt_debt.get()) < 0: 
-            messagebox.showwarning('Agregar usuario','El monto adeudado debe ser un número entero mayor o igual a 0')
+        elif int(txt_debt.get()) < 0: 
+            messagebox.showwarning('Agregar usuario','El monto adeudado debe ser mayor o igual a 0')
             txt_debt.delete(0,"end")
     else: 
-        man.agregar_user(txt_user.get().upper(), txt_dpto.get().upper(), txt_mail.get(), txt_debt.get())
+        man.add_user(txt_user.get().upper(), txt_dpto.get().upper(), txt_mail.get(), txt_debt.get())
         txt_user.delete(0,"end")
         txt_dpto.delete(0,"end")
         txt_mail.delete(0,"end")
         txt_debt.delete(0,"end")
+        txt_mail.insert(END, '0')
+        txt_debt.insert(END, '0')
 
+# Función encargada de eliminar a un usuario desde la base de datos.
 def eliminar():
     if txt_user.get() == "": res = messagebox.showwarning('Eliminar usuario','Campos incompletos')
     else:   
         res = messagebox.askyesno('Eliminar usuario','¿Está seguro que desea eliminar al usuario?')
         if res: 
-            man.eliminar_user(txt_user.get().upper(), txt_dpto.get().upper())
+            man.delete_user(txt_user.get().upper(), txt_dpto.get().upper())
             txt_user.delete(0,"end")
             txt_dpto.delete(0,"end")
             txt_mail.delete(0,"end")
             txt_debt.delete(0,"end")
 
-def activate_check():
-    if chk_state.get() == 1: 
-        txt_psw.config(state='normal')
-        txt_psw2.config(state='normal')
-    else : 
-        txt_psw.delete(0,"end")
-        txt_psw.config(state='disabled')
-        txt_psw2.delete(0,"end")
-        txt_psw2.config(state='disabled')
-
+# Función encargada de imprimir un log de los usuarios detectados.
 def log_users():
     f = open("data/log.txt", "r")
     window = ThemedTk(theme="yaru")
@@ -142,6 +175,22 @@ def log_users():
     txt.grid(column=0,row=0)
     window.mainloop()
 
+# Función encargada de revisar el estado de un check en la pestaña de cambio de contraseña.
+def activate_check():
+    if chk_state.get() == 1: 
+        txt_psw.config(state='normal')
+        txt_psw2.config(state='normal')
+    else : 
+        txt_psw.delete(0,"end")
+        txt_psw.config(state='disabled')
+        txt_psw2.delete(0,"end")
+        txt_psw2.config(state='disabled')
+
+# Función encargada de vaciar los valores por defecto en los campos "txt_mail" y "txt_debt".
+def removeValue(event):
+    event.widget.delete(0, 'end')
+
+# Función que construye el menu principal y sus pestañas correspondientes.
 def menu():
     global window
     window.destroy()
@@ -164,11 +213,11 @@ def menu():
     tab_control.add(tab2, text='Gestión de Usuarios')
     tab_control.add(tab3, text='Cambio de Contraseña')
 
-    # TAB 1
+    ########## TAB 1 ##########
     persona = Label(tab1, text="Monitoreo de Usuarios", font=("Arial Bold", 20))
     persona.grid(column=1, row=1, padx=5, pady=5)
 
-    btn_mon = Button(tab1, text="Monitorear Cámara", font=("Arial Bold", 20), fg="green", command=recog)
+    btn_mon = Button(tab1, text="Monitorear Cámara", font=("Arial Bold", 20), fg="green", command=monitorear)
     btn_mon.grid(column=1, row=2, padx=5, pady=5)
 
     btn_log = Button(tab1, text="Log de Usuarios", font=("Arial Bold", 20), fg="blue", command=log_users)
@@ -182,15 +231,13 @@ def menu():
     #bar['value'] = 70
     #bar.grid(column=2, row=4)
 
-    #btn_closemon = Button(window, text="Cerrar monitor", command=recog_kill)
+    #btn_closemon = Button(window, text="Cerrar monitor", command=monitorear_kill)
     #btn_closemon.grid(column=1, row=2)
 
     #btn_usr = Button(tab1, text="Gestionar Usuarios", command=usuarios)
     #btn_usr.grid(column=1, row=3)
 
-    # TAB 2
-
-
+    ########## TAB 2 ##########
     persona = Label(tab2, text="Gestión de Usuarios", font=("Arial Bold", 20))
     persona.grid(column=2, row=0, padx=5, pady=5)
 
@@ -220,18 +267,22 @@ def menu():
     txt_dpto = Entry(tab2, width=15, font=("Arial Bold", 20))
     txt_dpto.grid(column=2, row=2, padx=5, pady=5)
 
+    txt_mail = IntVar()
     txt_mail = Entry(tab2, width=15, font=("Arial Bold", 20))
     txt_mail.grid(column=2, row=3, padx=5, pady=5)
-    #txt_mail.insert(END, '0')
+    txt_mail.insert(END, '0')
+    txt_mail.bind("<Button-1>", removeValue)
 
+    txt_debt = IntVar()
     txt_debt = Entry(tab2, width=15, font=("Arial Bold", 20))
     txt_debt.grid(column=2, row=4, padx=5, pady=5)
-    #txt_debt.insert(END, '0')
+    txt_debt.insert(END, '0')
+    txt_debt.bind("<Button-1>", removeValue)
 
     btn_trn = Button(tab2, text="Entrenar", font=("Arial Bold", 20), command=entrenar)
     btn_trn.grid(column=3, row=0, padx=5, pady=5)
 
-    btn_add = Button(tab2, text="Agregar", font=("Arial Bold", 20), fg="green", command=agregar)
+    btn_add = Button(tab2, text="Agregar", font=("Arial Bold", 20), fg="green", command=check_mail)
     btn_add.grid(column=3, row=1, padx=5, pady=5)
 
     btn_del = Button(tab2, text="Eliminar", font=("Arial Bold", 20), fg="red", command=eliminar)
@@ -245,7 +296,7 @@ def menu():
 
     txt_user.focus()
 
-    # TAB 3
+    ########## TAB 3 ##########
     global txt_psw
     global txt_psw2
     global chk_state
@@ -280,119 +331,26 @@ def menu():
     window.mainloop()
 
 
-'''
-def usuarios():
-    window = Tk()
-    window.geometry('350x200')
-    window.title("Let me in - Gestión de Usuarios")
-
-    btn_add = Button(window, text="Agregar", command=agregar)
-    btn_add.grid(column=0, row=1)
-
-    btn_del = Button(window, text="Eliminar", command=eliminar)
-    btn_del.grid(column=1, row=1)
-
-    btn_show = Button(window, text="Mostrar", command=mostrar)
-    btn_show.grid(column=2, row=1)
-
-    persona = Label(window, text="Usuario: ")
-    persona.grid(column=0, row=2)
-
-    departamento = Label(window, text="Departamento: ")
-    departamento.grid(column=0, row=3)
-
-    correo = Label(window, text="Correo: ")
-    correo.grid(column=0, row=4)
-
-    deudas = Label(window, text="Deudas: ")
-    deudas.grid(column=0, row=5)
-
-
-    global txt_user
-    global txt_dpto
-    global txt_mail
-    global txt_debt
-    txt_user = " "
-    txt_dpto = " "
-
-    txt_user = Entry(window, width=15)
-    txt_user.grid(column=1, row=2)
-
-    txt_dpto = Entry(window, width=15)
-    txt_dpto.grid(column=1, row=3)
-
-    txt_mail = Entry(window, width=15)
-    txt_mail.grid(column=1, row=4)
-
-    txt_debt = Entry(window, width=15)
-    txt_debt.grid(column=1, row=5)
-
-    btn_exit = Button(window, text="Exit", bg="red", fg="red", command=salir)
-    btn_exit.grid(column=1, row=6)
-
-    txt_user.focus()
-    window.mainloop()
-'''
-
-'''
-def menu_old():window = Tk()
-    window.geometry('350x200')
-    window.title("Let me in - Menú")
- 
-    #psw = Label(window, text="Nueva Contraseña: ")
-    #psw.grid(column=0, row=1)
-    global txt_psw
-    global chk_state
-
-    txt_psw = Entry(window, width=15, state='disabled')
-    txt_psw.config(show="*")
-    txt_psw.grid(column=1, row=1)
-
-    
-
-    chk_state = IntVar()
-    chk_state.set(False)
-    chk = Checkbutton(window, text='Nueva Contraseña', variable=chk_state, command=activate_check)
-    chk.grid(column=0, row=1)
-
-    #txt_psw.focus()
-    btn_gest = Button(window, text ="Cambiar", bg="red", fg="blue",  command=change)
-    btn_man.grid(column=2, row=1)
-
-    btn_mon = Button(window, text="Monitorear Cámara", command=recog)
-    btn_mon.grid(column=1, row=2)
-
-    #btn_closemon = Button(window, text="Cerrar monitor", command=recog_kill)
-    #btn_closemon.grid(column=1, row=2)
-
-    btn_usr = Button(window, text="Gestionar Usuarios", command=usuarios)
-    btn_usr.grid(column=1, row=3)
-
-    btn_trn = Button(window, text="Entrenar Modelo", command=entrenar)
-    btn_trn.grid(column=1, row=4)
-
-    btn_exit = Button(window, text="Exit", bg="red", fg="red", command=salir)
-    btn_exit.grid(column=1, row=5)
-    window.mainloop()
-'''
-
 #def login():
-#pyglet.font.add_file("data/OpenSans-Regular.ttf")
 window = Tk()
 #window = ThemedTk(theme="yaru")
 #ttk.Style().theme_use('adapta')
 window.title("Let me in - Log In")
+window.bind("<Return>", check)
+
 #window.geometry('350x200')
-#global txt_psw
 psw = Label(window, text="Contraseña: ", font=("Arial Bold", 20))
 psw.grid(column=0, row=1, padx=5, pady=5)
 txt_psw = Entry(window, width=15, font=("Arial Bold", 20))
 txt_psw.config(show="*")
 txt_psw.grid(column=1, row=1, padx=5, pady=5)
 txt_psw.focus()
+
 btn_login = Button(window, text="Log In", font=("Arial Bold", 20), fg="green", command=check)
 btn_login.grid(column=2, row=1, padx=5, pady=5)
+
 btn_exit = Button(window, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
 btn_exit.grid(column=1, row=2, padx=5, pady=5)
 window.mainloop()
 #login()
+

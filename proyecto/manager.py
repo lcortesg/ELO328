@@ -1,3 +1,12 @@
+'''
+@File    :   manager.py
+@Date    :   2020/12/07
+@Author  :   Lucas Cortés Gutierrez.
+@Version :   2.0
+@Contact :   lucas.cortes.14@sansano.usm.cl"
+@Desc    :   Módulo de administración del sistema de reconocimineto de personas "Let Me In"
+'''
+
 import train as train
 from passlib.hash import sha256_crypt
 from imutils.video import VideoStream
@@ -20,7 +29,7 @@ import os
 auto_train = False
 verbose = False
 
-def mostrar_user():
+def show_user():
     wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
     window = Tk()
@@ -41,7 +50,7 @@ def mostrar_user():
     window.mainloop()
     #gestion()
 
-def eliminar_user(usuario, depto):
+def delete_user(usuario, depto):
     #mostrar_user()
     encontrado = False
     #usuario = input("Ingrese el nombre del usuario a eliminar : ").upper()
@@ -69,7 +78,12 @@ def eliminar_user(usuario, depto):
         messagebox.showwarning('Eliminar usuario','Usuario no encontrado en la base de datos') 
         if verbose: print("USUARIO NO ENCONTRADO EN LA BASE DE DATOS")
 
-def agregar_user(usuario, depto, mail, debt):
+#def actualizar_user(usuario, depto):
+
+#def actualizar_datos(usuario, depto, mail, debt):
+
+
+def add_user(usuario, depto, mail, debt):
     wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
     encontrado = False
@@ -84,15 +98,14 @@ def agregar_user(usuario, depto, mail, debt):
         if (usr_cell == usuario and dep_cell == depto):
             encontrado = True
             if verbose: print("USUARIO YA SE ENCUENTRA REGISTRADO")
-            #actualizar = input("¿Desea actualizar la imagen del usuario? (Y) Si. (N) No. : ")
-            actualizar = messagebox.askyesno('Usuario ya registrado','Usuario ya registrado\n¿Desea actualizar la imagen del usuario?')
-            if actualizar: act_data = False
-            else: 
-                messagebox.showwarning('Captura fotográfica','Actualización de imagen cancelada')
-                capturar= False
+            actualizar_datos = messagebox.askyesno('Usuario ya registrado','Usuario ya registrado\n ¿Desea actualizar las deudas y correos del usuario?')
+            actualizar = True if actualizar_datos else False
+            actualizar_foto = messagebox.askyesno('Usuario ya registrado','Usuario ya registrado\n ¿Desea actualizar la imagen del usuario?')
+            capturar = True if actualizar_foto else False
+            
 
     if capturar:
-        messagebox.showwarning('Captura fotográfica','Presionar "C" para capturar, "Q" para salir.')
+        messagebox.showwarning('Captura fotográfica','Presionar Espacio para capturar, "ESC" para salir.')
         video = True
         #vs = VideoStream(src=0).start()
         vs = VideoStream(0).start()
@@ -127,7 +140,8 @@ def agregar_user(usuario, depto, mail, debt):
             key = cv2.waitKey(1) & 0xFF
 
             # Presionar "c" para capturar imagen
-            if key == ord('c') and cara == True: 
+            #if key == ord('c') and cara == True: 
+            if key == ord(' ') and cara == True: 
                 cv2.imwrite('data/dataset/'+usuario+"-"+depto+'.jpg',picture)
                 if verbose: print("IMAGEN CAPTURADA")
                 cv2.destroyAllWindows()
@@ -138,7 +152,8 @@ def agregar_user(usuario, depto, mail, debt):
                 break
 
             # Presionar "q" para salir
-            if key == ord("q"):
+            #if key == ord("q")
+            if key == 27:
                 if verbose: print("ENROLAMIENTO CANCELADO")
                 cv2.destroyAllWindows()
                 #VideoStream(0).stop()
@@ -148,26 +163,26 @@ def agregar_user(usuario, depto, mail, debt):
                 messagebox.showwarning('Captura fotográfica','Enrolamiento Cancelado')
                 break
 
-        if ((not encontrado and act_data) or actualizar):
-            if actualizar:
-                for i in range(1,ws.max_row):
-                    usr_cell = ws.cell(row = i, column = 1).value
-                    dep_cell = ws.cell(row = i, column = 2).value
-                    if (usr_cell == usuario and dep_cell == depto):
-                        encontrado = True
-                        ws.delete_rows(i,1)
-                        wb.save('data/info.xlsx')  
-            ws.insert_rows(2)
-            ws.cell(row=2, column=1).value = usuario
-            ws.cell(row=2, column=2).value = depto
-            try:
-                ws.cell(row=2, column=3).value = int(mail)
-                ws.cell(row=2, column=4).value = int(debt)
-            except:
-                ws.cell(row=2, column=3).value = 0
-                ws.cell(row=2, column=4).value = 0
-            wb.save('data/info.xlsx')
-            messagebox.showwarning('Agregar usuario','Usuario Agregado')
-            if verbose: print("USUARIO AGREGADO A LA BASE DE DATOS")
-            if auto_train: train.train()
-            #quit()
+    if ((not encontrado and act_data) or actualizar):
+        if actualizar:
+            for i in range(1,ws.max_row):
+                usr_cell = ws.cell(row = i, column = 1).value
+                dep_cell = ws.cell(row = i, column = 2).value
+                if (usr_cell == usuario and dep_cell == depto):
+                    encontrado = True
+                    ws.delete_rows(i,1)
+                    wb.save('data/info.xlsx')  
+        ws.insert_rows(2)
+        ws.cell(row=2, column=1).value = usuario
+        ws.cell(row=2, column=2).value = depto
+        try:
+            ws.cell(row=2, column=3).value = int(mail)
+            ws.cell(row=2, column=4).value = int(debt)
+        except:
+            ws.cell(row=2, column=3).value = 0
+            ws.cell(row=2, column=4).value = 0
+        wb.save('data/info.xlsx')
+        messagebox.showwarning('Agregar usuario','Usuario Agregado')
+        if verbose: print("USUARIO AGREGADO A LA BASE DE DATOS")
+        if auto_train: train.train()
+

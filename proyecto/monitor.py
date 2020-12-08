@@ -1,3 +1,12 @@
+'''
+@File    :   monitor.py
+@Date    :   2020/12/07
+@Author  :   Lucas Cortés Gutierrez.
+@Version :   2.0
+@Contact :   lucas.cortes.14@sansano.usm.cl"
+@Desc    :   Módulo de monitoreo del sistema de reconocimineto de personas "Let Me In"
+'''
+
 from tkinter import *
 from tkinter import messagebox
 from imutils import paths
@@ -9,13 +18,13 @@ import time
 import cv2
 import os
 
-def reconocer_kill():
+def monitor_kill():
     # Libera la cámara y destruye las ventanas
     cv2.VideoCapture(0).release()
     #video_capture.release()
     cv2.destroyAllWindows()
 
-def reconocer():
+def monitor():
     ultimos = []
     before = time.time()
 
@@ -147,10 +156,10 @@ def reconocer():
         cv2.imshow('Video', frame)
 
         # Presionar "q" para salir
-        if cv2.waitKey(1) & 0xFF == ord('q'): break
+        #if cv2.waitKey(1) & 0xFF == ord('q'): break
+        if cv2.waitKey(1) & 0xFF == 27: break
 
     # Libera la cámara y destruye las ventanas
     video_capture.release()
     cv2.destroyAllWindows()
     
-#reconocer()

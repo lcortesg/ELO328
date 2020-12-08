@@ -1,3 +1,12 @@
+'''
+@File    :   train.py
+@Date    :   2020/12/07
+@Author  :   Lucas Cortés Gutierrez.
+@Version :   2.0
+@Contact :   lucas.cortes.14@sansano.usm.cl"
+@Desc    :   Módulo de entrenamiento del sistema de reconocimineto de personas "Let Me In"
+'''
+
 from imutils import paths
 import face_recognition
 import numpy as np
@@ -6,6 +15,7 @@ import cv2
 import os
 
 verbose = False
+
 
 def train():
     if verbose: print("ENTRENANDO MODELO")
