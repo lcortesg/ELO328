@@ -1,26 +1,27 @@
 '''
 @File    :   manager.py
 @Date    :   2020/12/07
-@Author  :   Lucas Cortés Gutierrez.
+@Author  :   Lucas Cortés Gutiérrez.
 @Version :   2.0
 @Contact :   lucas.cortes.14@sansano.usm.cl"
 @Desc    :   Módulo de administración del sistema de reconocimineto de personas "Let Me In"
 '''
 
-import train as train
 from passlib.hash import sha256_crypt
 from imutils.video import VideoStream
-from tkinter import *
-from tkinter import messagebox
 from tkinter import scrolledtext
+from tkinter import messagebox
 from ttkthemes import ThemedTk
+from imutils import paths
 import face_recognition
+from tkinter import *
 import numpy as np
-import openpyxl
 import stdiomask
-import getpass
+import openpyxl
+#import getpass
 import imutils
-import json
+import pickle
+#import json
 import time
 import cv2
 import sys
@@ -28,6 +29,19 @@ import os
 
 auto_train = False
 verbose = False
+
+def train():
+    if verbose: print("ENTRENANDO MODELO")
+    all_face_encodings = {}
+    imagePaths = list(paths.list_images('data/dataset'))
+
+    for i in imagePaths:
+        name = i[13:-4]
+        all_face_encodings[name] = face_recognition.face_encodings(face_recognition.load_image_file(i),known_face_locations=None, num_jitters=10, model='large')[0]
+
+    with open('data/model.dat', 'wb') as model:
+        pickle.dump(all_face_encodings, model)
+    if verbose: print("ENTRENAMIENTO FINALIZADO")
 
 def show_user():
     wb = openpyxl.load_workbook("data/info.xlsx")
@@ -73,7 +87,7 @@ def delete_user(usuario, depto):
             wb.save('data/info.xlsx')  
             messagebox.showwarning('Eliminar usuario','Usuario Eliminado') 
             if verbose: print("USUARIO ELIMINADO DE LA BASE DE DATOS")
-            if auto_train: train.train() 
+            if auto_train: train() 
     if (not encontrado):
         messagebox.showwarning('Eliminar usuario','Usuario no encontrado en la base de datos') 
         if verbose: print("USUARIO NO ENCONTRADO EN LA BASE DE DATOS")
@@ -184,5 +198,5 @@ def add_user(usuario, depto, mail, debt):
         wb.save('data/info.xlsx')
         messagebox.showwarning('Agregar usuario','Usuario Agregado')
         if verbose: print("USUARIO AGREGADO A LA BASE DE DATOS")
-        if auto_train: train.train()
+        if auto_train: train()
 

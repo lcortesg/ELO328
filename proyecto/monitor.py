@@ -1,16 +1,16 @@
 '''
 @File    :   monitor.py
 @Date    :   2020/12/07
-@Author  :   Lucas Cortés Gutierrez.
+@Author  :   Lucas Cortés Gutiérrez.
 @Version :   2.0
 @Contact :   lucas.cortes.14@sansano.usm.cl"
 @Desc    :   Módulo de monitoreo del sistema de reconocimineto de personas "Let Me In"
 '''
 
-from tkinter import *
 from tkinter import messagebox
 from imutils import paths
 import face_recognition
+from tkinter import *
 import numpy as np
 import openpyxl
 import pickle

@@ -1,24 +1,22 @@
 '''
-@File    :   gui.py
+@File    :   main.py
 @Date    :   2020/12/07
-@Author  :   Lucas Cortés Gutierrez.
+@Author  :   Lucas Cortés Gutiérrez.
 @Version :   2.0
 @Contact :   lucas.cortes.14@sansano.usm.cl"
 @Desc    :   Interfaz gráfica del sistema de reconocimineto de personas "Let Me In"
 '''
 
+from passlib.hash import sha256_crypt
+from tkinter import scrolledtext
+from tkinter import messagebox
+from ttkthemes import ThemedTk
+from tkinter import ttk
+from tkinter import *
 import manager as man
 import monitor as mon
-import train as train
-from tkinter import *
-from tkinter import ttk
-from tkinter import messagebox
-from tkinter import scrolledtext
-from tkinter import scrolledtext
-from ttkthemes import ThemedTk
-from passlib.hash import sha256_crypt
 import stdiomask
-import getpass
+#import getpass
 import json
 import os
 
@@ -55,7 +53,7 @@ def monitorear_kill():
 
 # Función encargada de llamar al módulo de entrenamiento.
 def entrenar():
-    train.train()
+    man.train()
     messagebox.showinfo('Entrenamiento','Entrenamiento Finalizado')
 
 # Función que detiene la ejecución del programa.
