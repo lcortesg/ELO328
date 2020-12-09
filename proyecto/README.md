@@ -5,7 +5,7 @@ Sistema de reconocimiento de personas.
 ## Características
 
 - Ingreso mediante contraseña.
-- Modificación de contraseña-
+- Modificación de contraseña.
 - Monitoreo de cámaras de seguridad.
 - Registro de usuarios detectados.
 - Fotografías que respaldan dichos registros.
