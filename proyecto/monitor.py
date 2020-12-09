@@ -7,6 +7,7 @@
 @Desc    :   Módulo de monitoreo del sistema de reconocimineto de personas "Let Me In"
 '''
 
+from contextlib import suppress
 from tkinter import messagebox
 from imutils import paths
 import face_recognition
@@ -19,6 +20,10 @@ import time
 import cv2
 import os
 
+tolerance = 0.5
+tiempo_log  = 60
+ventana = 0.8
+
 # Función encargada de la detención de la función "monitor()".
 def monitor_kill():
     # Libera la cámara y destruye las ventanas
@@ -26,9 +31,19 @@ def monitor_kill():
     #video_capture.release()
     cv2.destroyAllWindows()
 
+# Función encargada de logear los usuarios detectados.
+def user_log(name, depto, frame, now):
+    tiempo = time.localtime(now)
+    time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
+    time_pic = time.strftime("%Y-%m-%d, %H-%M-%S", tiempo)
+    cv2.imwrite('data/log_img/'+time_pic+" - "+name+"-"+depto+'.jpg',frame)
+    with open('data/log.txt', 'r') as original: data = original.read()
+    with open('data/log.txt', 'w') as modified: modified.write(time_log+" - "+name+"-"+depto+"\r\n" + data)
+    original.close
+    modified.close
+    
 # Función encargada del monitoreo de usuarios.
 def monitor():
-    tolerance = 0.6
     ultimos = []
     before = time.time()
 
@@ -71,7 +86,7 @@ def monitor():
                 # Revisar coincidencias
                 matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance)
                 #matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-                name = "Desconocido"
+                name = "DESCONOCIDO"
 
                 # # Se utiliza la primera coincidencia encontrada en known_face_encodings.
                 # if True in matches:
@@ -83,26 +98,8 @@ def monitor():
                 best_match_index = np.argmin(face_distances)
                 if matches[best_match_index]:
                     name = known_face_names[best_match_index]
-                    
-                now = time.time()
-                tiempo = time.localtime(now)
-                time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
-                time_pic = time.strftime("%Y-%m-%d, %H-%M-%S", tiempo)
-                if name not in ultimos:
-                    #f = open("data/log.txt","a+")
-                    with open('data/log.txt', 'r') as original: data = original.read()
-                    with open('data/log.txt', 'w') as modified: modified.write(time_log+" - "+name+"\r\n" + data)
-                    #f.write(time_log+" - "+name+"\r\n")
-                    original.close
-                    modified.close
-                    cv2.imwrite('data/log_img/'+time_pic+" - "+name+'.jpg',frame)
-                    ultimos.append(name)
-
-                if int(now - before) > 60:
-                    before = time.time()
-                    ultimos.clear()
-
                 face_names.append(name)
+                #user_log(ultimos,name,before,frame)
 
         process_this_frame = not process_this_frame
 
@@ -133,51 +130,66 @@ def monitor():
             salto = proporcion * 5
             ancho = int((right-left)/proporcion)
             pos = bottom+20
+            blanco = (255,255,255)
+            verde = (0,255,200)
+            azul = (0,100,255)
+            rojo = (255,0,100)
+            aceptado = verde
+            denegado = rojo
 
-            if (name == "Desconocido" or depto == "Desconocido"):
+            if (name == "DESCONOCIDO" or depto == "DESCONOCIDO"):
                 # Dibujar cuadrado
-                cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
-                try:
-                    ps.putBText(frame, name, text_offset_x=left+ancho, text_offset_y=bottom+20, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(250,0,100), text_RGB=(255,250,250))
-                except:
-                    pass
+                cv2.rectangle(frame, (left, top), (right, bottom), (100, 0, 255), 2)
+
+                # Dibujar etiqueta con nombre
+                with suppress(Exception):
+                    ps.putBText(frame, name, text_offset_x=left+ancho, text_offset_y=bottom+20, vspace=borde, hspace=borde, font_scale=escala, background_RGB=denegado, text_RGB=(255,250,250))
                 
             else:
                 # Dibujar cuadrado
                 cv2.rectangle(frame, (left, top), (right, bottom), (200, 250, 0), 2)
-                # Dibujar etiqueta con nombre
-                
-                try:
-                    ps.putBText(frame, str(name), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(0,250,200), text_RGB=(255,250,250))
 
+                # Dibujar etiqueta con nombre
+                with suppress(Exception):
+                    ps.putBText(frame, str(name), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=aceptado, text_RGB=blanco)
+
+                # Dibujar etiqueta con departamento
+                with suppress(Exception):
                     pos += salto
-                    ps.putBText(frame, "Depto. "+str(depto), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(0,250,200), text_RGB=(255,250,250))
-                except:
-                    pass
+                    ps.putBText(frame, "Depto. "+str(depto), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=aceptado, text_RGB=blanco)
                     
                 if (int(correo) > 0):
-                    try:
+                    # Dibujar etiqueta con correo
+                    with suppress(Exception):
                         pos += salto
-                        ps.putBText(frame, "Correo "+str(correo), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(250,0,100), text_RGB=(255,250,250))
-                    except:
-                        pass
-                
+                        ps.putBText(frame, "Correo "+str(correo), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=denegado, text_RGB=blanco)
+
                 if (int(deudas) > 0):
-                    try:
+                    # Dibujar etiqueta con deudas
+                    with suppress(Exception):
                         pos += salto
-                        ps.putBText(frame, "Deudas "+str(deudas), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(250,0,100), text_RGB=(255,250,250))
-                    except:
-                        pass
+                        ps.putBText(frame, "Deudas "+str(deudas), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=denegado, text_RGB=blanco)
                             
-        # Muestra imagen resultante
+        # Lógica de invocación de función "log_user()"
+        now = time.time()
+        if (name+"-"+depto) not in ultimos:
+            user_log(name, depto, frame, now)
+            ultimos.append(name+"-"+depto)
+        if int(now - before) >= tiempo_log:
+            before = time.time()
+            ultimos.clear()
+
+        # Texto de cierre de programa.
+        ps.putBText(frame,'"ESC" para salir',text_offset_x=50,text_offset_y=frame.shape[0]-50,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
         # Escala la imagen para mostrarla en pantalla en un tamaño más razonable
-        frame = cv2.resize(frame, (0, 0), fx=0.8, fy=0.8)
+        frame = cv2.resize(frame, (0, 0), fx=ventana, fy=ventana)
+        # Muestra imagen resultante
         cv2.imshow('Video', frame)
 
         # Presionar "q" para salir
         #if cv2.waitKey(1) & 0xFF == ord('q'): break
         if cv2.waitKey(1) & 0xFF == 27:
-            res = messagebox.askokcancel('Salir','¿Está seguro que desea detener el monitoreo?')
+            res = messagebox.askokcancel('Salir','¿Detener monitoreo?')
             #res = messagebox.askyesno('Salir','¿Está seguro que desea detener el monitoreo')
             if res: break
 

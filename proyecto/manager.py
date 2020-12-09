@@ -10,6 +10,7 @@
 from passlib.hash import sha256_crypt
 from imutils.video import VideoStream
 from tkinter import scrolledtext
+from contextlib import suppress
 from tkinter import messagebox
 from ttkthemes import ThemedTk
 from imutils import paths
@@ -30,6 +31,7 @@ import os
 
 auto_train = False
 verbose = False
+ventana = 0.8
 
 # Función encargada del entrenamiento del modelo.
 def train():
@@ -150,17 +152,29 @@ def add_user(usuario, depto, mail, debt):
                 salto = proporcion * 5
                 ancho = int((right-left)/proporcion)
                 pos = bottom+20
+                blanco = (255,255,255)
+                verde = (0,255,200)
+                azul = (0,100,255)
+                rojo = (255,0,100)
+                aceptado = azul
+                denegado = rojo
 
-                cv2.rectangle(frame, (left, top), (right, bottom), (250, 200, 0), 2)
-                try:
-                    ps.putBText(frame, str(usuario), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(0,200,250), text_RGB=(255,250,250))
-                except:
-                    pass
+                cv2.rectangle(frame, (left, top), (right, bottom), (250, 100, 0), 2)
+
+                with suppress(Exception):
+                    ps.putBText(frame, str(usuario), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=aceptado, text_RGB=blanco)
+
+                with suppress(Exception):
+                    ps.putBText(frame, "Depto. "+str(depto), text_offset_x=left+ancho, text_offset_y=pos+50, vspace=borde, hspace=borde, font_scale=escala, background_RGB=aceptado, text_RGB=blanco)
 
                 if len(face_locations) == 1:
                     cara = True      
             frame_show = frame.copy()
-            frame_show = cv2.resize(frame, (0, 0), fx=0.5, fy=0.5)
+            ps.putBText(frame_show,'"ESC" para salir',text_offset_x=50,text_offset_y=frame_show.shape[0]-50,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+
+            ps.putBText(frame_show,'"Espacio" para capturar',text_offset_x=frame_show.shape[1]-450,text_offset_y=frame_show.shape[0]-50,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
+            frame_show = cv2.resize(frame_show, (0, 0), fx=ventana, fy=ventana)
+
             cv2.imshow('REGISTRAR USUARIO', frame_show)
             #cv2.startWindowThread()
 

@@ -163,6 +163,8 @@ def eliminar():
             txt_dpto.delete(0,"end")
             txt_mail.delete(0,"end")
             txt_debt.delete(0,"end")
+            txt_mail.insert(END, '0')
+            txt_debt.insert(END, '0')
 
 # Función encargada de imprimir un log de los usuarios detectados.
 def log_users():
