@@ -45,37 +45,46 @@ $ python3 main.py
 
 ### Uso de la interfaz
 
-Ventana de Log In
+####Ventana de Log In
+
 ![](https://user-images.githubusercontent.com/9634970/101556883-91469180-399a-11eb-9057-745ad075bf65.png)
 
-Cierre de programa
+#### Cierre de programa
+
 ![](https://user-images.githubusercontent.com/9634970/101557683-42016080-399c-11eb-8d4b-a501f16aa473.png)
 
-Cierre de sesión
+#### Cierre de sesión
+
 ![](https://user-images.githubusercontent.com/9634970/101557974-cf44b500-399c-11eb-9076-84e8c75a97c7.png)
 
-Monitoreo
+#### Monitoreo
+
 ![](https://user-images.githubusercontent.com/9634970/101558104-0ca94280-399d-11eb-9991-81364e87b5f3.png)
 
-Advertencia de inicio de monitoreo
+#### Advertencia de inicio de monitoreo
+
 ![](https://user-images.githubusercontent.com/9634970/101558444-c4d6eb00-399d-11eb-9724-86069b1b8e72.png)
 
-Advertencia de término de monitoreo
+#### Advertencia de término de monitoreo
 ![]()
 
-Log de usuarios
+#### Log de usuarios
+
 ![](https://user-images.githubusercontent.com/9634970/101558485-d4eeca80-399d-11eb-8eba-1e94a55a0af6.png)
 
-Gestión de usuarios
+#### Gestión de usuarios
+
 ![](https://user-images.githubusercontent.com/9634970/101558121-17fc6e00-399d-11eb-829c-10aa5ecfbb2e.png)
 
-Advertencia de entrenamiento
+#### Advertencia de entrenamiento
+
 ![](https://user-images.githubusercontent.com/9634970/101558556-f8197a00-399d-11eb-9f75-9ed5070aa80c.png)
 
-Cambio de contraseña
+#### Cambio de contraseña
+
 ![](https://user-images.githubusercontent.com/9634970/101558142-221e6c80-399d-11eb-8ddc-08c2cb1b36ce.png)
 
-Errores comunes
+#### Errores comunes
 
 *Por terminar*
 
