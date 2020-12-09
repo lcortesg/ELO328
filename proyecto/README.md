@@ -67,7 +67,7 @@ $ python3 main.py
 
 #### Advertencia de término de monitoreo
 
-![](https://user-images.githubusercontent.com/9634970/101559928-f00f0980-39a0-11eb-9d72-4a617454b742.png)
+![](https://user-images.githubusercontent.com/9634970/101560108-48460b80-39a1-11eb-8727-ae555c463fc8.png)
 
 #### Log de usuarios
 

@@ -160,7 +160,7 @@ def monitor():
         # Presionar "q" para salir
         #if cv2.waitKey(1) & 0xFF == ord('q'): break
         if cv2.waitKey(1) & 0xFF == 27:
-            res = messagebox.askokcancel('Salir','¿Está seguro que desea detener el monitoreo')
+            res = messagebox.askokcancel('Salir','¿Está seguro que desea detener el monitoreo?')
             #res = messagebox.askyesno('Salir','¿Está seguro que desea detener el monitoreo')
             if res: break
 
