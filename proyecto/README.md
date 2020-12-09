@@ -111,7 +111,7 @@ $ python3 main.py
 - [x] Entrenamiento como función convocable.
 - [x] Guardar modelos entrenados en archivo pickle.
 - [x] Interfaz gráfica.
-- [ ] Implementar advertencia al cerrar el monitoreo.
+- [x] Implementar advertencia al cerrar el monitoreo.
 - [ ] Debugear el programa.
 - [ ] Corrección de typos.
 - [ ] Mejoramiento de interfaz gráfica.
