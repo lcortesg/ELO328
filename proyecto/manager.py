@@ -20,10 +20,8 @@ import pyshine as ps
 import numpy as np
 import stdiomask
 import openpyxl
-#import getpass
 import imutils
 import pickle
-#import json
 import time
 import cv2
 import sys
@@ -48,15 +46,9 @@ def train():
     if verbose: print("ENTRENAMIENTO FINALIZADO")
 
 # Función encargada de generar una lista de los usuarios registrados.
-def show_user():
+def show_user(txt):
     wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
-    window = Tk()
-    #window = ThemedTk(theme="yaru")
-    window.title("Lista de usuarios")
-    #window.geometry('350x350')
-    txt = scrolledtext.ScrolledText(window,width=50,height=20, font=("Arial Bold", 20))
-    
     for i in range(1,ws.max_row):
         nombre = ws.cell(row = i, column = 1).value
         depto = ws.cell(row = i, column = 2).value
@@ -64,10 +56,6 @@ def show_user():
         debt = ws.cell(row = i, column = 4).value
         txt.insert(INSERT,nombre + " - " + depto + " - " + str(mail) + " - " + str(debt)+"\n")
         if verbose: print(nombre, " - ", depto)
-    
-    txt.grid(column=0,row=0)
-    window.mainloop()
-    #gestion()
 
 # Función encargada de eliminar a un usuario de la base de datos.
 def delete_user(usuario, depto):
@@ -216,6 +204,10 @@ def add_user(usuario, depto, mail, debt):
         ws.insert_rows(2)
         ws.cell(row=2, column=1).value = usuario
         ws.cell(row=2, column=2).value = depto
+        now = time.time()
+        tiempo = time.localtime(now)
+        time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
+        ws.cell(row=2, column=5).value = time_log
         try:
             ws.cell(row=2, column=3).value = int(mail)
             ws.cell(row=2, column=4).value = int(debt)

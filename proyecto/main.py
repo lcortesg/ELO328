@@ -9,6 +9,7 @@
 
 from passlib.hash import sha256_crypt
 from tkinter import scrolledtext
+from contextlib import suppress
 from tkinter import messagebox
 from ttkthemes import ThemedTk
 from tkinter import ttk
@@ -16,7 +17,6 @@ from tkinter import *
 import manager as man
 import monitor as mon
 import stdiomask
-#import getpass
 import json
 import os
 
@@ -28,6 +28,8 @@ txt_dpto = ""
 txt_mail = ""
 txt_debt = ""
 window = ""
+mail_check = False
+debt_check = False
 
 # Se extrae la contraseña del administración del archivo JSON.
 with open("data/passwords.json", "r") as json_file: 
@@ -59,36 +61,47 @@ def salir():
     res = messagebox.askokcancel('Salir','¿Está seguro que desea cerrar el programa?')
     if res: exit()
 
+# Fucnión de cierre de sesión.
 def logout():
     res = messagebox.askokcancel('Salir','¿Está seguro que desea cerrar sesión?')
     if res: 
-        global window
-        window.destroy()
+        global window_menu
+        window_menu.destroy()
+        with suppress(Exception):
+            global window_show
+            window_show.destroy()
+        with suppress(Exception):
+            global window_log
+            window_log.destroy()
         login()
 
-# Función que llama al menu principal una vez la contraseña fue verificada.
-def check(event=None):
-    if check_password(txt_psw.get()): menu()
-    else: messagebox.showwarning('Error','Contraseña Incorrecta')
+# Función de verificación de contraseña.
+def check_password(event=None):
+    for i in range(len(users)):
+        if sha256_crypt.verify(txt_psw.get(), passwords[i]):
+            menu()
+    messagebox.showwarning('Error','Contraseña Incorrecta')
     txt_psw.delete(0,"end")
 
-# Función que verifica que la contraseña ingresada sea la corecta.
-def check_password(password):
-    for i in range(len(users)):
-        if sha256_crypt.verify(password, passwords[i]):
-            return True
-    return False
 
-# Función que se encarga de comparar los campos de cambio de contraseña.
-def change():
+# Función encargada de realizar el cambio de contraseña.
+def change_password():
     if (txt_psw.get() == "" or txt_psw2.get() == "") : res = messagebox.showwarning('Cambio de contraseña','Campo incompleto')
     else:
         if (txt_psw.get() != txt_psw2.get()): messagebox.showwarning('Cambio de contraseña','Las contraseñas no coinciden\n Inténtelo nuevamente.')
-
         else:
             res = messagebox.askokcancel('Cambio de contraseña','¿Está seguro que desea cambiar la contraseña?')
             if res:
-                if change_password(txt_psw.get()): messagebox.showinfo('Cambio de contraseña','Contraseña cambiada satisfactoriamente')
+                hash = sha256_crypt.hash(txt_psw.get())
+                for i in range(len(users)):
+                    if users[i] == "user":
+                        users.pop(i)
+                        passwords.pop(i)
+                        users.append("user")
+                        passwords.append(hash)
+                        write_json(data)
+                        messagebox.showinfo('Cambio de contraseña','Contraseña cambiada satisfactoriamente')
+                #if change_password(txt_psw.get()): messagebox.showinfo('Cambio de contraseña','Contraseña cambiada satisfactoriamente')
             else:
                 messagebox.showwarning('Cambio de contraseña','Cambio de contraseña cancelado')
     txt_psw.delete(0,"end")
@@ -96,54 +109,44 @@ def change():
     chk_state.set(0)
     activate_check()    
 
-# Función encargada de realizar el cambio de contraseña.
-def change_password(password):
-    hash = sha256_crypt.hash(password)
-    for i in range(len(users)):
-        if users[i] == "user":
-            users.pop(i)
-            passwords.pop(i)
-            users.append("user")
-            passwords.append(hash)
-            write_json(data)
-            return True
-
 # Función encargada de imprimir una lista de los usuarios registrados.
 def mostrar():
-    man.show_user()
+    global window_show
+    window_show = Tk()
+    window_show.title("Lista de usuarios")
+    txt = scrolledtext.ScrolledText(window_show,width=50,height=20, font=("Arial Bold", 20))
+    man.show_user(txt)
+    txt.grid(column=0,row=0)
+    window_show.mainloop()
 
-# Función encargada de validar el tipo de dato en la variable "txt_mail".
-def check_mail():
-    try:
-        mail_check = True if type(int(txt_mail.get())) == int else False
+# Función encargada de validar el tipo de dato en las entradas de correo y deudas y de agregar al usuario a la base de datos.
+def agregar():
+    mail_check = False
+    debt_check = False
+    with suppress(Exception): mail_check = True if type(int(txt_mail.get())) == int else False
+    with suppress(Exception): debt_check = True if type(int(txt_debt.get())) == int else False
 
-        if mail_check: check_debt()
-    except:
-        mail_check = False
+    if not mail_check:
         messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser un número')
         txt_mail.delete(0,"end")
+        txt_mail.insert(END, '0')
 
-# Función encargada de validar el tipo de dato en la variable "txt_debt".
-def check_debt():
-    try:
-        debt_check = True if type(int(txt_debt.get())) == int else False
-        if debt_check: agregar()
-
-    except:
-        debt_check = False
+    if not debt_check:
         messagebox.showwarning('Agregar usuario','El monto adeudado debe ser un número')
         txt_debt.delete(0,"end")
+        txt_debt.insert(END, '0')
 
-# Función encargada de agregar un nuevo usuario a la base de datos.
-def agregar():
-    if (int(txt_mail.get()) < 0 or int(txt_debt.get()) < 0):
-        if int(txt_mail.get()) < 0: 
-            messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser mayor o igual a 0')
-            txt_mail.delete(0,"end")
-        elif int(txt_debt.get()) < 0: 
-            messagebox.showwarning('Agregar usuario','El monto adeudado debe ser mayor o igual a 0')
-            txt_debt.delete(0,"end")
-    else: 
+    if (mail_check and int(txt_mail.get()) < 0):
+        messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser mayor o igual a 0')
+        txt_mail.delete(0,"end")
+        txt_mail.insert(END, '0')
+
+    if (debt_check and int(txt_debt.get()) < 0):
+        messagebox.showwarning('Agregar usuario','El monto adeudado debe ser mayor o igual a 0')
+        txt_debt.delete(0,"end")
+        txt_debt.insert(END, '0')
+
+    if (mail_check and debt_check):
         man.add_user(txt_user.get().upper(), txt_dpto.get().upper(), txt_mail.get(), txt_debt.get())
         txt_user.delete(0,"end")
         txt_dpto.delete(0,"end")
@@ -169,15 +172,17 @@ def eliminar():
 # Función encargada de imprimir un log de los usuarios detectados.
 def log_users():
     f = open("data/log.txt", "r")
-    window = ThemedTk(theme="yaru")
-    window.title("Log de usuarios")
+    global window_log
+    window_log = Tk()
+    window_log.title("Log de usuarios")
     #window.geometry('350x350')
-    txt = scrolledtext.ScrolledText(window,width=50,height=20, font=("Arial Bold", 20))
+    txt_log = scrolledtext.ScrolledText(window_log,width=50,height=20, font=("Arial Bold", 20))
+    txt_log.insert(INSERT,"  FECHA   |   HORA   |   USUARIO   |   DEPARTAMENTO\n\n")
     for line in f:
-        txt.insert(INSERT,line+"\n")
+        txt_log.insert(INSERT,line+"\n")
     f.close()
-    txt.grid(column=0,row=0)
-    window.mainloop()
+    txt_log.grid(column=0,row=0)
+    window_log.mainloop()
 
 # Función encargada de revisar el estado de un check en la pestaña de cambio de contraseña.
 def activate_check():
@@ -190,24 +195,25 @@ def activate_check():
         txt_psw2.delete(0,"end")
         txt_psw2.config(state='disabled')
 
-# Función encargada de vaciar los valores por defecto en los campos "txt_mail" y "txt_debt".
+# Función encargada de vaciar los valores por defecto en los campos "txt_mail" y "txt_debt" al hacer click sobre ellos.
 def removeValue(event):
     event.widget.delete(0, 'end')
 
-# Función que construye el menu principal y sus pestañas correspondientes.
+# Ventana menu principal y sus pestañas correspondientes como función invocable.
 def menu():
-    global window
-    window.destroy()
+    global window_login
+    window_login.destroy()
     #window = ThemedTk(theme="yaru")
-    window = Tk()
+    global window_menu
+    window_menu = Tk()
     #ttk.Style().theme_use('adapta')
-    window.title("Let me in")
+    window_menu.title("Let me in")
 
     for i in range(4):
-        window.columnconfigure(i, weight=1, minsize=75)
-        window.rowconfigure(i, weight=1, minsize=50)
+        window_menu.columnconfigure(i, weight=1, minsize=75)
+        window_menu.rowconfigure(i, weight=1, minsize=50)
 
-    tab_control = ttk.Notebook(window)
+    tab_control = ttk.Notebook(window_menu)
 
     tab1 = ttk.Frame(tab_control)
     tab2 = ttk.Frame(tab_control)
@@ -274,7 +280,7 @@ def menu():
     btn_trn = Button(tab2, text="Entrenar", font=("Arial Bold", 20), command=entrenar)
     btn_trn.grid(column=3, row=0, padx=5, pady=5)
 
-    btn_add = Button(tab2, text="Agregar", font=("Arial Bold", 20), fg="green", command=check_mail)
+    btn_add = Button(tab2, text="Agregar", font=("Arial Bold", 20), fg="green", command=agregar)
     btn_add.grid(column=3, row=1, padx=5, pady=5)
 
     btn_del = Button(tab2, text="Eliminar", font=("Arial Bold", 20), fg="red", command=eliminar)
@@ -313,36 +319,38 @@ def menu():
     chk = Checkbutton(tab3, text='¿Nueva Contraseña?', font=("Arial Bold", 20), fg="red", variable=chk_state, command=activate_check)
     chk.grid(column=2, row=1, padx=5, pady=5)
 
-    btn_cge = Button(tab3, text ="Cambiar", font=("Arial Bold", 20), fg="green",  command=change)
+    btn_cge = Button(tab3, text ="Cambiar", font=("Arial Bold", 20), fg="green",  command=change_password)
     btn_cge.grid(column=2, row=4, padx=5, pady=5)
 
     btn_exit3 = Button(tab3, text="Log Out", font=("Arial Bold", 20), fg="red", command=logout)
     btn_exit3.grid(column=1, row=4, padx=5, pady=5)
 
     tab_control.pack(expand=1, fill='both')
-    window.mainloop()
+    window_menu.mainloop()
 
+# Ventana de Log In como función invocable
 def login():
-    global window
-    window = Tk()
-    #window = ThemedTk(theme="yaru")
-    window.title("Let me in - Log In")
-    window.bind("<Return>", check)
+    # Creación de la ventana de Log In como variable global
+    global window_login
+    window_login = Tk()
+    #window_login = ThemedTk(theme="yaru")
+    window_login.title("Let me in - Log In")
+    window_login.bind("<Return>", check_password)
     #window.geometry('350x200')
     global txt_psw
-    psw = Label(window, text="Contraseña: ", font=("Arial Bold", 20))
+    psw = Label(window_login, text="Contraseña: ", font=("Arial Bold", 20))
     psw.grid(column=0, row=1, padx=5, pady=5)
     txt_psw = Entry(window, width=15, font=("Arial Bold", 20))
     txt_psw.config(show="*")
     txt_psw.grid(column=1, row=1, padx=5, pady=5)
     txt_psw.focus()
 
-    btn_login = Button(window, text="Log In", font=("Arial Bold", 20), fg="green", command=check)
+    btn_login = Button(window_login, text="Log In", font=("Arial Bold", 20), fg="green", command=check_password)
     btn_login.grid(column=2, row=1, padx=5, pady=5)
 
-    btn_exit = Button(window, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
+    btn_exit = Button(window_login, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
     btn_exit.grid(column=1, row=2, padx=5, pady=5)
-    window.mainloop()
+    window_login.mainloop()
 
 if __name__ == '__main__':
     login()
