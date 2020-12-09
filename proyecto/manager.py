@@ -30,6 +30,7 @@ import os
 auto_train = False
 verbose = False
 
+# Función encargada del entrenamiento del modelo.
 def train():
     if verbose: print("ENTRENANDO MODELO")
     all_face_encodings = {}
@@ -43,6 +44,7 @@ def train():
         pickle.dump(all_face_encodings, model)
     if verbose: print("ENTRENAMIENTO FINALIZADO")
 
+# Función encargada de generar una lista de los usuarios registrados.
 def show_user():
     wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
@@ -64,11 +66,9 @@ def show_user():
     window.mainloop()
     #gestion()
 
+# Función encargada de eliminar a un usuario de la base de datos.
 def delete_user(usuario, depto):
-    #mostrar_user()
     encontrado = False
-    #usuario = input("Ingrese el nombre del usuario a eliminar : ").upper()
-    #depto = input("Ingrese el número de departamento : ")
     try:
         os.remove("data/dataset/"+usuario+"-"+depto+".jpg")
         if verbose: print("IMAGEN DE USUARIO ELIMINADA")   
@@ -92,11 +92,11 @@ def delete_user(usuario, depto):
         messagebox.showwarning('Eliminar usuario','Usuario no encontrado en la base de datos') 
         if verbose: print("USUARIO NO ENCONTRADO EN LA BASE DE DATOS")
 
-#def actualizar_user(usuario, depto):
+#def actualizar_user(usuario, depto): Return True
 
-#def actualizar_datos(usuario, depto, mail, debt):
+#def actualizar_datos(usuario, depto, mail, debt): return True
 
-
+# Función encargada de agregar un usuario a la base de datos.
 def add_user(usuario, depto, mail, debt):
     wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
@@ -116,7 +116,6 @@ def add_user(usuario, depto, mail, debt):
             actualizar = True if actualizar_datos else False
             actualizar_foto = messagebox.askyesno('Usuario ya registrado','Usuario ya registrado\n ¿Desea actualizar la imagen del usuario?')
             capturar = True if actualizar_foto else False
-            
 
     if capturar:
         messagebox.showwarning('Captura fotográfica','Presionar Espacio para capturar, "ESC" para salir.')

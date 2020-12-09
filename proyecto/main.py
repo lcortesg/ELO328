@@ -28,19 +28,17 @@ txt_dpto = ""
 txt_mail = ""
 txt_debt = ""
 window = ""
-#txt = ""
-#bar = ""
+
+# Se extrae la contraseña del administración del archivo JSON.
+with open("data/passwords.json", "r") as json_file: 
+    data = json.load(json_file) 
+    users = data["users"]
+    passwords = data["passwords"]
 
 # Función que escribe en el archivo JSON la contraseña de administración.
 def write_json(data, filename='data/passwords.json'): 
     with open(filename,'w') as f: 
         json.dump(data, f, indent=4) 
-
-# Fucnión que extrae la contraseña del administración del archivo JSON.
-with open("data/passwords.json", "r") as json_file: 
-    data = json.load(json_file) 
-    users = data["users"]
-    passwords = data["passwords"]
 
 # Función encargada de llamar al módulo de monitoreo.
 def monitorear():
@@ -230,17 +228,6 @@ def menu():
     btn_exit = Button(tab1, text="Log Out", font=("Arial Bold", 20), fg="red", command=logout)
     btn_exit.grid(column=1, row=4, padx=5, pady=5)
 
-    #global bar
-    #bar = ttk.Progressbar(window, orient = HORIZONTAL, length = 100)
-    #bar['value'] = 70
-    #bar.grid(column=2, row=4)
-
-    #btn_closemon = Button(window, text="Cerrar monitor", command=monitorear_kill)
-    #btn_closemon.grid(column=1, row=2)
-
-    #btn_usr = Button(tab1, text="Gestionar Usuarios", command=usuarios)
-    #btn_usr.grid(column=1, row=3)
-
     ########## TAB 2 ##########
     persona = Label(tab2, text="Gestión de Usuarios", font=("Arial Bold", 20))
     persona.grid(column=2, row=0, padx=5, pady=5)
@@ -257,7 +244,6 @@ def menu():
     deudas = Label(tab2, text="Deudas:", font=("Arial Bold", 20))
     deudas.grid(column=1, row=4, padx=5, pady=5)
 
-    #global txt
     global txt_user
     global txt_dpto
     global txt_mail
@@ -334,7 +320,6 @@ def menu():
     tab_control.pack(expand=1, fill='both')
     window.mainloop()
 
-
 def login():
     global window
     window = Tk()
@@ -356,5 +341,6 @@ def login():
     btn_exit = Button(window, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
     btn_exit.grid(column=1, row=2, padx=5, pady=5)
     window.mainloop()
-login()
 
+if __name__ == '__main__':
+    login()

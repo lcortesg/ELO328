@@ -18,20 +18,22 @@ import time
 import cv2
 import os
 
+# Función encargada de la detención de la función "monitor()".
 def monitor_kill():
     # Libera la cámara y destruye las ventanas
     cv2.VideoCapture(0).release()
     #video_capture.release()
     cv2.destroyAllWindows()
 
+# Función encargada del monitoreo de usuarios.
 def monitor():
+    tolerance = 0.6
     ultimos = []
     before = time.time()
 
     with open('data/model.dat', 'rb') as f:
         all_face_encodings = pickle.load(f)
     
-    tolerance = 0.6
     video_capture = cv2.VideoCapture(0)
     
     wb = openpyxl.load_workbook("data/info.xlsx")
@@ -157,7 +159,10 @@ def monitor():
 
         # Presionar "q" para salir
         #if cv2.waitKey(1) & 0xFF == ord('q'): break
-        if cv2.waitKey(1) & 0xFF == 27: break
+        if cv2.waitKey(1) & 0xFF == 27:
+            res = messagebox.askokcancel('Salir','¿Está seguro que desea detener el monitoreo')
+            #res = messagebox.askyesno('Salir','¿Está seguro que desea detener el monitoreo')
+            if res: break
 
     # Libera la cámara y destruye las ventanas
     video_capture.release()

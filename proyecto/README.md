@@ -66,7 +66,8 @@ $ python3 main.py
 ![](https://user-images.githubusercontent.com/9634970/101558444-c4d6eb00-399d-11eb-9724-86069b1b8e72.png)
 
 #### Advertencia de término de monitoreo
-![]()
+
+![](https://user-images.githubusercontent.com/9634970/101559928-f00f0980-39a0-11eb-9d72-4a617454b742.png)
 
 #### Log de usuarios
 
@@ -80,6 +81,10 @@ $ python3 main.py
 
 ![](https://user-images.githubusercontent.com/9634970/101558556-f8197a00-399d-11eb-9f75-9ed5070aa80c.png)
 
+#### Lista de usuarios
+
+![](https://user-images.githubusercontent.com/9634970/101558872-a45b6080-399e-11eb-8110-534e6d19ff4c.png)
+
 #### Cambio de contraseña
 
 ![](https://user-images.githubusercontent.com/9634970/101558142-221e6c80-399d-11eb-8ddc-08c2cb1b36ce.png)
@@ -87,7 +92,6 @@ $ python3 main.py
 #### Errores comunes
 
 *Por terminar*
-
 
 
 ## To Do
@@ -109,6 +113,7 @@ $ python3 main.py
 - [x] Interfaz gráfica.
 - [ ] Implementar advertencia al cerrar el monitoreo.
 - [ ] Debugear el programa.
+- [ ] Corrección de typos.
 - [ ] Mejoramiento de interfaz gráfica.
 
 
