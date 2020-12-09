@@ -15,6 +15,7 @@ from ttkthemes import ThemedTk
 from imutils import paths
 import face_recognition
 from tkinter import *
+import pyshine as ps
 import numpy as np
 import stdiomask
 import openpyxl
@@ -142,7 +143,20 @@ def add_user(usuario, depto, mail, debt):
                 bottom *= 4
                 left *= 4
                 picture = picture[top:bottom, left:right]
-                cv2.rectangle(frame, (left, top), (right, bottom), (255, 0, 0), 2)
+
+                proporcion = 8
+                borde = proporcion
+                escala = proporcion/10
+                salto = proporcion * 5
+                ancho = int((right-left)/proporcion)
+                pos = bottom+20
+
+                cv2.rectangle(frame, (left, top), (right, bottom), (250, 200, 0), 2)
+                try:
+                    ps.putBText(frame, str(usuario), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(0,200,250), text_RGB=(255,250,250))
+                except:
+                    pass
+
                 if len(face_locations) == 1:
                     cara = True      
             frame_show = frame.copy()

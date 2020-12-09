@@ -11,7 +11,6 @@ from tkinter import messagebox
 from imutils import paths
 import face_recognition
 from tkinter import *
-import pyshine as ps
 import numpy as np
 import openpyxl
 import pickle
@@ -89,12 +88,9 @@ def monitor():
                 time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
                 time_pic = time.strftime("%Y-%m-%d, %H-%M-%S", tiempo)
                 if name not in ultimos:
-                    #f = open("data/log.txt","a+")
-                    with open('data/log.txt', 'r') as original: data = original.read()
-                    with open('data/log.txt', 'w') as modified: modified.write(time_log+" - "+name+"\r\n" + data)
-                    #f.write(time_log+" - "+name+"\r\n")
-                    original.close
-                    modified.close
+                    f = open("data/log.txt","a+")
+                    f.write(time_log+" - "+name+"\r\n")
+                    f.close
                     cv2.imwrite('data/log_img/'+time_pic+" - "+name+'.jpg',frame)
                     ultimos.append(name)
 
@@ -108,9 +104,9 @@ def monitor():
 
         # Muestra los resultados
         for (top, right, bottom, left), name in zip(face_locations, face_names):
-            depto = "DESCONOCIDO"
-            correo = 0
-            deudas = 0
+            depto = "Desconocido"
+            correo = "0"
+            deudas = "0"
             user = name.split("-")
             
             for j in range(1,ws.max_row):
@@ -126,51 +122,38 @@ def monitor():
             bottom *= 4
             left *= 4
             font = cv2.FONT_HERSHEY_DUPLEX
-
-            proporcion = 8
-            borde = proporcion
-            escala = proporcion/10
-            salto = proporcion * 5
-            ancho = int((right-left)/proporcion)
-            pos = bottom+20
-
-            if (name == "Desconocido" or depto == "Desconocido"):
+            if (name == "Desconocido"):
                 # Dibujar cuadrado
                 cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
-                try:
-                    ps.putBText(frame, name, text_offset_x=left+ancho, text_offset_y=bottom+20, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(250,0,100), text_RGB=(255,250,250))
-                except:
-                    pass
+
+                # Dibujar etiqueta
+                cv2.rectangle(frame, (left, bottom-35), (right, bottom), (0, 0, 255), cv2.FILLED)
                 
             else:
                 # Dibujar cuadrado
-                cv2.rectangle(frame, (left, top), (right, bottom), (200, 250, 0), 2)
-                # Dibujar etiqueta con nombre
-                
-                try:
-                    ps.putBText(frame, str(name), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(0,250,200), text_RGB=(255,250,250))
+                cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
 
-                    pos += salto
-                    ps.putBText(frame, "Depto. "+str(depto), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(0,250,200), text_RGB=(255,250,250))
-                except:
-                    pass
-                    
+                # Dibujar etiqueta con nombre
+                cv2.rectangle(frame, (left, bottom-35), (right, bottom), (0, 255, 0), cv2.FILLED)
+
+                if (depto == "Desconocido"):
+                    cv2.rectangle(frame, (left-1, bottom+35), (right+1, bottom), (0, 0, 255), cv2.FILLED)
+                if (depto != "Desconocido"):
+                    cv2.rectangle(frame, (left-1, bottom+35), (right+1, bottom), (0, 255, 0), cv2.FILLED)
+
+                cv2.putText(frame,"Depto. "+depto, (left+6, bottom+30), font, 1.0, (255, 255, 255), 1)
+
                 if (int(correo) > 0):
-                    try:
-                        pos += salto
-                        ps.putBText(frame, "Correo "+str(correo), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(250,0,100), text_RGB=(255,250,250))
-                    except:
-                        pass
-                
+                    cv2.rectangle(frame, (left-1, bottom+35), (right+1, bottom+65), (0, 0, 255), cv2.FILLED)
+                    cv2.putText(frame, "Correo "+correo, (left+6, bottom+60), font, 1.0, (255, 255, 255), 1)
+
                 if (int(deudas) > 0):
-                    try:
-                        pos += salto
-                        ps.putBText(frame, "Deudas "+str(deudas), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=(250,0,100), text_RGB=(255,250,250))
-                    except:
-                        pass
-                            
+                    cv2.rectangle(frame, (left-1, bottom+65), (right+1, bottom+95), (0, 0, 255), cv2.FILLED)
+                    cv2.putText(frame, "Deudas "+deudas, (left+6, bottom+90), font, 1.0, (255, 255, 255), 1)
+
+            cv2.putText(frame, name, (left+6, bottom-6), font, 1.0, (255, 255, 255), 1)
+
         # Muestra imagen resultante
-        # Escala la imagen para mostrarla en pantalla en un tamaño más razonable
         frame = cv2.resize(frame, (0, 0), fx=0.8, fy=0.8)
         cv2.imshow('Video', frame)
 
@@ -184,5 +167,5 @@ def monitor():
     # Libera la cámara y destruye las ventanas
     video_capture.release()
     cv2.destroyAllWindows()
-    
+
 #monitor()

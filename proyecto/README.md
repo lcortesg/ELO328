@@ -45,7 +45,7 @@ $ python3 main.py
 
 ### Uso de la interfaz
 
-####Ventana de Log In
+#### Ventana de Log In
 
 ![](https://user-images.githubusercontent.com/9634970/101556883-91469180-399a-11eb-9057-745ad075bf65.png)
 
