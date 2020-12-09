@@ -61,12 +61,18 @@ def salir():
     res = messagebox.askokcancel('Salir','¿Está seguro que desea cerrar el programa?')
     if res: exit()
 
+def logout():
+    res = messagebox.askokcancel('Salir','¿Está seguro que desea cerrar sesión?')
+    if res: 
+        global window
+        window.destroy()
+        login()
+
 # Función que llama al menu principal una vez la contraseña fue verificada.
-def check(event=None): 
-    if check_password(txt_psw.get()): 
-        txt_psw.delete(0,"end")
-        menu()
+def check(event=None):
+    if check_password(txt_psw.get()): menu()
     else: messagebox.showwarning('Error','Contraseña Incorrecta')
+    txt_psw.delete(0,"end")
 
 # Función que verifica que la contraseña ingresada sea la corecta.
 def check_password(password):
@@ -221,7 +227,7 @@ def menu():
     btn_log = Button(tab1, text="Log de Usuarios", font=("Arial Bold", 20), fg="blue", command=log_users)
     btn_log.grid(column=1, row=3, padx=5, pady=5)
 
-    btn_exit = Button(tab1, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
+    btn_exit = Button(tab1, text="Log Out", font=("Arial Bold", 20), fg="red", command=logout)
     btn_exit.grid(column=1, row=4, padx=5, pady=5)
 
     #global bar
@@ -289,7 +295,7 @@ def menu():
     btn_show = Button(tab2, text="Mostrar", font=("Arial Bold", 20), fg="blue", command=mostrar)
     btn_show.grid(column=3, row=3, padx=5, pady=5)
 
-    btn_exit2 = Button(tab2, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
+    btn_exit2 = Button(tab2, text="Log Out", font=("Arial Bold", 20), fg="red", command=logout)
     btn_exit2.grid(column=3, row=4, padx=5, pady=5)
 
     txt_user.focus()
@@ -322,33 +328,33 @@ def menu():
     btn_cge = Button(tab3, text ="Cambiar", font=("Arial Bold", 20), fg="green",  command=change)
     btn_cge.grid(column=2, row=4, padx=5, pady=5)
 
-    btn_exit3 = Button(tab3, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
+    btn_exit3 = Button(tab3, text="Log Out", font=("Arial Bold", 20), fg="red", command=logout)
     btn_exit3.grid(column=1, row=4, padx=5, pady=5)
 
     tab_control.pack(expand=1, fill='both')
     window.mainloop()
 
 
-#def login():
-window = Tk()
-#window = ThemedTk(theme="yaru")
-#ttk.Style().theme_use('adapta')
-window.title("Let me in - Log In")
-window.bind("<Return>", check)
+def login():
+    global window
+    window = Tk()
+    #window = ThemedTk(theme="yaru")
+    window.title("Let me in - Log In")
+    window.bind("<Return>", check)
+    #window.geometry('350x200')
+    global txt_psw
+    psw = Label(window, text="Contraseña: ", font=("Arial Bold", 20))
+    psw.grid(column=0, row=1, padx=5, pady=5)
+    txt_psw = Entry(window, width=15, font=("Arial Bold", 20))
+    txt_psw.config(show="*")
+    txt_psw.grid(column=1, row=1, padx=5, pady=5)
+    txt_psw.focus()
 
-#window.geometry('350x200')
-psw = Label(window, text="Contraseña: ", font=("Arial Bold", 20))
-psw.grid(column=0, row=1, padx=5, pady=5)
-txt_psw = Entry(window, width=15, font=("Arial Bold", 20))
-txt_psw.config(show="*")
-txt_psw.grid(column=1, row=1, padx=5, pady=5)
-txt_psw.focus()
+    btn_login = Button(window, text="Log In", font=("Arial Bold", 20), fg="green", command=check)
+    btn_login.grid(column=2, row=1, padx=5, pady=5)
 
-btn_login = Button(window, text="Log In", font=("Arial Bold", 20), fg="green", command=check)
-btn_login.grid(column=2, row=1, padx=5, pady=5)
-
-btn_exit = Button(window, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
-btn_exit.grid(column=1, row=2, padx=5, pady=5)
-window.mainloop()
-#login()
+    btn_exit = Button(window, text="Exit", font=("Arial Bold", 20), fg="red", command=salir)
+    btn_exit.grid(column=1, row=2, padx=5, pady=5)
+    window.mainloop()
+login()
 
