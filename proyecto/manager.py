@@ -64,6 +64,7 @@ def delete_user(usuario, depto):
         os.remove("data/dataset/"+usuario+"-"+depto+".jpg")
         if verbose: print("IMAGEN DE USUARIO ELIMINADA")   
     except:
+        print('\007')
         messagebox.showwarning('Error','Imagen de usuario no encontrada')
         if verbose: print("IMAGEN DE USUARIO NO ENCONTRADA")
 
@@ -80,6 +81,7 @@ def delete_user(usuario, depto):
             if verbose: print("USUARIO ELIMINADO DE LA BASE DE DATOS")
             if auto_train: train() 
     if (not encontrado):
+        print('\007')
         messagebox.showwarning('Eliminar usuario','Usuario no encontrado en la base de datos') 
         if verbose: print("USUARIO NO ENCONTRADO EN LA BASE DE DATOS")
 
@@ -189,6 +191,7 @@ def add_user(usuario, depto, mail, debt):
                 vs.stop()
                 video = False
                 act_data = False
+                print('\007')
                 messagebox.showwarning('Captura fotográfica','Enrolamiento Cancelado')
                 break
 

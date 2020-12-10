@@ -10,3 +10,5 @@ opencv-python
 passlib
 stdiomask
 git+https://github.com/RedFantom/ttkthemes
+simpleaudio
+beepy
