@@ -80,9 +80,7 @@ $ python3 main.py
 ![](https://user-images.githubusercontent.com/9634970/101558142-221e6c80-399d-11eb-8ddc-08c2cb1b36ce.png)
 
 #### Errores comunes
-
 *Por terminar*
-
 
 ## To Do
 - [x] ~~Search query~~.
