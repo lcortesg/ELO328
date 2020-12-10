@@ -90,14 +90,15 @@ $ python3 main.py
 - [x] Gestion de usuarios.
 - [x] Reconocimiento de usuarios.
 - [x] Permitir usuarios con el mismo nombre en diferentes departamentos.
+- [x] Modificación de datos de usuario encontrado.
 - [x] Modificación de fotografía de usuario encontrado.
+- [x] Captura fotográfica con solo 1 usuario en pantalla.
+- [x] Captura fotográfica de ROE exclusivamente.
 - [x] Log In mediante contraseña.
 - [x] Capacidad de realizar Log Out
 - [x] Modificación de contraseña.
 - [x] Ocultar contraseña escrita.
 - [x] Hashear contraseñas almacenadas.
-- [x] Captura fotográfica con solo 1 usuario en pantalla.
-- [x] Captura fotográfica de ROE exclusivamente.
 - [x] Entrenamiento como función invocable.
 - [x] Guardar modelos entrenados en archivo pickle.
 - [x] Interfaz gráfica.
@@ -105,6 +106,7 @@ $ python3 main.py
 - [x] Log de usuarios como función invocable.
 - [x] Mejoramiento de interfaz de monitoreo.
 - [x] Mejoramiento de interfaz de enrolamiento.
+- [x] Agregar información a pantalla de captura y montitoreo.
 - [ ] Debugear el programa.
 - [ ] Corrección de typos.
 - [ ] Mejoramiento de interfaz gráfica.
