@@ -105,6 +105,7 @@ $ python3 main.py
 - [x] Mejoramiento de interfaz de monitoreo.
 - [x] Mejoramiento de interfaz de enrolamiento.
 - [x] Agregar información a pantalla de captura y montitoreo.
+- [x] No permitir reconocimiento duplicado
 - [ ] Debugear el programa.
 - [ ] Corrección de typos.
 - [ ] Mejoramiento de interfaz gráfica.

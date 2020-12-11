@@ -37,15 +37,8 @@ def user_log(name, depto, frame, now):
     time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
     time_pic = time.strftime("%Y-%m-%d, %H-%M-%S", tiempo)
     cv2.imwrite('data/log_img/'+time_pic+" - "+name+"-"+depto+'.jpg',frame)
-
     with open('data/log.txt', 'r') as original: data = original.read()
-
-    if (name == "DESCONOCIDO" or name == "DUPLICADO"):
-        with open('data/log.txt', 'w') as modified: modified.write(time_log+" - "+name+"\r\n" + data)
-
-    else:    
-        with open('data/log.txt', 'w') as modified: modified.write(time_log+" - "+name+"-"+depto+"\r\n" + data)
-
+    with open('data/log.txt', 'w') as modified: modified.write(time_log+" - "+name+"-"+depto+"\r\n" + data)
     original.close
     modified.close
     
@@ -87,11 +80,12 @@ def monitor():
             # Encuentra todas las caras en un frame dado
             face_locations = face_recognition.face_locations(rgb_small_frame)
             face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
-            face_names = []
 
+            face_names = []
             for face_encoding in face_encodings:
                 # Revisar coincidencias
                 matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance)
+                #matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
                 name = "DESCONOCIDO"
 
                 # # Se utiliza la primera coincidencia encontrada en known_face_encodings.
@@ -102,15 +96,10 @@ def monitor():
                 # Se utiliza la mejor coincidencia a la cara detectada.
                 face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
                 best_match_index = np.argmin(face_distances)
-
                 if matches[best_match_index]:
                     name = known_face_names[best_match_index]
-
-                if name not in face_names:
-                    face_names.append(name)
-
-                if name in face_names:
-                    face_names.append("DUPLICADO")
+                face_names.append(name)
+                #user_log(ultimos,name,before,frame)
 
         process_this_frame = not process_this_frame
 
@@ -145,19 +134,10 @@ def monitor():
             verde = (0,255,200)
             azul = (0,100,255)
             rojo = (255,0,100)
-            naranjo = (255,100,0)
             aceptado = verde
             denegado = rojo
 
-            if (name == "DUPLICADO"):
-                # Dibujar cuadrado
-                cv2.rectangle(frame, (left, top), (right, bottom), (0, 100, 255), 2)
-
-                # Dibujar etiqueta con nombre
-                with suppress(Exception):
-                    ps.putBText(frame, name, text_offset_x=left+ancho, text_offset_y=bottom+20, vspace=borde, hspace=borde, font_scale=escala, background_RGB=naranjo, text_RGB=(255,250,250))
-
-            elif (name == "DESCONOCIDO"):
+            if (name == "DESCONOCIDO" or depto == "DESCONOCIDO"):
                 # Dibujar cuadrado
                 cv2.rectangle(frame, (left, top), (right, bottom), (100, 0, 255), 2)
 
