@@ -75,10 +75,11 @@ def salir():
         exit()
 
 # Fucnión de cierre de sesión.
-def logout():
-    print('\007')
-    res = messagebox.askokcancel('Salir','¿Está seguro que desea cerrar sesión?')
-    if res:
+def logout(pelota=False):
+    if not pelota:
+        print('\007')
+        pelota = messagebox.askokcancel('Salir','¿Está seguro que desea cerrar sesión?')
+    if pelota:
         global window_menu
         window_menu.destroy()
         with suppress(Exception):
@@ -123,6 +124,7 @@ def change_password():
                         if sounds: 
                             beep(sound=1)
                         messagebox.showinfo('Cambio de contraseña','Contraseña cambiada satisfactoriamente')
+                        logout(pelota=True)
             else:
                 messagebox.showwarning('Cambio de contraseña','Cambio de contraseña cancelado')
     txt_psw.delete(0,"end")
