@@ -124,7 +124,7 @@ def change_password():
                         if sounds: 
                             beep(sound=1)
                         messagebox.showinfo('Cambio de contraseña','Contraseña cambiada satisfactoriamente')
-                        logout(pelota=True)
+                        logout(True)
             else:
                 messagebox.showwarning('Cambio de contraseña','Cambio de contraseña cancelado')
     txt_psw.delete(0,"end")
