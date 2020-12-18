@@ -2,6 +2,12 @@
 
 Sistema de reconocimiento de personas.
 
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+## [License](LICENSE)
+
+## [Changelog](CHANGELOG.md)
+
 ## Características
 
 - Ingreso mediante contraseña.
