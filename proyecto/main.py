@@ -54,6 +54,7 @@ def write_json(data, filename='data/passwords.json'):
     with open(filename,'w') as f: 
         json.dump(data, f, indent=4) 
 
+# Función encargada de llevar un registro de los eventos del sistema.
 def system_log(evento):
     now = time.time()
     tiempo = time.localtime(now)
@@ -100,10 +101,11 @@ def logout(pelota=False):
         window_menu.destroy()
         with suppress(Exception):
             global window_show
-            window_show.destroy()
-        with suppress(Exception):
             global window_log
+            global window_logs
             window_log.destroy()
+            window_logs.destroy()
+            window_show.destroy()
         system_log("cierre de sesion")
         login()
 
@@ -240,10 +242,10 @@ def eliminar():
             txt_mail.insert(END, '0')
             txt_debt.insert(END, '0')
 
-# Función encargada de imprimir un log de los usuarios detectados.
+# Función encargada de imprimir el log de los usuarios detectados.
 def log_users():
     system_log("mostrar log de usuarios")
-    f = open("data/log.txt", "r")
+    f = open("data/log_user.txt", "r")
     global window_log
     window_log = Tk()
     window_log.title("Log de usuarios")
@@ -255,6 +257,22 @@ def log_users():
     f.close()
     txt_log.grid(column=0,row=0)
     window_log.mainloop()
+
+# Función encargada de imprimir el log de los eventos del sistema.
+def log_system():
+    system_log("mostrar log de sistema")
+    f = open("data/log_system.txt", "r")
+    global window_log
+    window_logs = Tk()
+    window_logs.title("Eventos de sistema")
+    #window.geometry('350x350')
+    txt_logs = scrolledtext.ScrolledText(window_logs,width=50,height=20, font=("Arial Bold", 20))
+    txt_logs.insert(INSERT,"  FECHA   |   HORA   |   EVENTO\n\n")
+    for line in f:
+        txt_logs.insert(INSERT,line+"\n")
+    f.close()
+    txt_logs.grid(column=0,row=0)
+    window_logs.mainloop()
 
 # Función encargada de revisar el estado de un check en la pestaña de cambio de contraseña.
 def activate_check():
@@ -302,11 +320,14 @@ def menu():
     btn_mon = Button(tab1, text="Monitorear Cámara", font=("Arial Bold", 20), fg="green", command=monitorear)
     btn_mon.grid(column=1, row=2, padx=5, pady=5)
 
-    btn_log = Button(tab1, text="Log de Usuarios", font=("Arial Bold", 20), fg="blue", command=log_users)
-    btn_log.grid(column=1, row=3, padx=5, pady=5)
+    btn_log_user = Button(tab1, text="Log de Usuarios", font=("Arial Bold", 20), fg="blue", command=log_users)
+    btn_log_user.grid(column=1, row=3, padx=5, pady=5)
+
+    btn_log_system = Button(tab1, text="Log de Sistema", font=("Arial Bold", 20), fg="blue", command=log_system)
+    btn_log_system.grid(column=1, row=4, padx=5, pady=5)
 
     btn_exit = Button(tab1, text="Log Out", font=("Arial Bold", 20), fg="red", command=logout)
-    btn_exit.grid(column=1, row=4, padx=5, pady=5)
+    btn_exit.grid(column=1, row=5, padx=5, pady=5)
 
     ########## TAB 2 ##########
     persona = Label(tab2, text="Gestión de Usuarios", font=("Arial Bold", 20))
