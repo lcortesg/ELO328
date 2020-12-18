@@ -36,15 +36,15 @@ def user_log(name, depto, frame, now):
     tiempo = time.localtime(now)
     time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
     time_pic = time.strftime("%Y-%m-%d, %H-%M-%S", tiempo)
-    cv2.imwrite('data/log_img/'+time_pic+" - "+name+"-"+depto+'.jpg',frame)
+    cv2.imwrite('data/log_user_img/'+time_pic+" - "+name+"-"+depto+'.jpg',frame)
 
-    with open('data/log.txt', 'r') as original: data = original.read()
+    with open('data/log_user.txt', 'r') as original: data = original.read()
 
     if (name == "DESCONOCIDO" or name == "DUPLICADO"):
-        with open('data/log.txt', 'w') as modified: modified.write(time_log+" - "+name+"\r\n" + data)
+        with open('data/log_user.txt', 'w') as modified: modified.write(time_log+" - "+name+"\r\n" + data)
 
     else:    
-        with open('data/log.txt', 'w') as modified: modified.write(time_log+" - "+name+"-"+depto+"\r\n" + data)
+        with open('data/log_user.txt', 'w') as modified: modified.write(time_log+" - "+name+"-"+depto+"\r\n" + data)
 
     original.close
     modified.close

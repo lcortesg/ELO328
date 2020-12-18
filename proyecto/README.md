@@ -106,7 +106,7 @@ $ python3 main.py
 - [x] Mejoramiento de interfaz de enrolamiento.
 - [x] Agregar información a pantalla de captura y montitoreo.
 - [x] Remoción de duplicados durante etapa de reconocimiento.
-- [ ] System Log (inicios de sesión, cambios de contraseña, etc).
+- [x] System Log (inicios de sesión, cambios de contraseña, etc).
 - [ ] Debugear el programa.
 - [ ] Corrección de typos.
 - [ ] Mejoramiento de interfaz gráfica.

@@ -18,6 +18,7 @@ import manager as man
 import monitor as mon
 from beepy import *
 import stdiomask
+import time
 import json
 import os
 
@@ -53,10 +54,23 @@ def write_json(data, filename='data/passwords.json'):
     with open(filename,'w') as f: 
         json.dump(data, f, indent=4) 
 
+def system_log(evento):
+    now = time.time()
+    tiempo = time.localtime(now)
+    time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
+    
+    with open('data/log_system.txt', 'r') as original: data = original.read()    
+    with open('data/log_system.txt', 'w') as modified: modified.write(time_log+" - "+evento.upper()+"\r\n" + data)
+
+    original.close
+    modified.close
+
 # Función encargada de llamar al módulo de monitoreo.
 def monitorear():
+    system_log("inicia monitoreo")
     messagebox.showwarning('Inicia monitoreo','Iniciando monitoreo\n Presionar "ESC" para salir.')
     mon.monitor()
+    system_log("finaliza monitoreo")
 
 # Función que detiene el módulo de monitoreo.
 def monitorear_kill():
@@ -64,6 +78,7 @@ def monitorear_kill():
 
 # Función encargada de llamar al módulo de entrenamiento.
 def entrenar():
+    system_log("entrenamiento de modelo")
     man.train()
     messagebox.showinfo('Entrenamiento','Entrenamiento Finalizado')
 
@@ -72,6 +87,7 @@ def salir():
     print('\007')
     res = messagebox.askokcancel('Salir','¿Está seguro que desea cerrar el programa?')
     if res: 
+        system_log("cierre de programa")
         exit()
 
 # Fucnión de cierre de sesión.
@@ -88,15 +104,18 @@ def logout(pelota=False):
         with suppress(Exception):
             global window_log
             window_log.destroy()
+        system_log("cierre de sesion")
         login()
 
 # Función de verificación de contraseña.
 def check_password(event=None):
     for i in range(len(users)):
         if sha256_crypt.verify(txt_psw.get(), passwords[i]):
-            if sounds: 
-                beep(sound=1)
+            if sounds: beep(sound=1)
+            system_log("inicio de sesion exitoso")
             menu()
+
+    system_log("ingreso de contraseña incorrecta")
     txt_psw.delete(0,"end")
     print('\007')
     messagebox.showwarning('Error','Contraseña Incorrecta')
@@ -107,12 +126,14 @@ def change_password():
     if (txt_psw.get() == "" or txt_psw2.get() == "") : 
         res = messagebox.showwarning('Cambio de contraseña','Campo incompleto')
     else:
-        if (txt_psw.get() != txt_psw2.get()): 
+        if (txt_psw.get() != txt_psw2.get()):
+            system_log("cambio de contraseña no exitoso")
             print('\007')
             messagebox.showwarning('Cambio de contraseña','Las contraseñas no coinciden\n Inténtelo nuevamente.')
         else:
             res = messagebox.askokcancel('Cambio de contraseña','¿Está seguro que desea cambiar la contraseña?')
             if res:
+                system_log("cambio de contraseña exitoso")
                 hash = sha256_crypt.hash(txt_psw.get())
                 for i in range(len(users)):
                     if users[i] == "user":
@@ -126,6 +147,7 @@ def change_password():
                         messagebox.showinfo('Cambio de contraseña','Contraseña cambiada satisfactoriamente')
                         logout(True)
             else:
+                system_log("cambio de contraseña cancelado")
                 messagebox.showwarning('Cambio de contraseña','Cambio de contraseña cancelado')
     txt_psw.delete(0,"end")
     txt_psw2.delete(0,"end")
@@ -134,6 +156,7 @@ def change_password():
 
 # Función encargada de imprimir una lista de los usuarios registrados.
 def mostrar():
+    system_log("mostrar lista de usuarios")
     global window_show
     window_show = Tk()
     window_show.title("Lista de usuarios")
@@ -153,29 +176,34 @@ def agregar():
         debt_check = True if type(int(txt_debt.get().strip())) == int else False
 
     if txt_user.get().strip() == "" or txt_dpto.get().strip() == "": 
+        system_log("error al agregar usuario")
         print('\007')
         messagebox.showwarning('Agregar usuario','Campos incompletos')
         return False
 
     if not mail_check:
+        system_log("error al agregar usuario")
         print('\007')
         messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser un número')
         txt_mail.delete(0,"end")
         txt_mail.insert(END, '0')
 
     if not debt_check:
+        system_log("error al agregar usuario")
         print('\007')
         messagebox.showwarning('Agregar usuario','El monto adeudado debe ser un número')
         txt_debt.delete(0,"end")
         txt_debt.insert(END, '0')
 
     if (mail_check and int(txt_mail.get()) < 0):
+        system_log("error al agregar usuario")
         print('\007')
         messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser mayor o igual a 0')
         txt_mail.delete(0,"end")
         txt_mail.insert(END, '0')
 
     if (debt_check and int(txt_debt.get()) < 0):
+        system_log("error al agregar usuario")
         print('\007')
         messagebox.showwarning('Agregar usuario','El monto adeudado debe ser mayor o igual a 0')
         txt_debt.delete(0,"end")
@@ -185,6 +213,7 @@ def agregar():
         data_check = True
 
     if (mail_check and debt_check and data_check):
+        system_log("agregar/modificar usuario")
         man.add_user(txt_user.get().strip().upper(), txt_dpto.get().strip().upper(), txt_mail.get().strip(), txt_debt.get().strip())
         txt_user.delete(0,"end")
         txt_dpto.delete(0,"end")
@@ -196,11 +225,13 @@ def agregar():
 # Función encargada de eliminar a un usuario desde la base de datos.
 def eliminar():
     if txt_user.get().strip() == "" or txt_dpto.get().strip() == "": 
+        system_log("error al eliminar usuario")
         print('\007')
         messagebox.showwarning('Eliminar usuario','Campos incompletos')
     else:   
         res = messagebox.askyesno('Eliminar usuario','¿Está seguro que desea eliminar al usuario?')
         if res: 
+            system_log("eliminar usuario")
             man.delete_user(txt_user.get().strip().upper(), txt_dpto.get().strip().upper())
             txt_user.delete(0,"end")
             txt_dpto.delete(0,"end")
@@ -211,6 +242,7 @@ def eliminar():
 
 # Función encargada de imprimir un log de los usuarios detectados.
 def log_users():
+    system_log("mostrar log de usuarios")
     f = open("data/log.txt", "r")
     global window_log
     window_log = Tk()
