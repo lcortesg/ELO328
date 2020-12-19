@@ -10,6 +10,35 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ## [Releases](https://github.com/lcortesg/Let-Me-In/releases)
 
+## To Do
+- [x] ~~Search query~~.
+- [x] ~~Creación de dataset~~.
+- [x] Gestion de usuarios.
+- [x] Reconocimiento de usuarios.
+- [x] Permitir usuarios con el mismo nombre en diferentes departamentos.
+- [x] Modificación de datos de usuario encontrado.
+- [x] Modificación de fotografía de usuario encontrado.
+- [x] Captura fotográfica con solo 1 usuario en pantalla.
+- [x] Captura fotográfica de ROE exclusivamente.
+- [x] Log In mediante contraseña.
+- [x] Capacidad de realizar Log Out
+- [x] Modificación de contraseña.
+- [x] Ocultar contraseña escrita.
+- [x] Hashear contraseñas almacenadas.
+- [x] Entrenamiento como función invocable.
+- [x] Guardar modelos entrenados en archivo pickle.
+- [x] Interfaz gráfica.
+- [x] Implementar advertencia al cerrar el monitoreo.
+- [x] Log de usuarios como función invocable.
+- [x] Mejoramiento de interfaz de monitoreo.
+- [x] Mejoramiento de interfaz de enrolamiento.
+- [x] Agregar información a pantalla de captura y montitoreo.
+- [x] Remoción de duplicados durante etapa de reconocimiento.
+- [x] System Log (inicios de sesión, cambios de contraseña, etc).
+- [ ] Debugear el programa.
+- [ ] Corrección de typos.
+- [ ] Mejoramiento de interfaz gráfica.
+
 ## Características
 
 - Ingreso mediante contraseña.
@@ -89,34 +118,4 @@ $ python3 main.py
 
 #### Errores comunes
 *Por terminar*
-
-## To Do
-- [x] ~~Search query~~.
-- [x] ~~Creación de dataset~~.
-- [x] Gestion de usuarios.
-- [x] Reconocimiento de usuarios.
-- [x] Permitir usuarios con el mismo nombre en diferentes departamentos.
-- [x] Modificación de datos de usuario encontrado.
-- [x] Modificación de fotografía de usuario encontrado.
-- [x] Captura fotográfica con solo 1 usuario en pantalla.
-- [x] Captura fotográfica de ROE exclusivamente.
-- [x] Log In mediante contraseña.
-- [x] Capacidad de realizar Log Out
-- [x] Modificación de contraseña.
-- [x] Ocultar contraseña escrita.
-- [x] Hashear contraseñas almacenadas.
-- [x] Entrenamiento como función invocable.
-- [x] Guardar modelos entrenados en archivo pickle.
-- [x] Interfaz gráfica.
-- [x] Implementar advertencia al cerrar el monitoreo.
-- [x] Log de usuarios como función invocable.
-- [x] Mejoramiento de interfaz de monitoreo.
-- [x] Mejoramiento de interfaz de enrolamiento.
-- [x] Agregar información a pantalla de captura y montitoreo.
-- [x] Remoción de duplicados durante etapa de reconocimiento.
-- [x] System Log (inicios de sesión, cambios de contraseña, etc).
-- [ ] Debugear el programa.
-- [ ] Corrección de typos.
-- [ ] Mejoramiento de interfaz gráfica.
-
 
