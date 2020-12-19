@@ -9,25 +9,23 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ## [Unreleased](CHANGELOG.md)
 
-- Comments explaining all of the functions
-- Translation for English and Spanish
+- None.
 
-## [Released](https://gitlab.labcomp.cl/lcortes/sumo-auto/-/tags)
+## [Released](https://github.com/lcortesg/ELO328/tags)
 
-## [1.1.0](https://gitlab.labcomp.cl/lcortes/sumo-auto/-/tags/v1.1.0) - 20-01-04
+## [1.0](https://github.com/lcortesg/ELO328/releases/tag/1.0) - 20-12-06
 
 ### Added
 
-- Comments in most of the functions.
-- English translations most of the files.
+- None.
 
 ### Changed
 
-- Spelling errors.
+- None.
 
 ### Deprecated
 
-- None.
+- Search Query
 
 ### Removed
 
@@ -36,48 +34,10 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ### Fixed
 
-- Libraries folder name that caused an error in the git commit and in the git push.
-- Correction of error that caused the motors not to stop when given the stop signal.
-
-### Security
-
-- None.
-
-## [1.0.4](https://gitlab.labcomp.cl/lcortes/sumo-auto/-/tags/v1.0.4) - 18-12-04
-
-## [1.0.3](https://gitlab.labcomp.cl/lcortes/sumo-auto/-/tags/v1.0.3) - 18-11-27
-
-## [1.0.2](https://gitlab.labcomp.cl/lcortes/sumo-auto/-/tags/v1.0.2) - 18-11-16
-
-## [1.0.1](https://gitlab.labcomp.cl/lcortes/sumo-auto/-/tags/v1.0.1) - 18-11-05
-
-## [1.0.0](https://gitlab.labcomp.cl/lcortes/sumo-auto/-/tags/v1.0.0) - 18-10-12
-
-### Added
-
-- Arduino files.
-- Libraries.
-- Changelog.
-- Readme.
-- License.
-
-### Changed
-
-- None.
-
-### Deprecated
-
-- None.
-
-### Removed
-
-- None.
-
-### Fixed
-
 - None.
 
 ### Security
 
-- Stop signal connected to hardware interruption.
+- None.
+
 
