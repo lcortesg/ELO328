@@ -1,14 +1,13 @@
 '''
 @File    :   main.py
-@Date    :   2020/12/19
+@Date    :   2020/12/07
 @Author  :   Lucas Cortés Gutiérrez.
-@Version :   3.0
+@Version :   2.0
 @Contact :   lucas.cortes.14@sansano.usm.cl"
 @Desc    :   Interfaz gráfica del sistema de reconocimineto de personas "Let Me In"
 '''
 
 from passlib.hash import sha256_crypt
-from imutils.video import VideoStream
 from tkinter import scrolledtext
 from contextlib import suppress
 from tkinter import messagebox
@@ -21,7 +20,6 @@ from beepy import *
 import stdiomask
 import time
 import json
-import cv2
 import os
 
 chk_state = ""
@@ -61,28 +59,12 @@ def system_log(evento):
     now = time.time()
     tiempo = time.localtime(now)
     time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
-    time_pic = time.strftime("%Y-%m-%d, %H-%M-%S", tiempo)
     
     with open('data/log_system.txt', 'r') as original: data = original.read()    
     with open('data/log_system.txt', 'w') as modified: modified.write(time_log+" - "+evento.upper()+"\r\n" + data)
 
     original.close
     modified.close
-
-    vs = VideoStream(0).start()
-    cv2.startWindowThread()
-    time.sleep(0.5)
-    
-    while True:
-        frame = vs.read()
-        frame = cv2.flip(frame, 1)
-        cv2.imwrite('data/log_system_img/'+time_pic+" - "+evento.upper()+'.jpg',frame)
-        break
-
-    VideoStream(0).stop()
-    cv2.destroyAllWindows()
-    vs.stop()
-
 
 # Función encargada de llamar al módulo de monitoreo.
 def monitorear():
@@ -132,10 +114,10 @@ def check_password(event=None):
     for i in range(len(users)):
         if sha256_crypt.verify(txt_psw.get(), passwords[i]):
             if sounds: beep(sound=1)
-            system_log("inicio de sesion")
+            system_log("inicio de sesion exitoso")
             menu()
 
-    system_log("contraseña incorrecta")
+    system_log("ingreso de contraseña incorrecta")
     txt_psw.delete(0,"end")
     print('\007')
     messagebox.showwarning('Error','Contraseña Incorrecta')
@@ -147,7 +129,7 @@ def change_password():
         res = messagebox.showwarning('Cambio de contraseña','Campo incompleto')
     else:
         if (txt_psw.get() != txt_psw2.get()):
-            system_log("cambio de contraseña fallido")
+            system_log("cambio de contraseña no exitoso")
             print('\007')
             messagebox.showwarning('Cambio de contraseña','Las contraseñas no coinciden\n Inténtelo nuevamente.')
         else:
@@ -262,7 +244,7 @@ def eliminar():
 
 # Función encargada de imprimir el log de los usuarios detectados.
 def log_users():
-    system_log("log de usuarios")
+    system_log("mostrar log de usuarios")
     f = open("data/log_user.txt", "r")
     global window_log
     window_log = Tk()
@@ -278,7 +260,7 @@ def log_users():
 
 # Función encargada de imprimir el log de los eventos del sistema.
 def log_system():
-    system_log("log de sistema")
+    system_log("mostrar log de sistema")
     f = open("data/log_system.txt", "r")
     global window_log
     window_logs = Tk()
@@ -450,7 +432,6 @@ def login():
     window_login.title("Let me in - Log In")
     window_login.bind("<Return>", check_password)
     #window.geometry('350x200')
-
     global txt_psw
     psw = Label(window_login, text="Contraseña: ", font=("Arial Bold", 20))
     psw.grid(column=0, row=1, padx=5, pady=5)

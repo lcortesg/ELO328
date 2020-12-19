@@ -70,7 +70,7 @@ def monitor():
     face_names = []
     process_this_frame = True
 
-    time.sleep(2)
+    time.sleep(0.5)
     
     while True:
         ret, frame = video_capture.read()

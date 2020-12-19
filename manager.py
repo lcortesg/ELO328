@@ -117,7 +117,7 @@ def add_user(usuario, depto, mail, debt):
         vs = VideoStream(0).start()
         cv2.startWindowThread()
         cv2.namedWindow("REGISTRAR USUARIO")
-        #time.sleep(2.0)
+        time.sleep(0.5)
         
         while video:
             cara = False
