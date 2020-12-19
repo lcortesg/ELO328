@@ -8,6 +8,8 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ## [Changelog](CHANGELOG.md)
 
+## [Releases](https://github.com/lcortesg/Let-Me-In/releases)
+
 ## Características
 
 - Ingreso mediante contraseña.
