@@ -1,7 +1,0 @@
-__pycache__
-.DS_Store
-.vscode
-.obsidian
-.theia
-*.elf
-*.hex
