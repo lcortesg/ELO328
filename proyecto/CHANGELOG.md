@@ -9,7 +9,7 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ## [Unreleased](CHANGELOG.md)
 
-- None.
+- Version 2.0.
 
 ## [Released](https://github.com/lcortesg/ELO328/tags)
 
@@ -17,11 +17,11 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ### Added
 
-- None.
+- GUI.
 
 ### Changed
 
-- None.
+- Training module is now a function.
 
 ### Deprecated
 
@@ -34,10 +34,10 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ### Fixed
 
-- None.
+- Error during the loging of detected users.
 
 ### Security
 
-- None.
+- Recognition threshold was lowered.
 
 
