@@ -9,11 +9,37 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ## [Unreleased](CHANGELOG.md)
 
-- Version 2.0.
+- Version final.
 
-## [Released](https://github.com/lcortesg/ELO328/tags)
+## [Released](https://github.com/lcortesg/Let-Me-In/releases)
 
-## [1.0](https://github.com/lcortesg/ELO328/releases/tag/1.0) - 20-12-06
+## [2.0](https://github.com/lcortesg/Let-Me-In/releases/tag/2.0) - 20-12-18
+
+### Added
+
+- TBD.
+
+### Changed
+
+- TBD.
+
+### Deprecated
+
+- TBD.
+
+### Removed
+
+- TBD.
+
+### Fixed
+
+- TBD.
+
+### Security
+
+- TBD.
+
+## [1.0](https://github.com/lcortesg/Let-Me-In/releases/tag/1.0) - 20-12-06
 
 ### Added
 
