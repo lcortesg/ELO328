@@ -2,13 +2,14 @@
 @File    :   main.py
 @Date    :   2020/12/19
 @Author  :   Lucas Cortés Gutiérrez.
-@Version :   3.0
+@Version :   4.0
 @Contact :   lucas.cortes.14@sansano.usm.cl"
 @Desc    :   Interfaz gráfica del sistema de reconocimineto de personas "Let Me In"
 '''
 
 from passlib.hash import sha256_crypt
 from imutils.video import VideoStream
+from multiprocessing import Process
 from tkinter import scrolledtext
 from contextlib import suppress
 from tkinter import messagebox
@@ -83,13 +84,22 @@ def system_log(evento):
     cv2.destroyAllWindows()
     vs.stop()
 
+def runParallel(*fns):
+    proc = []
+    for fn in fns:
+        p = Process(target = fn)
+        p.start()
+        proc.append(p)
+    for p in proc:
+        p.join()
 
 # Función encargada de llamar al módulo de monitoreo.
 def monitorear():
-    system_log("inicia monitoreo")
-    messagebox.showwarning('Inicia monitoreo','Iniciando monitoreo\n Presionar "ESC" para salir.')
+    global window_menu
+    window_menu.destroy()
+    runParallel(messagebox.showwarning('Inicia monitoreo','Iniciando monitoreo\n Presionar "ESC" para salir.'), system_log("inicia monitoreo"))
     mon.monitor()
-    system_log("finaliza monitoreo")
+    runParallel(system_log("finaliza monitoreo"),menu())
 
 # Función que detiene el módulo de monitoreo.
 def monitorear_kill():
@@ -124,19 +134,15 @@ def logout(pelota=False):
             window_log.destroy()
             window_logs.destroy()
             window_show.destroy()
-        system_log("cierre de sesion")
-        login()
+        runParallel(system_log("cierre de sesion"),login())
 
 # Función de verificación de contraseña.
 def check_password(event=None):
     for i in range(len(users)):
         if sha256_crypt.verify(txt_psw.get(), passwords[i]):
-            if sounds: beep(sound=1)
-            system_log("inicio de sesion")
-            menu()
-
+            runParallel(beep(sound=1),system_log("inicio de sesion"), menu())
     system_log("contraseña incorrecta")
-    txt_psw.delete(0,"end")
+    txt_psw.delete(0,"end") 
     print('\007')
     messagebox.showwarning('Error','Contraseña Incorrecta')
     txt_psw.focus()
@@ -196,36 +202,26 @@ def agregar():
         debt_check = True if type(int(txt_debt.get().strip())) == int else False
 
     if txt_user.get().strip() == "" or txt_dpto.get().strip() == "": 
-        system_log("error al agregar usuario")
-        print('\007')
-        messagebox.showwarning('Agregar usuario','Campos incompletos')
+        runParallel(system_log("error al agregar usuario"), print('\007'), messagebox.showwarning('Agregar usuario','Campos incompletos'))
         return False
 
     if not mail_check:
-        system_log("error al agregar usuario")
-        print('\007')
-        messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser un número')
+        runParallel(system_log("error al agregar usuario"), print('\007'), messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser un número'))
         txt_mail.delete(0,"end")
         txt_mail.insert(END, '0')
 
     if not debt_check:
-        system_log("error al agregar usuario")
-        print('\007')
-        messagebox.showwarning('Agregar usuario','El monto adeudado debe ser un número')
+        runParallel(system_log("error al agregar usuario"), print('\007'), messagebox.showwarning('Agregar usuario','El monto adeudado debe ser un número'))
         txt_debt.delete(0,"end")
         txt_debt.insert(END, '0')
 
     if (mail_check and int(txt_mail.get()) < 0):
-        system_log("error al agregar usuario")
-        print('\007')
-        messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser mayor o igual a 0')
+        runParallel(system_log("error al agregar usuario"), print('\007'), messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser mayor o igual a 0'))
         txt_mail.delete(0,"end")
         txt_mail.insert(END, '0')
 
     if (debt_check and int(txt_debt.get()) < 0):
-        system_log("error al agregar usuario")
-        print('\007')
-        messagebox.showwarning('Agregar usuario','El monto adeudado debe ser mayor o igual a 0')
+        runParallel(system_log("error al agregar usuario"), print('\007'), messagebox.showwarning('Agregar usuario','El monto adeudado debe ser mayor o igual a 0'))
         txt_debt.delete(0,"end")
         txt_debt.insert(END, '0')
 
@@ -245,14 +241,11 @@ def agregar():
 # Función encargada de eliminar a un usuario desde la base de datos.
 def eliminar():
     if txt_user.get().strip() == "" or txt_dpto.get().strip() == "": 
-        system_log("error al eliminar usuario")
-        print('\007')
-        messagebox.showwarning('Eliminar usuario','Campos incompletos')
+        runParallel(system_log("error al eliminar usuario"), print('\007'), messagebox.showwarning('Eliminar usuario','Campos incompletos'))
     else:   
         res = messagebox.askyesno('Eliminar usuario','¿Está seguro que desea eliminar al usuario?')
         if res: 
-            system_log("eliminar usuario")
-            man.delete_user(txt_user.get().strip().upper(), txt_dpto.get().strip().upper())
+            runParallel(system_log("eliminar usuario"), man.delete_user(txt_user.get().strip().upper(), txt_dpto.get().strip().upper()))
             txt_user.delete(0,"end")
             txt_dpto.delete(0,"end")
             txt_mail.delete(0,"end")
@@ -260,9 +253,11 @@ def eliminar():
             txt_mail.insert(END, '0')
             txt_debt.insert(END, '0')
 
-# Función encargada de imprimir el log de los usuarios detectados.
 def log_users():
-    system_log("log de usuarios")
+    runParallel(system_log("log de usuarios"), log_users_data())
+# Función encargada de imprimir el log de los usuarios detectados. 
+def log_users_data():
+    #system_log("log de usuarios")
     f = open("data/log_user.txt", "r")
     global window_log
     window_log = Tk()
@@ -276,9 +271,11 @@ def log_users():
     txt_log.grid(column=0,row=0)
     window_log.mainloop()
 
-# Función encargada de imprimir el log de los eventos del sistema.
 def log_system():
-    system_log("log de sistema")
+    runParallel(system_log("log de sistema"), log_system_data())
+# Función encargada de imprimir el log de los eventos del sistema.
+def log_system_data():
+    #system_log("log de sistema")
     f = open("data/log_system.txt", "r")
     global window_log
     window_logs = Tk()
@@ -309,8 +306,9 @@ def removeValue(event):
 
 # Ventana menu principal y sus pestañas correspondientes como función invocable.
 def menu():
-    global window_login
-    window_login.destroy()
+    with suppress(Exception):
+        global window_login
+        window_login.destroy()
     #window = ThemedTk(theme="yaru")
     global window_menu
     window_menu = Tk()
@@ -419,20 +417,22 @@ def menu():
     psw2 = Label(tab3, text="Reingrese contraseña:", font=("Arial Bold", 20))
     psw2.grid(column=1, row=3, padx=5, pady=5)
 
-    txt_psw = Entry(tab3, width=15, font=("Arial Bold", 20), state='disabled')
+    txt_psw = Entry(tab3, width=15, font=("Arial Bold", 20))
     txt_psw.config(show="*")
     txt_psw.grid(column=2, row=2, padx=5, pady=5)
 
-    txt_psw2 = Entry(tab3, width=15, font=("Arial Bold", 20), state='disabled')
+    txt_psw2 = Entry(tab3, width=15, font=("Arial Bold", 20))
     txt_psw2.config(show="*")
     txt_psw2.grid(column=2, row=3, padx=5, pady=5)
 
-    chk_state = IntVar()
-    chk_state.set(0)
-    chk = Checkbutton(tab3, text='¿Nueva Contraseña?', font=("Arial Bold", 20), fg="red", variable=chk_state, command=activate_check)
-    chk.grid(column=2, row=1, padx=5, pady=5)
+    #chk_state = IntVar()
+    #chk_state.set(0)
+    #chk = Checkbutton(tab3, text='¿Nueva Contraseña?', font=("Arial Bold", 20), fg="red", variable=chk_state, command=activate_check)
+    #chk.grid(column=2, row=1, padx=5, pady=5)
 
-    btn_cge = Button(tab3, text ="Cambiar", font=("Arial Bold", 20), fg="green",  command=change_password)
+    
+
+    btn_cge = Button(tab3, text ="Cambiar", font=("Arial Bold", 20), fg="green", command=change_password)
     btn_cge.grid(column=2, row=4, padx=5, pady=5)
 
     btn_exit3 = Button(tab3, text="Log Out", font=("Arial Bold", 20), fg="red", command=logout)
