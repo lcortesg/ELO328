@@ -135,8 +135,19 @@ Para cambiar la contraseña de administración se debe hacer click en la casilla
 #### Advertencia de cierre de sesión
 ![](https://user-images.githubusercontent.com/9634970/101557974-cf44b500-399c-11eb-9076-84e8c75a97c7.png)
 
-### Advertencia de cierre de programa
+#### Advertencia de cierre de programa
 ![](https://user-images.githubusercontent.com/9634970/101557683-42016080-399c-11eb-8d4b-a501f16aa473.png)
 
+*POR TERMINAR*
+#### Advertencia de actualización de datos
+#### Advertencia de actualización de fotografía
+#### Advertencia de cambio de contraseña exitoso
+
+#### Error de contraseña incorrecta
+#### Error de cambio de contraseña
+#### Error de tipo de dato (Correo)
+#### Error de cantidad (Correo)
+#### Error de tipo de dato (Deuda)
+#### Error de cantidad (Deuda)
 
 
