@@ -108,7 +108,7 @@ Para gestionar usuarios se deben ingresar los datos del mismo, y proceder a pres
 
 Se ha implementado validación de datos en los campos de "Correo" y "Deudas", para únicamente permitir el ingreso de valores numéricos positivos, en caso de que se intenten ingresar valores erróneos el usuario recibirá una advertencia, y se limpiaran los campos incorrectos.
 
-En caso de que el usuario a agregar y el número de departamento ya se encuentren registrados, el sistema consultará al administrador si desea actualizar la cantidad de correo por retirar y el monto de deuda del usuario, también pondrá a dispocisión del mismo la posibilidad de actualizar la fotografía del usuario en cuestión.
+En caso de que el usuario a agregar y el número de departamento ya se encuentren registrados, el sistema consultará al administrador si desea actualizar la cantidad de correo por retirar y el monto de deuda del usuario, también pondrá a disposición del mismo la posibilidad de actualizar la fotografía del usuario en cuestión.
 
 ![](https://user-images.githubusercontent.com/9634970/101558121-17fc6e00-399d-11eb-829c-10aa5ecfbb2e.png)
 
