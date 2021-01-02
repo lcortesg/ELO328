@@ -7,6 +7,7 @@
 @Desc    :   Interfaz gráfica del sistema de reconocimineto de personas "Let Me In"
 '''
 
+
 # importar los paquetes necesarios
 from passlib.hash import sha256_crypt
 from imutils.video import VideoStream
