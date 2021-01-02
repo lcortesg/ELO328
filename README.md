@@ -80,6 +80,14 @@ $ pip3 install -r requirements.txt
 $ python3 main.py
 ```
 
+Alternativamente
+
+```
+$ chmod a+x start.sh
+ejecutar start.sh
+```
+
+
 ### Manual de usuario
 
 #### Inicio de sesión
