@@ -202,6 +202,9 @@ def agregar():
         messagebox.showwarning('Agregar usuario','Campos incompletos')
         return False
 
+    if txt_user.get().strip() != "" and txt_dpto.get().strip() != "": 
+        data_check = True
+
     if not mail_check:
         system_log("error al agregar usuario")
         print('\007')
@@ -222,6 +225,7 @@ def agregar():
         messagebox.showwarning('Agregar usuario','La cantidad de correo debe ser mayor o igual a 0')
         txt_mail.delete(0,"end")
         txt_mail.insert(END, '0')
+        mail_check = False
 
     if (debt_check and int(txt_debt.get()) < 0):
         system_log("error al agregar usuario")
@@ -229,9 +233,7 @@ def agregar():
         messagebox.showwarning('Agregar usuario','El monto adeudado debe ser mayor o igual a 0')
         txt_debt.delete(0,"end")
         txt_debt.insert(END, '0')
-
-    if txt_user.get().strip() != "" and txt_dpto.get().strip() != "": 
-        data_check = True
+        debt_check = False
 
     if (mail_check and debt_check and data_check):
         system_log("agregar/modificar usuario")

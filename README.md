@@ -91,16 +91,16 @@ ejecutar start.sh
 ### Manual de usuario
 
 #### Inicio de sesión
-Se debe ingresar la contraseña de administración en el campo de "Contraseña" de la ventana de Log In.
+Se debe ingresar la contraseña de administración en el campo de "Contraseña" de la ventana de Log In, por default es "user".
 
 En caso de que la contraseña sea incorrecta, el usuario recibirá una advertencia, y se limpiará el campo de contraseña.
 ![](https://user-images.githubusercontent.com/9634970/101556883-91469180-399a-11eb-9057-745ad075bf65.png)
 
 #### Monitoreo
 Para iniciar el monitoreo se debe presionar el botón "Monitorear Cámara"
-![](https://user-images.githubusercontent.com/9634970/101558104-0ca94280-399d-11eb-9991-81364e87b5f3.png)
+![](https://user-images.githubusercontent.com/9634970/103463041-2a519980-4d08-11eb-92fc-822d2fc328c3.png)
 
-Ejemplo de monitore
+Ejemplo de monitoreo
 ![](https://user-images.githubusercontent.com/9634970/101686746-3d928180-3a48-11eb-8333-66126d339b9e.jpg)
 
 #### Log de usuarios
@@ -109,7 +109,7 @@ Para mostrar el registro de usuarios detectados se debe presionar el botón "Log
 
 #### Log de sistema
 Para mostrar el registro de sistema detectados se debe presionar el botón "Log de Sistema", resultando en:
-![](https://user-images.githubusercontent.com/9634970/101558485-d4eeca80-399d-11eb-8eba-1e94a55a0af6.png)
+![](https://user-images.githubusercontent.com/9634970/103463058-4ead7600-4d08-11eb-923d-91230ad10ec1.png)
 
 #### Gestión de usuarios
 Para gestionar usuarios se deben ingresar los datos del mismo, y proceder a presionar el botón con la opción requerida, ya sea "Agregar" o "Eliminar", en caso de que se desee entrenar el sistema, se debe presionar el botón "Entrenar".
@@ -146,16 +146,35 @@ Para cambiar la contraseña de administración se debe hacer click en la casilla
 #### Advertencia de cierre de programa
 ![](https://user-images.githubusercontent.com/9634970/101557683-42016080-399c-11eb-8d4b-a501f16aa473.png)
 
-*POR TERMINAR*
-#### Advertencia de actualización de datos
+#### Advertencia de inicio de enrolamiento
+![](https://user-images.githubusercontent.com/9634970/103463402-d72d1600-4d0a-11eb-9605-221b777ab02a.png)
+
+#### Advertencia de cancelación de enrolamiento
+![](https://user-images.githubusercontent.com/9634970/103463394-cbd9ea80-4d0a-11eb-8a30-4539db175d51.png)
+
 #### Advertencia de actualización de fotografía
+![](https://user-images.githubusercontent.com/9634970/103463103-aea41c80-4d08-11eb-83fd-6949c46d5c2b.png)
+
 #### Advertencia de cambio de contraseña exitoso
+![](https://user-images.githubusercontent.com/9634970/103463123-d2676280-4d08-11eb-9ba8-732de724dc2b.png)
 
 #### Error de contraseña incorrecta
+![](https://user-images.githubusercontent.com/9634970/103463133-e1e6ab80-4d08-11eb-8939-fdc3aa58e2f3.png)
+
 #### Error de cambio de contraseña
+![](https://user-images.githubusercontent.com/9634970/103463145-fa56c600-4d08-11eb-9796-0cfe3c9b8938.png)
+
 #### Error de tipo de dato (Correo)
+![](https://user-images.githubusercontent.com/9634970/103463187-646f6b00-4d09-11eb-853c-bffd391707a6.png)
+
 #### Error de cantidad (Correo)
+![](https://user-images.githubusercontent.com/9634970/103463195-718c5a00-4d09-11eb-9e1e-56d915fa5adc.png)
+
 #### Error de tipo de dato (Deuda)
+![](https://user-images.githubusercontent.com/9634970/103463208-8ff25580-4d09-11eb-9b34-9cd907e892ee.png)
+
 #### Error de cantidad (Deuda)
+![](https://user-images.githubusercontent.com/9634970/103463213-984a9080-4d09-11eb-98ae-73ad7d42ae61.png)
 
-
+#### Error de datos incompletos (campo de usuario o departamento vacíos)
+![](https://user-images.githubusercontent.com/9634970/103463233-c16b2100-4d09-11eb-93c0-e7b8f7f6e042.png)
