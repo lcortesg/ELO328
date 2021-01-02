@@ -25,6 +25,7 @@ import json
 import cv2
 import os
 
+# Definición de variables de texto, responsables de la entrada de datos.
 chk_state = ""
 txt_psw = ""
 txt_psw2 = ""
@@ -33,6 +34,8 @@ txt_dpto = ""
 txt_mail = ""
 txt_debt = ""
 window = ""
+
+# Definición de variables booleanas responsables de la validación de datos.
 mail_check = False
 debt_check = False
 data_check = False
@@ -45,8 +48,7 @@ print('\007')
 os.system("say beep")
 '''
 
-
-# Se extrae la contraseña del administración del archivo JSON.
+# Se extrae la contraseña de administración del archivo JSON.
 with open("data/passwords.json", "r") as json_file: 
     data = json.load(json_file) 
     users = data["users"]
@@ -186,7 +188,7 @@ def mostrar():
     txt.grid(column=0,row=0)
     window_show.mainloop()
 
-# Función encargada de validar el tipo de dato en las entradas de correo y deudas y de agregar al usuario a la base de datos.
+# Función encargada de la validación de los datos de correo y deudas, en caso favorable debe agregar al usuario a la base de datos.
 def agregar():
     mail_check = False
     debt_check = False
@@ -295,7 +297,7 @@ def log_system():
     txt_logs.grid(column=0,row=0)
     window_logs.mainloop()
 
-# Función encargada de revisar el estado de un check en la pestaña de cambio de contraseña.
+# Función encargada de revisar el estado del checkbox en la pestaña de cambio de contraseña.
 def activate_check():
     if chk_state.get() == 1: 
         txt_psw.config(state='normal')
