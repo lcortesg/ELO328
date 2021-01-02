@@ -7,6 +7,7 @@
 @Desc    :   Módulo de monitoreo del sistema de reconocimineto de personas "Let Me In"
 '''
 
+# importar los paquetes necesarios
 from contextlib import suppress
 from tkinter import messagebox
 from imutils import paths
