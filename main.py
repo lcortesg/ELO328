@@ -13,7 +13,6 @@ from imutils.video import VideoStream
 from tkinter import scrolledtext
 from contextlib import suppress
 from tkinter import messagebox
-from ttkthemes import ThemedTk
 from tkinter import ttk
 from tkinter import *
 import manager as man
@@ -66,8 +65,8 @@ def system_log(evento):
     time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
     time_pic = time.strftime("%Y-%m-%d, %H-%M-%S", tiempo)
     
-    with open('data/log_system.txt', 'r') as original: data = original.read()    
-    with open('data/log_system.txt', 'w') as modified: modified.write(time_log+" - "+evento.upper()+"\r\n" + data)
+    with open('data/log_system/log_system.txt', 'r') as original: data = original.read()    
+    with open('data/log_system/log_system.txt', 'w') as modified: modified.write(time_log+" - "+evento.upper()+"\r\n" + data)
 
     original.close
     modified.close
@@ -79,7 +78,7 @@ def system_log(evento):
     while True:
         frame = vs.read()
         frame = cv2.flip(frame, 1)
-        cv2.imwrite('data/log_system_img/'+time_pic+" - "+evento.upper()+'.jpg',frame)
+        cv2.imwrite('data/log_system/'+time_pic+" - "+evento.upper()+'.jpg',frame)
         break
 
     VideoStream(0).stop()
@@ -268,7 +267,7 @@ def eliminar():
 # Función encargada de imprimir el log de los usuarios detectados.
 def log_users():
     system_log("log de usuarios")
-    f = open("data/log_user.txt", "r")
+    f = open("data/log_user/log_user.txt", "r")
     global window_log
     window_log = Tk()
     window_log.title("Log de usuarios")
@@ -284,7 +283,7 @@ def log_users():
 # Función encargada de imprimir el log de los eventos del sistema.
 def log_system():
     system_log("log de sistema")
-    f = open("data/log_system.txt", "r")
+    f = open("data/log_system/log_system.txt", "r")
     global window_log
     window_logs = Tk()
     window_logs.title("Eventos de sistema")

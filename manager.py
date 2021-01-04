@@ -13,7 +13,6 @@ from imutils.video import VideoStream
 from tkinter import scrolledtext
 from contextlib import suppress
 from tkinter import messagebox
-from ttkthemes import ThemedTk
 from imutils import paths
 import face_recognition
 from tkinter import *
@@ -173,7 +172,7 @@ def add_user(usuario, depto, mail, debt):
 
             # Presionar "c" para capturar imagen
             #if key == ord('c') and cara == True: 
-            if key == ord(' ') and cara == True: 
+            if (key == ord(' ') or key == ord('c')) and cara == True: 
                 cv2.imwrite('data/dataset/'+usuario+"-"+depto+'.jpg',picture)
                 if verbose: print("IMAGEN CAPTURADA")
                 cv2.destroyAllWindows()
