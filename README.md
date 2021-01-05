@@ -36,9 +36,9 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 - [x] Remoción de duplicados durante etapa de reconocimiento.
 - [x] System Log (inicios de sesión, cambios de contraseña, etc).
 - [x] Eliminación de temas desde requirements.
-- [ ] Debugear el programa.
-- [ ] Corrección de typos.
-- [ ] Mejoramiento de interfaz gráfica.
+- [x] Debugear el programa.
+- [x] Corrección de typos.
+- [x] Mejoramiento de interfaz gráfica.
 
 ## Características
 
