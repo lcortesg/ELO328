@@ -84,15 +84,21 @@ $ python3 main.py
 Alternativamente
 
 ```
+En UNIX:
 $ chmod a+x start.sh
 ejecutar start.sh
+```
+
+```
+En Windows:
+ejecutar start.bat
 ```
 
 
 ### Manual de usuario
 
 #### Inicio de sesión
-Se debe ingresar la contraseña de administración en el campo de "Contraseña" de la ventana de Log In, por default es "user".
+Se debe ingresar la contraseña de administración en el campo de "Contraseña" de la ventana de Log In, por default es "user", en caso de olvidar la contraseña existe una contraseña maestra, solo conocida por los creadores del programa, que permite resetear la contraseña de usuario.
 
 En caso de que la contraseña sea incorrecta, el usuario recibirá una advertencia, y se limpiará el campo de contraseña.
 ![](https://user-images.githubusercontent.com/9634970/101556883-91469180-399a-11eb-9057-745ad075bf65.png)
