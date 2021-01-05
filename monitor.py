@@ -197,12 +197,13 @@ def monitor():
                             
         # Lógica de invocación de función "log_user()"
         now = time.time()
-        if (name+"-"+depto) not in ultimos:
-            user_log(name, depto, frame, now)
-            ultimos.append(name+"-"+depto)
-        if int(now - before) >= tiempo_log:
-            before = time.time()
-            ultimos.clear()
+        with suppress(Exception):
+            if (name+"-"+depto) not in ultimos:
+                user_log(name, depto, frame, now)
+                ultimos.append(name+"-"+depto)
+            if int(now - before) >= tiempo_log:
+                before = time.time()
+                ultimos.clear()
 
         # Texto de cierre de programa.
         ps.putBText(frame,'"ESC" para salir',text_offset_x=50,text_offset_y=frame.shape[0]-50,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
