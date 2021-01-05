@@ -24,6 +24,10 @@ import os
 tolerance = 0.5
 tiempo_log  = 60
 ventana = 0.8
+name = ""
+dpto = ""
+correo = ""
+deudas = ""
 
 # Función encargada de la detención de la función "monitor()".
 def monitor_kill():
