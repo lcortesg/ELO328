@@ -166,6 +166,9 @@ Para cambiar la contraseña de administración se debe hacer click en la casilla
 #### Advertencia de actualización de fotografía
 ![](https://user-images.githubusercontent.com/9634970/103463103-aea41c80-4d08-11eb-83fd-6949c46d5c2b.png)
 
+#### Advertencia de actualización de datos
+![](https://user-images.githubusercontent.com/9634970/103463103-aea41c80-4d08-11eb-83fd-6949c46d5c2b.png)
+
 #### Advertencia de cambio de contraseña exitoso
 ![](https://user-images.githubusercontent.com/9634970/103463123-d2676280-4d08-11eb-9ba8-732de724dc2b.png)
 
