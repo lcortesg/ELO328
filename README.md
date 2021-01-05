@@ -127,6 +127,8 @@ En caso de que el usuario a agregar y el número de departamento ya se encuentre
 
 Para agregar al usuario este debe posicionarse cerca de la cámara, hasta que aparezca un recuadro azul alrededor de su rostro, solo se permitirá la captura en caso de que haya 1 usuario reconocido por la cámara.
 
+Cuando se entrene el modelo se debe esperar a que aparezca la advertencia de finalización de entrenamiento para poder continuar utilizando el programa.
+
 ![](https://user-images.githubusercontent.com/9634970/101558121-17fc6e00-399d-11eb-829c-10aa5ecfbb2e.png)
 
 #### Lista de usuarios
