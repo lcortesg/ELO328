@@ -1,8 +1,8 @@
 '''
 @File    :   main.py
-@Date    :   2020/12/19
+@Date    :   2021/01/05
 @Author  :   Lucas Cortés Gutiérrez.
-@Version :   3.0
+@Version :   4.0
 @Contact :   lucas.cortes.14@sansano.usm.cl"
 @Desc    :   Interfaz gráfica del sistema de reconocimineto de personas "Let Me In"
 '''

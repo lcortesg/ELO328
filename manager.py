@@ -1,8 +1,8 @@
 '''
 @File    :   manager.py
-@Date    :   2020/12/07
+@Date    :   2021/01/05
 @Author  :   Lucas Cortés Gutiérrez.
-@Version :   2.0
+@Version :   4.0
 @Contact :   lucas.cortes.14@sansano.usm.cl"
 @Desc    :   Módulo de administración del sistema de reconocimineto de personas "Let Me In"
 '''

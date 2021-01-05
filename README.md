@@ -36,7 +36,7 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 - [x] Remoción de duplicados durante etapa de reconocimiento.
 - [x] System Log (inicios de sesión, cambios de contraseña, etc).
 - [x] Eliminación de temas desde requirements.
-- [x] Debugear el programa.
+- [x] Debugging
 - [x] Corrección de typos.
 - [x] Mejoramiento de interfaz gráfica.
 
@@ -49,8 +49,6 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 - Fotografías que respaldan dichos registros.
 - Gestión de usuarios (enrolamiento, eliminación, modificación).
 - Entrenamiendo de modelo bajo demanda.
-
-## Instalación
 
 ### Requerimientos
 
@@ -66,8 +64,24 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 - passlib
 - stdiomask
 
+## Instalación & Ejecución
 
-### Ejecución
+### Ejecución mediante interfaz gráfica
+
+#### UNIX (Linux o macOS)
+
+```
+$ chmod a+x install.sh
+$ chmod a+x start.sh
+```
+ejecutar install.sh para instalar las dependencias correspondientes, luego, ejecutar start.sh para correr el programa.
+
+#### Windows
+
+ejecutar install.exe para instalar las dependencias correspondientes, luego, ejecutar start.exe para correr el programa.
+
+
+### Ejecución mediante linea de comandos
 
 ```
 $ pip install -r requirements.txt
@@ -80,20 +94,6 @@ Alternativamente
 $ pip3 install -r requirements.txt
 $ python3 main.py
 ```
-
-Alternativamente
-
-```
-En UNIX:
-$ chmod a+x start.sh
-ejecutar start.sh
-```
-
-```
-En Windows:
-ejecutar start.bat
-```
-
 
 ### Manual de usuario
 
