@@ -78,7 +78,7 @@ ejecutar install.sh para instalar las dependencias correspondientes, luego, ejec
 
 #### Windows
 
-ejecutar install.exe para instalar las dependencias correspondientes, luego, ejecutar start.exe para correr el programa.
+ejecutar install.bat para instalar las dependencias correspondientes, luego, ejecutar start.bat para correr el programa.
 
 
 ### Ejecución mediante linea de comandos
