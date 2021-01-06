@@ -68,7 +68,7 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 Se debe instalar la versión oficial de python (recomendamos la versión 3.8) encontrada en el siguiente [link](https://www.python.org/downloads/). 
 
-Es imperativo que python se instale mediante esta vía, ya que las versiones suministradas por gestores de paketes tales como brew y cask carecen del módulo Tkinter.
+Es imperativo que python se instale mediante esta vía, ya que las versiones suministradas por gestores de paquetes tales como brew y cask carecen del módulo Tkinter.
 
 ### Ejecución mediante interfaz gráfica
 
