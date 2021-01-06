@@ -73,12 +73,20 @@ Es imperativo que python se instale mediante esta vía, ya que las versiones sum
 ### Ejecución mediante interfaz gráfica
 
 #### UNIX (Linux o macOS)
+Se deben cambiar los permisos de los archivos install.sh y start.sh para permitir su ejecución.
 
 ```
 $ chmod a+x install.sh
 $ chmod a+x start.sh
 ```
 ejecutar install.sh para instalar las dependencias correspondientes, luego, ejecutar start.sh para correr el programa.
+
+En caso de existir problemas con la modificación de permisos, se recomienda setearlos directamente con los siguientes comandos:
+
+```
+$ chmod 755 install.sh
+$ chmod 755 start.sh
+```
 
 #### Windows
 
