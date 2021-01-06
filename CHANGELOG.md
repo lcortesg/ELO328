@@ -9,7 +9,33 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ## [Unreleased](CHANGELOG.md)
 
-- Version final.
+## [4.0](https://github.com/lcortesg/Let-Me-In/releases/) - XX-XX-XX
+
+### Added
+
+- None.
+
+### Changed
+
+- Location of log text files and image log files.
+
+### Deprecated
+
+- Parallel implementation
+
+### Removed
+
+- Duplicated files.
+- Unnecessary files.
+
+### Fixed
+
+- Error that caused the monitoring not to start unless there was a face in front of the camera from the beginning.
+- Various minor bugs.
+
+### Security
+
+- None.
 
 ## [Released](https://github.com/lcortesg/Let-Me-In/releases)
 
@@ -17,53 +43,56 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ### Added
 
-- TBD.
+- None.
 
 ### Changed
 
-- TBD.
+- After changing the password now the system automatically logs out.
 
 ### Deprecated
 
-- TBD.
+- None.
 
 ### Removed
 
-- TBD.
+- Duplicated files.
+- Unnecessary files.
 
 ### Fixed
 
-- TBD.
+- Various minor bugs.
 
 ### Security
 
-- TBD.
+- Password storage hashing.
+- Duplicated face recognition removal.
 
 ## [2.0](https://github.com/lcortesg/Let-Me-In/releases/tag/2.0) - 20-12-18
 
 ### Added
 
-- TBD.
+- GUI Implementation.
 
 ### Changed
 
-- TBD.
+- System Log-In.
 
 ### Deprecated
 
-- TBD.
+- Command line interface.
 
 ### Removed
 
-- TBD.
+- Duplicated files.
+- Unnecessary files.
 
 ### Fixed
 
-- TBD.
+- Various minor bugs.
 
 ### Security
 
-- TBD.
+- Password access implemented.
 
 ## [1.0](https://github.com/lcortesg/Let-Me-In/releases/tag/1.0) - 20-12-06
 
