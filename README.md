@@ -6,6 +6,8 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ## [License](LICENSE)
 
+## [Contributing](CONTRIBUTING.md)
+
 ## [Changelog](CHANGELOG.md)
 
 ## [Releases](https://github.com/lcortesg/Let-Me-In/releases)

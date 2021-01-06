@@ -9,7 +9,7 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ## [Unreleased](CHANGELOG.md)
 
-## [4.0](https://github.com/lcortesg/Let-Me-In/releases/) - XX-XX-XX
+## [4.0](https://github.com/lcortesg/Let-Me-In/releases/) - 21-01-XX
 
 ### Added
 
