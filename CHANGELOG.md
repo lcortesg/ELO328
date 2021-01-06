@@ -106,7 +106,7 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ### Deprecated
 
-- Search Query
+- Bing search query
 
 ### Removed
 
@@ -115,7 +115,7 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ### Fixed
 
-- Error during the loging of detected users.
+- Error during the logging of detected users.
 
 ### Security
 
