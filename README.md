@@ -117,7 +117,7 @@ Si Python3 no es el intérprete por defecto del sistema
 ## Manual de usuario
 
 ### Inicio de sesión
-Se debe ingresar la contraseña de administración en el campo de ```"Contraseña"```  de la ventana de Log In, por defecto es ```"user"``` 
+Se debe ingresar la contraseña de administración en el campo de ```"Contraseña"```  de la ventana de Log In, por defecto es ```"user"```.
 
 En caso de olvidar la contraseña existe una contraseña maestra, solo conocida por los creadores del programa, que permite resetear la contraseña de usuario.
 
