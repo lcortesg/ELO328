@@ -161,17 +161,16 @@ Se ha implementado una validación de datos en los campos de ```Correo``` y ```D
 ![](https://user-images.githubusercontent.com/9634970/103463213-984a9080-4d09-11eb-98ae-73ad7d42ae61.png)
 
 En caso de que el usuario a agregar y el número de departamento ya se encuentren registrados, el sistema consultará al administrador si desea actualizar la cantidad de correo por retirar y el monto de deuda del usuario, también pondrá a disposición del mismo la posibilidad de actualizar la fotografía del usuario en cuestión.
-#### Advertencia de actualización de fotografía
-![](https://user-images.githubusercontent.com/9634970/103463103-aea41c80-4d08-11eb-83fd-6949c46d5c2b.png)
 #### Advertencia de actualización de datos
 ![](https://user-images.githubusercontent.com/9634970/103659770-92dc8880-4f4b-11eb-93f3-95117b62cd85.png)
+#### Advertencia de actualización de fotografía
+![](https://user-images.githubusercontent.com/9634970/103463103-aea41c80-4d08-11eb-83fd-6949c46d5c2b.png)
 
 Para agregar al usuario este debe posicionarse cerca de la cámara, hasta que aparezca un recuadro azul alrededor de su rostro, solo se permitirá la captura en caso de que haya 1 usuario reconocido por la cámara.
 
 Cuando se entrene el modelo se debe esperar a que aparezca la advertencia de finalización de entrenamiento para poder continuar utilizando el programa.
 #### Advertencia de finalización de entrenamiento
 ![](https://user-images.githubusercontent.com/9634970/101558556-f8197a00-399d-11eb-9f75-9ed5070aa80c.png)
-
 
 ### Lista de usuarios
 Para mostrar una lista de todos los usuarios registrados se debe presionar el botón ```Mostrar```, resultando en:
@@ -185,6 +184,17 @@ En caso de que las contraseñas no coincidan el usuario recibiá una advertencia
 #### Error de cambio de contraseña
 ![](https://user-images.githubusercontent.com/9634970/103463145-fa56c600-4d08-11eb-9796-0cfe3c9b8938.png)
 
+### Finalización del programa
+Se puede presionar el botón ```Log Out``` desde cualquiera de las 2 pestañas del programa, lo que resultará en:
+#### Advertencia de cierre de sesión
+![](https://user-images.githubusercontent.com/9634970/101557974-cf44b500-399c-11eb-9076-84e8c75a97c7.png)
+
+En caso de que la respuesta sea afirmativa, el programa retornará a la ventana de Log In.
+![](https://user-images.githubusercontent.com/9634970/101556883-91469180-399a-11eb-9057-745ad075bf65.png)
+
+Desde esta, se puede presionar el botón ```Exit```, resultando en:
+#### Advertencia de cierre de programa
+![](https://user-images.githubusercontent.com/9634970/101557683-42016080-399c-11eb-8d4b-a501f16aa473.png)
 
 ## Errores y advertencias varias
 
@@ -238,7 +248,6 @@ En caso de que las contraseñas no coincidan el usuario recibiá una advertencia
 
 ### Error de datos incompletos (campo de usuario o departamento vacíos)
 ![](https://user-images.githubusercontent.com/9634970/103463233-c16b2100-4d09-11eb-93c0-e7b8f7f6e042.png)
-
 
 ## To Do
 - [x] ~~Search query~~.
