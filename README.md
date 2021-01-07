@@ -143,7 +143,6 @@ Para mostrar el registro de sistema se debe presionar el botón ```Log de Sistem
 
 ### Gestión de usuarios
 Para gestionar usuarios se deben ingresar los datos del mismo, y proceder a presionar el botón con la opción requerida, ya sea ```Agregar``` o ```Eliminar```, en caso de que se desee entrenar el sistema, se debe presionar el botón ```Entrenar```.
-
 ![](https://user-images.githubusercontent.com/9634970/101558121-17fc6e00-399d-11eb-829c-10aa5ecfbb2e.png)
 
 Siempre se deben completar los campos de ```Usuario``` y ```Depto.```, caso contrario, el sistema arrojará el siguiente error:
@@ -167,7 +166,7 @@ En caso de que el usuario a agregar y el número de departamento ya se encuentre
 ![](https://user-images.githubusercontent.com/9634970/103463103-aea41c80-4d08-11eb-83fd-6949c46d5c2b.png)
 
 Para agregar a un usuario este debe posicionarse cerca de la cámara, hasta que aparezca un recuadro azul alrededor de su rostro, solo se permitirá la captura en caso de que haya 1 usuario reconocido por la cámara.
-![test](https://user-images.githubusercontent.com/9634970/103923025-5b104500-50f3-11eb-8483-4b18f27d9e07.jpg)
+![](https://user-images.githubusercontent.com/9634970/103923025-5b104500-50f3-11eb-8483-4b18f27d9e07.jpg)
 
 Cuando se entrene el modelo se debe esperar a que aparezca la advertencia de finalización de entrenamiento para poder continuar utilizando el programa.
 #### Advertencia de finalización de entrenamiento
