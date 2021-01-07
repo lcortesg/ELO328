@@ -45,12 +45,12 @@ Se debe instalar la versión oficial de python (se recomienda la versión 3.8) e
 Es imperativo que python se instale mediante esta vía, ya que las versiones suministradas por gestores de paquetes tales como brew y cask no incluyen el módulo Tkinter por defecto.
 
 ### UNIX (Linux o macOS)
-Se deben cambiar los permisos del archivo install.sh para permitir su ejecución.
+Se deben cambiar los permisos del archivo [install.sh](install.sh) para permitir su ejecución.
 
 ```
 $ chmod a+x install.sh
 ```
-ejecutar install.sh para instalar las dependencias correspondientes, listadas en el archivo "requirements.txt".
+ejecutar install.sh para instalar las dependencias correspondientes, listadas en el archivo [requirements.txt](requirements.txt).
 
 En caso de existir problemas con la modificación de permisos, se recomienda setearlos directamente con:
 
@@ -60,12 +60,12 @@ $ chmod 755 install.sh
 
 ### Windows
 
-ejecutar install.bat para instalar las dependencias correspondientes, listadas en el archivo "requirements.txt".
+ejecutar [install.bat](install.bat) para instalar las dependencias correspondientes, listadas en el archivo [requirements.txt](requirements.txt).
 
 ## Ejecución
 
 ### UNIX (Linux o macOS)
-Se deben cambiar los permisos del archivo start.sh para permitir su ejecución.
+Se deben cambiar los permisos del archivo [start.sh](start.sh) para permitir su ejecución.
 
 ```
 $ chmod a+x start.sh
@@ -80,7 +80,7 @@ $ chmod 755 start.sh
 
 ### Windows
 
-Ejecutar start.bat para correr el programa.
+Ejecutar [start.bat](start.bat) para correr el programa.
 
 
 ## Instalación y ejecución mediante linea de comandos
