@@ -79,11 +79,11 @@ En caso de existir problemas con la modificación de permisos, se recomienda set
 > chmod 755 start.sh
 ```
 
-Ejecutar [start.sh](start.sh) para correr el programa.
+Ejecutar [start.sh](start.sh) para iniciar el programa.
 
 ### Windows
 
-Ejecutar [start.bat](start.bat) para correr el programa.
+Ejecutar [start.bat](start.bat) para iniciar el programa.
 
 ## Instalación y ejecución mediante CLI
 
