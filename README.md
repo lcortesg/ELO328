@@ -51,13 +51,14 @@ Se deben cambiar los permisos del archivo [install.sh](install.sh) para permitir
 ```bash
 > chmod a+x install.sh
 ```
-ejecutar [install.sh](install.sh) para instalar las dependencias correspondientes, listadas en el archivo [requirements.txt](requirements.txt).
 
 En caso de existir problemas con la modificación de permisos, se recomienda setearlos directamente con:
 
 ```bash
 > chmod 755 install.sh
 ```
+
+ejecutar [install.sh](install.sh) para instalar las dependencias correspondientes, listadas en el archivo [requirements.txt](requirements.txt).
 
 ### Windows
 
@@ -71,13 +72,14 @@ Se deben cambiar los permisos del archivo [start.sh](start.sh) para permitir su 
 ```bash
 > chmod a+x start.sh
 ```
-Ejecutar start.sh para correr el programa.
 
 En caso de existir problemas con la modificación de permisos, se recomienda setearlos directamente con:
 
 ```bash
 > chmod 755 start.sh
 ```
+
+Ejecutar [start.sh](start.sh) para correr el programa.
 
 ### Windows
 
