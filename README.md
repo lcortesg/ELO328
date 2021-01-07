@@ -54,8 +54,8 @@ ejecutar [install.sh](install.sh) para instalar las dependencias correspondiente
 
 En caso de existir problemas con la modificación de permisos, se recomienda setearlos directamente con:
 
-```
-$ chmod 755 install.sh
+```bash
+> chmod 755 install.sh
 ```
 
 ### Windows
@@ -67,15 +67,15 @@ ejecutar [install.bat](install.bat) para instalar las dependencias correspondien
 ### UNIX (Linux o macOS)
 Se deben cambiar los permisos del archivo [start.sh](start.sh) para permitir su ejecución.
 
-```
-$ chmod a+x start.sh
+```bash
+> chmod a+x start.sh
 ```
 Ejecutar start.sh para correr el programa.
 
 En caso de existir problemas con la modificación de permisos, se recomienda setearlos directamente con:
 
-```
-$ chmod 755 start.sh
+```bash
+> chmod 755 start.sh
 ```
 
 ### Windows
@@ -87,16 +87,16 @@ Ejecutar [start.bat](start.bat) para correr el programa.
 
 ### Python3 es el intérprete por defecto del sistema
 
-```
-$ pip install -r requirements.txt
-$ python main.py
+```bash
+> pip install -r requirements.txt
+> python main.py
 ```
 
 ### Python3 no es el intérprete por defecto del sistema
 
-```
-$ pip3 install -r requirements.txt
-$ python3 main.py
+```bash
+> pip3 install -r requirements.txt
+> python3 main.py
 ```
 
 
