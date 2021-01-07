@@ -50,7 +50,7 @@ Se deben cambiar los permisos del archivo [install.sh](install.sh) para permitir
 ```
 $ chmod a+x install.sh
 ```
-ejecutar install.sh para instalar las dependencias correspondientes, listadas en el archivo [requirements.txt](requirements.txt).
+ejecutar [install.sh](install.sh) para instalar las dependencias correspondientes, listadas en el archivo [requirements.txt](requirements.txt).
 
 En caso de existir problemas con la modificación de permisos, se recomienda setearlos directamente con:
 
