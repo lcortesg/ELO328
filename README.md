@@ -129,7 +129,7 @@ En caso de que la contraseña sea incorrecta, el usuario recibirá una advertenc
 Para iniciar el monitoreo se debe presionar el botón "Monitorear Cámara"
 ![](https://user-images.githubusercontent.com/9634970/103463041-2a519980-4d08-11eb-92fc-822d2fc328c3.png)
 
-Ejemplo de monitoreo
+#### Ejemlpo de monitoreo
 ![](https://user-images.githubusercontent.com/9634970/101686746-3d928180-3a48-11eb-8333-66126d339b9e.jpg)
 
 ### Log de usuarios
