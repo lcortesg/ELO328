@@ -118,11 +118,12 @@ Si Python3 no es el intérprete por defecto del sistema
 
 ### Inicio de sesión
 Se debe ingresar la contraseña de administración en el campo de ```"Contraseña"```  de la ventana de Log In, por defecto es ```"user"```.
+![](https://user-images.githubusercontent.com/9634970/101556883-91469180-399a-11eb-9057-745ad075bf65.png)
 
-En caso de olvidar la contraseña existe una contraseña maestra, solo conocida por los creadores del programa, que permite resetear la contraseña de usuario.
+En caso de olvidar la contraseña de usuario, existe una contraseña maestra, solo conocida por los creadores del programa, que permite resetear la contraseña de usuario.
 
 En caso de que la contraseña sea incorrecta, el usuario recibirá una advertencia, y se limpiará el campo de contraseña.
-![](https://user-images.githubusercontent.com/9634970/101556883-91469180-399a-11eb-9057-745ad075bf65.png)
+![](https://user-images.githubusercontent.com/9634970/103463133-e1e6ab80-4d08-11eb-8939-fdc3aa58e2f3.png)
 
 ### Monitoreo
 Para iniciar el monitoreo se debe presionar el botón "Monitorear Cámara"
