@@ -84,7 +84,7 @@ Ejecutar [start.bat](start.bat) para correr el programa.
 
 ## Instalación y ejecución mediante CLI
 
-En el caso de macOS se debe instalar [Homebrew](https://brew.sh), mediante el siguiente comando:
+En el caso de Linux o macOS se debe instalar [Homebrew](https://brew.sh), mediante el siguiente comando:
 
 ```bash
 > /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
