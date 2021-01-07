@@ -93,7 +93,7 @@ En el caso de Linux o macOS se debe instalar [Homebrew](https://brew.sh), median
 > /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Luego instalar [CMake](https://cmake.org) mediante:
+Luego se debe instalar [CMake](https://cmake.org), mediante el siguiente comando:
 
 ```bash
 > brew install cmake
