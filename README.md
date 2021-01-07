@@ -22,6 +22,8 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 - Gestión de usuarios (enrolamiento, eliminación, modificación).
 - Entrenamiendo de modelo bajo demanda.
 
+## Instalación
+
 ### [Requerimientos](requirements.txt)
 
 - Python 3.3 - 3.8
@@ -38,8 +40,6 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 - simpleaudio
 - beepy
 
-## Instalación
-
 Se debe instalar la versión oficial de python (se recomienda la versión 3.8) encontrada en el siguiente [link](https://www.python.org/downloads/). 
 
 Es imperativo que python se instale mediante esta vía, ya que las versiones suministradas por gestores de paquetes tales como brew y cask no incluyen el módulo Tkinter por defecto.
@@ -47,7 +47,7 @@ Es imperativo que python se instale mediante esta vía, ya que las versiones sum
 ### UNIX (Linux o macOS)
 Se deben cambiar los permisos del archivo [install.sh](install.sh) para permitir su ejecución.
 
-```
+```bash
 $ chmod a+x install.sh
 ```
 ejecutar [install.sh](install.sh) para instalar las dependencias correspondientes, listadas en el archivo [requirements.txt](requirements.txt).
