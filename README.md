@@ -18,6 +18,7 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 - Modificación de contraseña.
 - Monitoreo de cámaras de seguridad.
 - Registro de usuarios detectados.
+- Registros del sistema.
 - Fotografías que respaldan dichos registros.
 - Gestión de usuarios (enrolamiento, eliminación, modificación).
 - Entrenamiendo de modelo bajo demanda.
