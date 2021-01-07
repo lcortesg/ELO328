@@ -146,7 +146,7 @@ Para gestionar usuarios se deben ingresar los datos del mismo, y proceder a pres
 
 ![](https://user-images.githubusercontent.com/9634970/101558121-17fc6e00-399d-11eb-829c-10aa5ecfbb2e.png)
 
-Siempre se deben completar los campos de ```Usuario``` y ```Departamento```, caso contrario, el sistema arrojará el siguiente error:
+Siempre se deben completar los campos de ```Usuario``` y ```Depto.```, caso contrario, el sistema arrojará el siguiente error:
 #### Error de datos incompletos (campo de usuario o departamento vacíos)
 ![](https://user-images.githubusercontent.com/9634970/103463233-c16b2100-4d09-11eb-93c0-e7b8f7f6e042.png)
 
