@@ -48,7 +48,7 @@ Es imperativo que python se instale mediante esta vía, ya que las versiones sum
 Se deben cambiar los permisos del archivo [install.sh](install.sh) para permitir su ejecución.
 
 ```bash
-$ chmod a+x install.sh
+> chmod a+x install.sh
 ```
 ejecutar [install.sh](install.sh) para instalar las dependencias correspondientes, listadas en el archivo [requirements.txt](requirements.txt).
 
