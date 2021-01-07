@@ -22,7 +22,7 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 - Gestión de usuarios (enrolamiento, eliminación, modificación).
 - Entrenamiendo de modelo bajo demanda.
 
-### Requerimientos
+### [Requerimientos](requirements.txt)
 
 - Python 3.3 - 3.8
 - CMake
