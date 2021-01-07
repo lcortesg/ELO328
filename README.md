@@ -96,14 +96,14 @@ Luego instalar [CMake](https://cmake.org) mediante:
 > brew install cmake
 ```
 
-### Python3 es el intérprete por defecto del sistema
+Si Python3 es el intérprete por defecto del sistema
 
 ```bash
 > pip install -r requirements.txt
 > python main.py
 ```
 
-### Python3 no es el intérprete por defecto del sistema
+Si Python3 no es el intérprete por defecto del sistema
 
 ```bash
 > pip3 install -r requirements.txt
