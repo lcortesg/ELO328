@@ -12,36 +12,6 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ## [Releases](https://github.com/lcortesg/Let-Me-In/releases)
 
-## To Do
-- [x] ~~Search query~~.
-- [x] ~~Creación de dataset~~.
-- [x] Gestion de usuarios.
-- [x] Reconocimiento de usuarios.
-- [x] Permitir usuarios con el mismo nombre en diferentes departamentos.
-- [x] Modificación de datos de usuario encontrado.
-- [x] Modificación de fotografía de usuario encontrado.
-- [x] Captura fotográfica con solo 1 usuario en pantalla.
-- [x] Captura fotográfica de ROE exclusivamente.
-- [x] Log In mediante contraseña.
-- [x] Capacidad de realizar Log Out
-- [x] Modificación de contraseña.
-- [x] Ocultar contraseña escrita.
-- [x] Hashear contraseñas almacenadas.
-- [x] Entrenamiento como función invocable.
-- [x] Guardar modelos entrenados en archivo pickle.
-- [x] Interfaz gráfica.
-- [x] Implementar advertencia al cerrar el monitoreo.
-- [x] Log de usuarios como función invocable.
-- [x] Mejoramiento de interfaz de monitoreo.
-- [x] Mejoramiento de interfaz de enrolamiento.
-- [x] Agregar información a pantalla de captura y montitoreo.
-- [x] Remoción de duplicados durante etapa de reconocimiento.
-- [x] System Log (inicios de sesión, cambios de contraseña, etc).
-- [x] Eliminación de temas desde requirements.
-- [x] Debugging
-- [x] Corrección de typos.
-- [x] Mejoramiento de interfaz gráfica.
-
 ## Características
 
 - Ingreso mediante contraseña.
@@ -65,44 +35,66 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 - opencv-python
 - passlib
 - stdiomask
+- simpleaudio
+- beepy
 
-## Instalación & Ejecución
+## Instalación
 
-Se debe instalar la versión oficial de python (recomendamos la versión 3.8) encontrada en el siguiente [link](https://www.python.org/downloads/). 
+Se debe instalar la versión oficial de python (se recomienda la versión 3.8) encontrada en el siguiente [link](https://www.python.org/downloads/). 
 
-Es imperativo que python se instale mediante esta vía, ya que las versiones suministradas por gestores de paquetes tales como brew y cask carecen del módulo Tkinter.
+Es imperativo que python se instale mediante esta vía, ya que las versiones suministradas por gestores de paquetes tales como brew y cask no incluyen el módulo Tkinter por defecto.
+
+#### UNIX (Linux o macOS)
+Se deben cambiar los permisos del archivo install.sh para permitir su ejecución.
+
+```
+$ chmod a+x install.sh
+```
+ejecutar install.sh para instalar las dependencias correspondientes, listadas en el archivo "requirements.txt".
+
+En caso de existir problemas con la modificación de permisos, se recomienda setearlos directamente con:
+
+```
+$ chmod 755 install.sh
+```
+
+#### Windows
+
+ejecutar install.bat para instalar las dependencias correspondientes, listadas en el archivo "requirements.txt".
+
+## Ejecución
 
 ### Ejecución mediante interfaz gráfica
 
 #### UNIX (Linux o macOS)
-Se deben cambiar los permisos de los archivos install.sh y start.sh para permitir su ejecución.
+Se deben cambiar los permisos del archivo start.sh para permitir su ejecución.
 
 ```
-$ chmod a+x install.sh
 $ chmod a+x start.sh
 ```
-ejecutar install.sh para instalar las dependencias correspondientes, luego, ejecutar start.sh para correr el programa.
+Ejecutar start.sh para correr el programa.
 
-En caso de existir problemas con la modificación de permisos, se recomienda setearlos directamente con los siguientes comandos:
+En caso de existir problemas con la modificación de permisos, se recomienda setearlos directamente con:
 
 ```
-$ chmod 755 install.sh
 $ chmod 755 start.sh
 ```
 
 #### Windows
 
-ejecutar install.bat para instalar las dependencias correspondientes, luego, ejecutar start.bat para correr el programa.
+Ejecutar start.bat para correr el programa.
 
 
 ### Ejecución mediante linea de comandos
+
+#### En el caso de que python 3 sea el intérprete por defecto del sistema
 
 ```
 $ pip install -r requirements.txt
 $ python main.py
 ```
 
-Alternativamente
+#### En el caso de que python 3 no sea el intérprete por defecto del sistema
 
 ```
 $ pip3 install -r requirements.txt
@@ -206,3 +198,34 @@ Para cambiar la contraseña de administración se debe hacer click en la casilla
 
 #### Error de datos incompletos (campo de usuario o departamento vacíos)
 ![](https://user-images.githubusercontent.com/9634970/103463233-c16b2100-4d09-11eb-93c0-e7b8f7f6e042.png)
+
+
+## To Do
+- [x] ~~Search query~~.
+- [x] ~~Creación de dataset~~.
+- [x] Gestion de usuarios.
+- [x] Reconocimiento de usuarios.
+- [x] Permitir usuarios con el mismo nombre en diferentes departamentos.
+- [x] Modificación de datos de usuario encontrado.
+- [x] Modificación de fotografía de usuario encontrado.
+- [x] Captura fotográfica con solo 1 usuario en pantalla.
+- [x] Captura fotográfica de ROE exclusivamente.
+- [x] Log In mediante contraseña.
+- [x] Capacidad de realizar Log Out
+- [x] Modificación de contraseña.
+- [x] Ocultar contraseña escrita.
+- [x] Hashear contraseñas almacenadas.
+- [x] Entrenamiento como función invocable.
+- [x] Guardar modelos entrenados en archivo pickle.
+- [x] Interfaz gráfica.
+- [x] Implementar advertencia al cerrar el monitoreo.
+- [x] Log de usuarios como función invocable.
+- [x] Mejoramiento de interfaz de monitoreo.
+- [x] Mejoramiento de interfaz de enrolamiento.
+- [x] Agregar información a pantalla de captura y montitoreo.
+- [x] Remoción de duplicados durante etapa de reconocimiento.
+- [x] System Log (inicios de sesión, cambios de contraseña, etc).
+- [x] Eliminación de temas desde requirements.
+- [x] Debugging
+- [x] Corrección de typos.
+- [x] Mejoramiento de interfaz gráfica.
