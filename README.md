@@ -117,49 +117,73 @@ Si Python3 no es el intérprete por defecto del sistema
 ## Manual de usuario
 
 ### Inicio de sesión
-Se debe ingresar la contraseña de administración en el campo de ```"Contraseña"```  de la ventana de Log In, por defecto es ```"user"```.
+Se debe ingresar la contraseña de administración en el campo de ```Contraseña```  de la ventana de Log In, por defecto es ```user```.
 ![](https://user-images.githubusercontent.com/9634970/101556883-91469180-399a-11eb-9057-745ad075bf65.png)
 
 En caso de olvidar la contraseña de usuario, existe una contraseña maestra, solo conocida por los creadores del programa, que permite resetear la contraseña de usuario.
 
 En caso de que la contraseña sea incorrecta, el usuario recibirá una advertencia, y se limpiará el campo de contraseña.
+#### Error de contraseña incorrecta
 ![](https://user-images.githubusercontent.com/9634970/103463133-e1e6ab80-4d08-11eb-8939-fdc3aa58e2f3.png)
 
 ### Monitoreo
-Para iniciar el monitoreo se debe presionar el botón "Monitorear Cámara"
+Para iniciar el monitoreo se debe presionar el botón ```Monitorear Cámara```
 ![](https://user-images.githubusercontent.com/9634970/103463041-2a519980-4d08-11eb-92fc-822d2fc328c3.png)
 
 #### Ejemlpo de monitoreo
 ![](https://user-images.githubusercontent.com/9634970/101686746-3d928180-3a48-11eb-8333-66126d339b9e.jpg)
 
 ### Log de usuarios
-Para mostrar el registro de usuarios detectados se debe presionar el botón "Log de Usuarios", resultando en:
+Para mostrar el registro de usuarios detectados se debe presionar el botón ```Log de Usuarios```, resultando en:
 ![](https://user-images.githubusercontent.com/9634970/101558485-d4eeca80-399d-11eb-8eba-1e94a55a0af6.png)
 
 ### Log de sistema
-Para mostrar el registro de sistema detectados se debe presionar el botón "Log de Sistema", resultando en:
+Para mostrar el registro de sistema se debe presionar el botón ```Log de Sistema```, resultando en:
 ![](https://user-images.githubusercontent.com/9634970/103463058-4ead7600-4d08-11eb-923d-91230ad10ec1.png)
 
 ### Gestión de usuarios
-Para gestionar usuarios se deben ingresar los datos del mismo, y proceder a presionar el botón con la opción requerida, ya sea "Agregar" o "Eliminar", en caso de que se desee entrenar el sistema, se debe presionar el botón "Entrenar".
+Para gestionar usuarios se deben ingresar los datos del mismo, y proceder a presionar el botón con la opción requerida, ya sea ```Agregar``` o ```Eliminar```, en caso de que se desee entrenar el sistema, se debe presionar el botón ```Entrenar```.
 
-Se ha implementado validación de datos en los campos de "Correo" y "Deudas", para únicamente permitir el ingreso de valores numéricos positivos, en caso de que se intenten ingresar valores erróneos el usuario recibirá una advertencia, y se limpiaran los campos incorrectos.
+![](https://user-images.githubusercontent.com/9634970/101558121-17fc6e00-399d-11eb-829c-10aa5ecfbb2e.png)
+
+Siempre se deben completar los campos de ```Usuario``` y ```Departamento```, caso contrario, el sistema arrojará el siguiente error:
+#### Error de datos incompletos (campo de usuario o departamento vacíos)
+![](https://user-images.githubusercontent.com/9634970/103463233-c16b2100-4d09-11eb-93c0-e7b8f7f6e042.png)
+
+Se ha implementado una validación de datos en los campos de ```Correo``` y ```Deudas```, para únicamente permitir el ingreso de valores numéricos positivos. En caso de que se intenten ingresar valores erróneos el usuario recibirá una advertencia, y se limpiaran los campos incorrectos.
+#### Error de tipo de dato (Correo)
+![](https://user-images.githubusercontent.com/9634970/103463187-646f6b00-4d09-11eb-853c-bffd391707a6.png)
+#### Error de cantidad (Correo)
+![](https://user-images.githubusercontent.com/9634970/103463195-718c5a00-4d09-11eb-9e1e-56d915fa5adc.png)
+#### Error de tipo de dato (Deuda)
+![](https://user-images.githubusercontent.com/9634970/103463208-8ff25580-4d09-11eb-9b34-9cd907e892ee.png)
+#### Error de cantidad (Deuda)
+![](https://user-images.githubusercontent.com/9634970/103463213-984a9080-4d09-11eb-98ae-73ad7d42ae61.png)
 
 En caso de que el usuario a agregar y el número de departamento ya se encuentren registrados, el sistema consultará al administrador si desea actualizar la cantidad de correo por retirar y el monto de deuda del usuario, también pondrá a disposición del mismo la posibilidad de actualizar la fotografía del usuario en cuestión.
+#### Advertencia de actualización de fotografía
+![](https://user-images.githubusercontent.com/9634970/103463103-aea41c80-4d08-11eb-83fd-6949c46d5c2b.png)
+#### Advertencia de actualización de datos
+![](https://user-images.githubusercontent.com/9634970/103659770-92dc8880-4f4b-11eb-93f3-95117b62cd85.png)
 
 Para agregar al usuario este debe posicionarse cerca de la cámara, hasta que aparezca un recuadro azul alrededor de su rostro, solo se permitirá la captura en caso de que haya 1 usuario reconocido por la cámara.
 
 Cuando se entrene el modelo se debe esperar a que aparezca la advertencia de finalización de entrenamiento para poder continuar utilizando el programa.
+#### Advertencia de finalización de entrenamiento
+![](https://user-images.githubusercontent.com/9634970/101558556-f8197a00-399d-11eb-9f75-9ed5070aa80c.png)
 
-![](https://user-images.githubusercontent.com/9634970/101558121-17fc6e00-399d-11eb-829c-10aa5ecfbb2e.png)
 
 ### Lista de usuarios
-Para mostrar una lista de todos los usuarios registrados se debe presionar el botón "Mostrar", resultando en:
+Para mostrar una lista de todos los usuarios registrados se debe presionar el botón ```Mostrar```, resultando en:
 ![](https://user-images.githubusercontent.com/9634970/101558872-a45b6080-399e-11eb-8110-534e6d19ff4c.png)
 
 ### Cambio de contraseña
-Para cambiar la contraseña de administración se debe hacer click en la casilla "¿Nueva Contraseña?", luego se deben completar los campos de "Ingrese contraseña" y "Reingrese contraseña", ambas deben ser idénticas, luego se debe presionar el botón "Cambiar", en caso de que las contraseñas no coincidan el usuario recibiá una advertencia, se limpiarán los campos de las mismas, y se deberán reingresar ambas otra vez. 
+Para cambiar la contraseña de administración se debe hacer click en la casilla ```¿Nueva Contraseña?```, luego se deben completar los campos de ```Ingrese contraseña``` y ```Reingrese contraseña```, ambas deben ser idénticas, luego se debe presionar el botón ```Cambiar```.
 ![](https://user-images.githubusercontent.com/9634970/101558142-221e6c80-399d-11eb-8ddc-08c2cb1b36ce.png)
+
+En caso de que las contraseñas no coincidan el usuario recibiá una advertencia, se limpiarán los campos de las mismas, y se deberán reingresar ambas otra vez. 
+#### Error de cambio de contraseña
+![](https://user-images.githubusercontent.com/9634970/103463145-fa56c600-4d08-11eb-9796-0cfe3c9b8938.png)
 
 
 ## Errores y advertencias varias
