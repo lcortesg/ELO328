@@ -26,8 +26,8 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 ### [Requerimientos](requirements.txt)
 
-- Python 3.3 - 3.8
-- CMake
+- [Python 3.3 - 3.8](https://www.python.org/downloads/)
+- [CMake](https://cmake.org)
 - dlib
 - pillow
 - numpy
@@ -82,8 +82,19 @@ En caso de existir problemas con la modificación de permisos, se recomienda set
 
 Ejecutar [start.bat](start.bat) para correr el programa.
 
+## Instalación y ejecución mediante CLI
 
-## Instalación y ejecución mediante linea de comandos
+En el caso de macOS se debe instalar [Homebrew](https://brew.sh), mediante el siguiente comando:
+
+```bash
+> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Luego instalar [CMake](https://cmake.org) mediante:
+
+```bash
+> brew install cmake
+```
 
 ### Python3 es el intérprete por defecto del sistema
 
