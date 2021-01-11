@@ -9,7 +9,11 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ## [Unreleased](CHANGELOG.md)
 
-## [4.0](https://github.com/lcortesg/Let-Me-In/releases/) - 21-01-XX
+## None
+
+## [Released](https://github.com/lcortesg/Let-Me-In/releases)
+
+## [4.0](https://github.com/lcortesg/Let-Me-In/releases/tag/4.0) - 21-01-11
 
 ### Added
 
@@ -17,27 +21,25 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ### Changed
 
-- Location of log text files and image log files.
+- None.
 
 ### Deprecated
 
-- Parallel implementation
+- Theming.
 
 ### Removed
 
 - Duplicated files.
 - Unnecessary files.
+- Unnecesary lines of code.
 
 ### Fixed
 
-- Error that caused the monitoring not to start unless there was a face in front of the camera from the beginning.
-- Various minor bugs.
+- None.
 
 ### Security
 
 - None.
-
-## [Released](https://github.com/lcortesg/Let-Me-In/releases)
 
 ## [3.0](https://github.com/lcortesg/Let-Me-In/releases/tag/3.0) - 21-01-02
 

@@ -225,7 +225,7 @@ En caso de que durante la ejecución del sistema este arroje algún error relaci
 > pip install nombre_paquete
 ```
 
-ó
+Alternativamente
 
 ```bash
 > pip3 install nombre_paquete

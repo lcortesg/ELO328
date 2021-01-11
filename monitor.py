@@ -7,7 +7,7 @@
 @Desc    :   Módulo de monitoreo del sistema de reconocimineto de personas "Let Me In"
 '''
 
-# importar los paquetes necesarios
+# importar los paquetes necesarios.
 from contextlib import suppress
 from tkinter import messagebox
 from imutils import paths
@@ -21,8 +21,13 @@ import time
 import cv2
 import os
 
+# Tolerancia de reconocimiento (valor recomendado entre 0.4 - 0.6).
 tolerance = 0.5
+
+# Ventana de tiempo de reconocimiento de cara duplicada.
 tiempo_log  = 60
+
+# Factor de escalamiento de la ventana que muestra la imagen de la cámara.
 ventana = 0.8
 name = ""
 dpto = ""
@@ -31,43 +36,57 @@ deudas = ""
 
 # Función encargada de la detención de la función "monitor()".
 def monitor_kill():
-    # Libera la cámara y destruye las ventanas
+    # Libera la cámara y destruye las ventanas.
     cv2.VideoCapture(0).release()
     #video_capture.release()
     cv2.destroyAllWindows()
 
 # Función encargada de logear los usuarios detectados.
 def user_log(name, depto, frame, now):
+    # Define una variable de tiempo instantánea.
     tiempo = time.localtime(now)
+    # Formatea el tiempo que irá al log de usuarios.
     time_log = time.strftime("%Y/%m/%d, %H:%M:%S", tiempo)
+    # Formatea el tiempo que irá en el nombre de las imágenes del log de usuarios.
     time_pic = time.strftime("%Y-%m-%d, %H-%M-%S", tiempo)
+    # Guarda un screnshot del usuario registrado.
     cv2.imwrite('data/log_user/'+time_pic+" - "+name+"-"+depto+'.jpg',frame)
 
+    # Abre el archivo "log_user.txt".
     with open('data/log_user/log_user.txt', 'r') as original: data = original.read()
 
+    # Escribe los datos de usuario al archivo "log_user.txt".
     if (name == "DESCONOCIDO" or name == "DUPLICADO"):
         with open('data/log_user/log_user.txt', 'w') as modified: modified.write(time_log+" - "+name+"\r\n" + data)
 
     else:    
         with open('data/log_user/log_user.txt', 'w') as modified: modified.write(time_log+" - "+name+"-"+depto+"\r\n" + data)
 
+    # Cierra el archivo "log_user.txt".
     original.close
     modified.close
     
 # Función encargada del monitoreo de usuarios.
 def monitor():
+    # Lista de los usuarios detectados en los últimos 60 segundos.
     ultimos = []
+    # Tiempo de inicio.
     before = time.time()
 
+    # Carga modelo de reconocimiento entrenado.
     with open('data/model.dat', 'rb') as f:
         all_face_encodings = pickle.load(f)
     
+    # Inicia feed de video.
     video_capture = cv2.VideoCapture(0)
-    
+
+    # Carga datos de usuarios registrados.
     wb = openpyxl.load_workbook("data/info.xlsx")
     ws = wb.active
 
+    # Lista las caras conocidas en base al modelo entrenado.
     known_face_names = list(all_face_encodings.keys())
+    # Lista las codificaciones de las caras conocidas en base al modelo entrenado.
     known_face_encodings = np.array(list(all_face_encodings.values()))
 
     face_locations = []
@@ -75,27 +94,27 @@ def monitor():
     face_names = []
     process_this_frame = True
 
+    # Pausa para el inicio correcto del sensor de imagen.
     time.sleep(0.5)
     
     while True:
         ret, frame = video_capture.read()
+        # Reflejar la imagen horizontalmente (espejo).
         frame = cv2.flip(frame, 1)
-
-        # Escalar la imagen a 1/4 de la original
+        # Escalar la imagen a 1/4 de la original.
         small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
-
-        # convertir la imagen desde BGR a RGB
+        # convertir la imagen desde BGR a RGB.
         rgb_small_frame = small_frame[:, :, ::-1]
 
-        # Se procesa 1 de cada 2 frames
+        # Se procesa 1 de cada 2 frames.
         if process_this_frame:
-            # Encuentra todas las caras en un frame dado
+            # Encuentra todas las caras en un frame dado.
             face_locations = face_recognition.face_locations(rgb_small_frame)
             face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
             face_names = []
 
             for face_encoding in face_encodings:
-                # Revisar coincidencias
+                # Revisar coincidencias.
                 matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance)
                 name = "DESCONOCIDO"
 
@@ -119,7 +138,7 @@ def monitor():
 
         process_this_frame = not process_this_frame
 
-        # Muestra los resultados
+        # Muestra los resultados.
         for (top, right, bottom, left), name in zip(face_locations, face_names):
             depto = "DESCONOCIDO"
             correo = 0
@@ -133,13 +152,14 @@ def monitor():
                     correo = str(ws.cell(row = j, column = 3).value)
                     deudas = str(ws.cell(row = j, column = 4).value)
 
-            # Desescalar la imagen
+            # Desescalar la imagen.
             top *= 4
             right *= 4
             bottom *= 4
             left *= 4
             font = cv2.FONT_HERSHEY_DUPLEX
 
+            # Proporción utilizada para desplazar los cuadros de texto respecto al cuadro que encierra la cara.
             proporcion = 8
             borde = proporcion
             escala = proporcion/10
@@ -155,47 +175,47 @@ def monitor():
             denegado = rojo
 
             if (name == "DUPLICADO"):
-                # Dibujar cuadrado
+                # Dibujar cuadrado.
                 cv2.rectangle(frame, (left, top), (right, bottom), (0, 100, 255), 2)
 
-                # Dibujar etiqueta con nombre
+                # Dibujar etiqueta con nombre.
                 with suppress(Exception):
                     ps.putBText(frame, name, text_offset_x=left+ancho, text_offset_y=bottom+20, vspace=borde, hspace=borde, font_scale=escala, background_RGB=naranjo, text_RGB=(255,250,250))
 
             elif (name == "DESCONOCIDO"):
-                # Dibujar cuadrado
+                # Dibujar cuadrado.
                 cv2.rectangle(frame, (left, top), (right, bottom), (100, 0, 255), 2)
 
-                # Dibujar etiqueta con nombre
+                # Dibujar etiqueta con nombre.
                 with suppress(Exception):
                     ps.putBText(frame, name, text_offset_x=left+ancho, text_offset_y=bottom+20, vspace=borde, hspace=borde, font_scale=escala, background_RGB=denegado, text_RGB=(255,250,250))
                 
             else:
-                # Dibujar cuadrado
+                # Dibujar cuadrado.
                 cv2.rectangle(frame, (left, top), (right, bottom), (200, 250, 0), 2)
 
-                # Dibujar etiqueta con nombre
+                # Dibujar etiqueta con nombre.
                 with suppress(Exception):
                     ps.putBText(frame, str(name), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=aceptado, text_RGB=blanco)
 
-                # Dibujar etiqueta con departamento
+                # Dibujar etiqueta con departamento.
                 with suppress(Exception):
                     pos += salto
                     ps.putBText(frame, "Depto. "+str(depto), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=aceptado, text_RGB=blanco)
                     
                 if (int(correo) > 0):
-                    # Dibujar etiqueta con correo
+                    # Dibujar etiqueta con correo.
                     with suppress(Exception):
                         pos += salto
                         ps.putBText(frame, "Correo "+str(correo), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=denegado, text_RGB=blanco)
 
                 if (int(deudas) > 0):
-                    # Dibujar etiqueta con deudas
+                    # Dibujar etiqueta con deudas.
                     with suppress(Exception):
                         pos += salto
                         ps.putBText(frame, "Deudas "+str(deudas), text_offset_x=left+ancho, text_offset_y=pos, vspace=borde, hspace=borde, font_scale=escala, background_RGB=denegado, text_RGB=blanco)
                             
-        # Lógica de invocación de función "log_user()"
+        # Lógica de invocación de función "log_user()".
         now = time.time()
         with suppress(Exception):
             if (name+"-"+depto) not in ultimos:
@@ -207,20 +227,18 @@ def monitor():
 
         # Texto de cierre de programa.
         ps.putBText(frame,'"ESC" para salir',text_offset_x=50,text_offset_y=frame.shape[0]-50,vspace=10,hspace=10, font_scale=1.0,background_RGB=(228,225,222),text_RGB=(1,1,1))
-        # Escala la imagen para mostrarla en pantalla en un tamaño más razonable
+        # Escala la imagen para mostrarla en pantalla en un tamaño más razonable.
         frame = cv2.resize(frame, (0, 0), fx=ventana, fy=ventana)
-        # Muestra imagen resultante
+        # Muestra imagen resultante.
         cv2.imshow('Video', frame)
 
-        # Presionar "q" para salir
+        # Presionar "q" para salir.
         #if cv2.waitKey(1) & 0xFF == ord('q'): break
         if cv2.waitKey(1) & 0xFF == 27:
             res = messagebox.askokcancel('Salir','¿Detener monitoreo?')
             #res = messagebox.askyesno('Salir','¿Está seguro que desea detener el monitoreo')
             if res: break
 
-    # Libera la cámara y destruye las ventanas
+    # Libera la cámara y destruye las ventanas.
     video_capture.release()
     cv2.destroyAllWindows()
-    
-#monitor()
