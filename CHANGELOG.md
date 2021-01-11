@@ -13,7 +13,7 @@ The dates on this document adheres to the standard [ISO 8601](https://www.iso.or
 
 ## [Released](https://github.com/lcortesg/Let-Me-In/releases)
 
-## [4.0](https://github.com/lcortesg/Let-Me-In/releases/tag/4.0) - 21-01-11
+## [Final](https://github.com/lcortesg/Let-Me-In/releases/tag/4.0) - 21-01-11
 
 ### Added
 
