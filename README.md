@@ -260,3 +260,4 @@ Alternativamente
 - [x] Debugging
 - [x] Corrección de typos.
 - [x] Mejoramiento de interfaz gráfica.
+- [x] Comentar código.
