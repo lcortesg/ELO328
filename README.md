@@ -216,59 +216,6 @@ Desde esta, se puede presionar el botón ```Exit```, resultando en:
 #### Advertencia de cierre de programa
 ![](https://user-images.githubusercontent.com/9634970/101557683-42016080-399c-11eb-8d4b-a501f16aa473.png)
 
-## Errores y advertencias varias
-
-### Advertencia de inicio de monitoreo
-![](https://user-images.githubusercontent.com/9634970/101558444-c4d6eb00-399d-11eb-9724-86069b1b8e72.png)
-
-### Advertencia de término de monitoreo
-![](https://user-images.githubusercontent.com/9634970/101560108-48460b80-39a1-11eb-8727-ae555c463fc8.png)
-
-### Advertencia de finalización de entrenamiento
-![](https://user-images.githubusercontent.com/9634970/101558556-f8197a00-399d-11eb-9f75-9ed5070aa80c.png)
-
-### Advertencia de cierre de sesión
-![](https://user-images.githubusercontent.com/9634970/101557974-cf44b500-399c-11eb-9076-84e8c75a97c7.png)
-
-### Advertencia de cierre de programa
-![](https://user-images.githubusercontent.com/9634970/101557683-42016080-399c-11eb-8d4b-a501f16aa473.png)
-
-### Advertencia de inicio de enrolamiento
-![](https://user-images.githubusercontent.com/9634970/103463402-d72d1600-4d0a-11eb-9605-221b777ab02a.png)
-
-### Advertencia de cancelación de enrolamiento
-![](https://user-images.githubusercontent.com/9634970/103463394-cbd9ea80-4d0a-11eb-8a30-4539db175d51.png)
-
-### Advertencia de actualización de fotografía
-![](https://user-images.githubusercontent.com/9634970/103463103-aea41c80-4d08-11eb-83fd-6949c46d5c2b.png)
-
-### Advertencia de actualización de datos
-![](https://user-images.githubusercontent.com/9634970/103659770-92dc8880-4f4b-11eb-93f3-95117b62cd85.png)
-
-### Advertencia de cambio de contraseña exitoso
-![](https://user-images.githubusercontent.com/9634970/103463123-d2676280-4d08-11eb-9ba8-732de724dc2b.png)
-
-### Error de contraseña incorrecta
-![](https://user-images.githubusercontent.com/9634970/103463133-e1e6ab80-4d08-11eb-8939-fdc3aa58e2f3.png)
-
-### Error de cambio de contraseña
-![](https://user-images.githubusercontent.com/9634970/103463145-fa56c600-4d08-11eb-9796-0cfe3c9b8938.png)
-
-### Error de tipo de dato (Correo)
-![](https://user-images.githubusercontent.com/9634970/103463187-646f6b00-4d09-11eb-853c-bffd391707a6.png)
-
-### Error de cantidad (Correo)
-![](https://user-images.githubusercontent.com/9634970/103463195-718c5a00-4d09-11eb-9e1e-56d915fa5adc.png)
-
-### Error de tipo de dato (Deuda)
-![](https://user-images.githubusercontent.com/9634970/103463208-8ff25580-4d09-11eb-9b34-9cd907e892ee.png)
-
-### Error de cantidad (Deuda)
-![](https://user-images.githubusercontent.com/9634970/103463213-984a9080-4d09-11eb-98ae-73ad7d42ae61.png)
-
-### Error de datos incompletos (campo de usuario o departamento vacíos)
-![](https://user-images.githubusercontent.com/9634970/103463233-c16b2100-4d09-11eb-93c0-e7b8f7f6e042.png)
-
 
 ## Troubleshooting
 
