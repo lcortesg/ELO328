@@ -1,0 +1,26 @@
+{
+  "name": "Let Me In",
+  "version": "4.0.0",
+  "description": "Sistema de reconocimiento de personas",
+  "main": "main.py",
+  "scripts": {
+    "test": "lab -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lcortesg/Let-Me-In"
+  },
+  "keywords": [
+    "face-recognition",
+    "opencv",
+    "cnn"
+  ],
+  "author": "Lucas Cortes",
+  "license": "MIT",
+  "devDependencies": {
+    "code": "^5.2.4",
+    "eslint": "^5.16.0",
+    "@hapi/hapi": "^20.0.0",
+    "lab": "^18.0.2"
+  }
+}
