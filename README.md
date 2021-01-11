@@ -113,7 +113,6 @@ Si Python3 no es el intérprete por defecto del sistema
 > python3 main.py
 ```
 
-
 ## Manual de usuario
 
 ### Inicio de sesión
@@ -121,6 +120,22 @@ Se debe ingresar la contraseña de administración en el campo de ```Contraseña
 ![](https://user-images.githubusercontent.com/9634970/101556883-91469180-399a-11eb-9057-745ad075bf65.png)
 
 En caso de olvidar la contraseña de usuario, existe una contraseña maestra, solo conocida por los creadores del programa, que permite resetear la contraseña de usuario.
+
+Las contraseñas se encuentran almacenadas en la ruta ```data/passwords.json```, y tienen la siguiente estructura:
+```json
+{
+    "users": [
+        "master",
+        "user"
+    ],
+    "passwords": [
+        "$5$rounds=535000$EfTvpCs/.4yCI1NE$QHJlaaQF08OXjmlnHJzoAWr1KnBl6F7lZBEYZofN2i4",
+        "$5$rounds=535000$d8LnrzyBESPqEYwl$PwOwxUjoMcdVJG8KCo53TMBq0mzv5a1f2ohbgC.WUx8"
+    ]
+}
+```
+
+
 
 En caso de que la contraseña sea incorrecta, el usuario recibirá una advertencia, y se limpiará el campo de contraseña.
 #### Error de contraseña incorrecta
@@ -130,7 +145,7 @@ En caso de que la contraseña sea incorrecta, el usuario recibirá una advertenc
 Para iniciar el monitoreo se debe presionar el botón ```Monitorear Cámara```
 ![](https://user-images.githubusercontent.com/9634970/103463041-2a519980-4d08-11eb-92fc-822d2fc328c3.png)
 
-#### Ejemlpo de monitoreo
+#### Ejemplo de monitoreo
 ![](https://user-images.githubusercontent.com/9634970/101686746-3d928180-3a48-11eb-8333-66126d339b9e.jpg)
 
 ### Log de usuarios
@@ -248,6 +263,9 @@ Desde esta, se puede presionar el botón ```Exit```, resultando en:
 
 ### Error de datos incompletos (campo de usuario o departamento vacíos)
 ![](https://user-images.githubusercontent.com/9634970/103463233-c16b2100-4d09-11eb-93c0-e7b8f7f6e042.png)
+
+
+## Troubleshooting
 
 ## To Do
 - [x] ~~Search query~~.
