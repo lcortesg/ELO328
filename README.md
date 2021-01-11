@@ -189,6 +189,7 @@ Una vez ingresado correctamente los datos de usuario, estos serán almacenados e
 Cuando se entrene el modelo se debe esperar a que aparezca la advertencia de finalización de entrenamiento para poder continuar utilizando el programa.
 #### Advertencia de finalización de entrenamiento
 ![](https://user-images.githubusercontent.com/9634970/101558556-f8197a00-399d-11eb-9f75-9ed5070aa80c.png)
+
 El modelo entrenado se encuentra almacenado en ```data/model.dat```
 
 ### Lista de usuarios
