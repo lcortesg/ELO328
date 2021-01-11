@@ -119,6 +119,8 @@ Si Python3 no es el intérprete por defecto del sistema
 Se debe ingresar la contraseña de administración en el campo de ```Contraseña```  de la ventana de Log In, por defecto es ```user```.
 ![](https://user-images.githubusercontent.com/9634970/101556883-91469180-399a-11eb-9057-745ad075bf65.png)
 
+En caso de que la contraseña sea incorrecta, el usuario recibirá una advertencia, y se limpiará el campo de contraseña.
+
 En caso de olvidar la contraseña de usuario, existe una contraseña maestra, solo conocida por los creadores del programa, que permite resetear la contraseña de usuario.
 
 Las contraseñas se encuentran almacenadas en la ruta ```data/passwords.json```, y tienen la siguiente estructura:
@@ -135,9 +137,6 @@ Las contraseñas se encuentran almacenadas en la ruta ```data/passwords.json```,
 }
 ```
 
-
-
-En caso de que la contraseña sea incorrecta, el usuario recibirá una advertencia, y se limpiará el campo de contraseña.
 #### Error de contraseña incorrecta
 ![](https://user-images.githubusercontent.com/9634970/103463133-e1e6ab80-4d08-11eb-8939-fdc3aa58e2f3.png)
 
@@ -182,6 +181,8 @@ En caso de que el usuario a agregar y el número de departamento ya se encuentre
 
 Para agregar a un usuario este debe posicionarse cerca de la cámara, hasta que aparezca un recuadro azul alrededor de su rostro, solo se permitirá la captura en caso de que haya 1 usuario reconocido por la cámara.
 ![](https://user-images.githubusercontent.com/9634970/103923025-5b104500-50f3-11eb-8483-4b18f27d9e07.jpg)
+
+Una vez ingresado correctamente los datos de usuario, estos serán almacenados en un archivo excel en la ruta ```data/info.xlsx```, mientras que las imágenes de usuario están almacenadas en la ruta ```data/dataset```
 
 Cuando se entrene el modelo se debe esperar a que aparezca la advertencia de finalización de entrenamiento para poder continuar utilizando el programa.
 #### Advertencia de finalización de entrenamiento
@@ -266,6 +267,18 @@ Desde esta, se puede presionar el botón ```Exit```, resultando en:
 
 
 ## Troubleshooting
+
+En caso de que durante la ejecución del sistema este arroje algún error relacionado con un paquete faltante, este puede ser instalado mediante el siguiente comando:
+
+```bash
+> pip install nombre_paquete
+```
+
+ó
+
+```bash
+> pip3 install nombre_paquete
+```
 
 ## To Do
 - [x] ~~Search query~~.
