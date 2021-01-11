@@ -150,10 +150,12 @@ Para iniciar el monitoreo se debe presionar el botón ```Monitorear Cámara```
 ### Log de usuarios
 Para mostrar el registro de usuarios detectados se debe presionar el botón ```Log de Usuarios```, resultando en:
 ![](https://user-images.githubusercontent.com/9634970/101558485-d4eeca80-399d-11eb-8eba-1e94a55a0af6.png)
+El log de usuarios se encuentra almacenado en la ruta ```data/log_user/log_user.txt```, mientras que las imágenes capturadas por el sistema (para este mismo propósito) se encuentran en ```data/log_user/```
 
 ### Log de sistema
 Para mostrar el registro de sistema se debe presionar el botón ```Log de Sistema```, resultando en:
 ![](https://user-images.githubusercontent.com/9634970/103463058-4ead7600-4d08-11eb-923d-91230ad10ec1.png)
+El log de distema se encuentra almacenado en la ruta ```data/log_system/log_system.txt```, mientras que las imágenes capturadas por el sistema (para este mismo propósito) se encuentran en ```data/log_system/```
 
 ### Gestión de usuarios
 Para gestionar usuarios se deben ingresar los datos del mismo, y proceder a presionar el botón con la opción requerida, ya sea ```Agregar``` o ```Eliminar```, en caso de que se desee entrenar el sistema, se debe presionar el botón ```Entrenar```.
@@ -182,11 +184,12 @@ En caso de que el usuario a agregar y el número de departamento ya se encuentre
 Para agregar a un usuario este debe posicionarse cerca de la cámara, hasta que aparezca un recuadro azul alrededor de su rostro, solo se permitirá la captura en caso de que haya 1 usuario reconocido por la cámara.
 ![](https://user-images.githubusercontent.com/9634970/103923025-5b104500-50f3-11eb-8483-4b18f27d9e07.jpg)
 
-Una vez ingresado correctamente los datos de usuario, estos serán almacenados en un archivo excel en la ruta ```data/info.xlsx```, mientras que las imágenes de usuario están almacenadas en la ruta ```data/dataset```
+Una vez ingresado correctamente los datos de usuario, estos serán almacenados en un archivo excel en la ruta ```data/info.xlsx```, mientras que las imágenes de usuario están almacenadas en la ruta ```data/dataset/```
 
 Cuando se entrene el modelo se debe esperar a que aparezca la advertencia de finalización de entrenamiento para poder continuar utilizando el programa.
 #### Advertencia de finalización de entrenamiento
 ![](https://user-images.githubusercontent.com/9634970/101558556-f8197a00-399d-11eb-9f75-9ed5070aa80c.png)
+El modelo entrenado se encuentra almacenado en ```data/model.dat```
 
 ### Lista de usuarios
 Para mostrar una lista de todos los usuarios registrados se debe presionar el botón ```Mostrar```, resultando en:
